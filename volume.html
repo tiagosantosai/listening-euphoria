@@ -1,0 +1,137 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#F3F0E8}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#F3F0E8;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:240px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#F3F0E8}
+</style>
+
+<title>Volume de conversa · Listening Ivete & Daniela</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infográficos do listening — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#F3F0E8',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function fmtBR(v,d){return v.toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25)); // escala tipográfica
+    let y=pad;
+    // kicker
+    const kf=Math.max(9,11*s);
+    txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,{fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'});
+    y+=kf+8*s;
+    // headline
+    const hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.02;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.02}
+    // deck (só quando há espaço)
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;lines(svg,pad,y+df,compact?D.deckShort:D.deck,{fill:C.ink,'font-family':BODY,'font-size':df},df*1.4);y+=df*1.4*(compact?D.deckShort:D.deck).length}
+    // KPIs
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,compact?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    // legenda
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    D.legend.forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&!compact)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+6*s;
+    // área do gráfico
+    const foot=Math.max(9,9*s)*(compact?2:1)*1.5+8;
+    const evRoom=(compact?2:2)*Math.max(8,9*s)*1.25+10;
+    const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
+    const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    // rodapé
+    const ff=Math.max(8,8.5*s);
+    lines(svg,pad,H-pad-(compact?ff*1.5:0),compact?D.footShort:[D.foot],{fill:C.grey,'font-family':MONO,'font-size':ff},ff*1.5);
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+
+</script>
+<script>
+function placeEvents(g,ev,xs,yTop,P,valY){
+  const f=Math.max(8,9*P.s), lh=f*1.25, ends=[-1e9,-1e9];
+  ev.forEach(e=>{const x=xs(e.i), lab=P.compact?e.short:e.long.replace('\n',' ');
+    const w=lab.length*f*0.62; let r=1; if(x-w/2<ends[1]+8){r=0} if(r===0&&x-w/2<ends[0]+8){r=1}
+    ends[r]=x+w/2; const ty=yTop-(r?0:lh);
+    let ax='middle',tx=x; if(x+w/2>P.W-6){ax='end';tx=x+4} if(x-w/2<6){ax='start';tx=x-4}
+    P.el('line',{x1:x,x2:x,y1:ty+3,y2:Math.max(ty+4,valY(e.i)-5),stroke:P.C.ink,'stroke-width':0.7,'stroke-dasharray':'1 2'},g);
+    P.txt(g,tx,ty,lab,{fill:P.C.ink,'font-family':P.MONO,'font-size':f,'font-weight':700,'text-anchor':ax});
+  });
+}
+</script>
+<script>
+const days=['05/10','06/10','07/10','08/10','09/10','10/10','11/10','12/10','13/10','14/10','15/10'];
+const press=[0,2,42,11,2,12,18,0,19,7,1], ig=[1,7,25,3,1,16,10,1,8,3,2], tt=[0,2,4,1,2,10,9,2,6,8,1];
+const tot=days.map((_,i)=>press[i]+ig[i]+tt[i]);
+const ev=[{i:1,long:'DANIELA DECLARA VOTO',short:'VOTO'},{i:2,long:'DANIELA COBRA IVETE',short:'COBRANÇA'},{i:5,long:'IVETE PEDE "LUCIDEZ"',short:'LUCIDEZ'},{i:6,long:'MARCHA NA PAULISTA',short:'MARCHA'},{i:8,long:'MORRE NETINHO',short:'NETINHO'}];
+const tiers=[{l:'GRANDE',d:'≥ 20 mi visitantes/mês',n:17,p:15,c:'#111111'},{l:'MÉDIO',d:'1 a 20 mi',n:44,p:39,c:'#1F5BFF'},{l:'PEQUENO',d:'< 1 mi',n:17,p:15,c:'#8A867D'},{l:'FORA DO RANKING',d:'abaixo do corte',n:36,p:32,c:'#CFCAC0'}];
+renderInfo({aria:'Volume de conversa por dia, por rede, de 5 a 15 de outubro de 2026',
+ kicker:'LISTENING / IVETE SANGALO & DANIELA MERCURY / 05–15 OUT 2026', kickerShort:'IVETE & DANIELA / 05–15 OUT',
+ head:['71 conteúdos em um único dia.'], headShort:['71 conteúdos','em um único dia.'],
+ deck:['A cobrança pública de Daniela a Ivete, em 07/10, puxou a imprensa: 42 matérias no mesmo dia.','Depois, a conversa migrou para as redes — Instagram e TikTok sustentaram os picos de 10 e 11/10.'],
+ deckShort:['A cobrança de Daniela a Ivete (07/10) puxou','42 matérias. Depois, a conversa foi às redes.'],
+ kpis:[{n:'236',l:'CONTEÚDOS MAPEADOS',ls:'CONTEÚDOS',c:'#111111'},{n:'114',l:'MATÉRIAS',ls:'MATÉRIAS',c:'#1F5BFF'},{n:'77',l:'POSTS NO INSTAGRAM',ls:'POSTS IG',c:'#E8352C'},{n:'45',l:'VÍDEOS NO TIKTOK',ls:'TIKTOK',c:'#8A867D'}],
+ legend:[{t:'■ IMPRENSA',c:'#1F5BFF'},{t:'■ INSTAGRAM',c:'#E8352C'},{t:'■ TIKTOK',c:'#8A867D'}],
+ axisNote:'', yLeft:true, yRight:false,
+ foot:'FONTE: EUPHORIA CREATIVE · itens mapeados pela data de publicação. Porte: Comscore MMX Multi-Platform, Brasil, ago/26. 15/10 parcial.',
+ footShort:['FONTE: EUPHORIA CREATIVE · itens por data de publicação.','Porte: Comscore MMX, Brasil, ago/26. 15/10 parcial.'],
+ chart(P){
+  const {svg,left,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip,W}=P; let right=P.right;
+  const g=el('g',{},svg); const af=Math.max(8,8.5*s);
+  const panel=W>=760; if(panel){const pw=Math.min(300,(right-left)*0.3); drawTiers(right-pw+10,pw-10); right=right-pw-24}
+  const cw=right-left, n=days.length, bw=cw/n, gap=Math.max(3,bw*0.22), xs=i=>left+bw*i+bw/2, y=v=>bottom-ch*v/78;
+  [0,20,40,60].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
+  days.forEach((dd,i)=>{let b=0;[[press,C.blue],[ig,C.red],[tt,C.grey]].forEach(([a,c])=>{const v=a[i];if(v){el('rect',{x:left+bw*i+gap/2,y:y(b+v),width:bw-gap,height:y(b)-y(b+v)-(b?0:0),fill:c},g);if(v>=6&&bw>26)txt(g,xs(i),y(b+v/2)+3.5,v,{fill:c===C.grey?C.ink:C.paper,'font-family':MONO,'font-size':af,'text-anchor':'middle','font-weight':700})}b+=v});
+    txt(g,xs(i),y(tot[i])-5,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(10,(tot[i]>=60?16:12)*s),'font-weight':900,'text-anchor':'middle'});
+    const step=compact&&cw<330?2:1; if(i%step===0)txt(g,xs(i),bottom+af+6,compact?dd.slice(0,2):dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
+    const r=el('rect',{x:left+bw*i,y:top,width:bw,height:ch,fill:'transparent'},g);
+    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}</b><br>${tot[i]} conteúdos<br>${press[i]} matérias · ${ig[i]} posts · ${tt[i]} vídeos`,p.clientX,p.clientY)};
+    r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)});
+  el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
+  placeEvents(g,ev,xs,top-4,P,i=>y(tot[i])-14);
+  function drawTiers(x0,pw){
+    const f=Math.max(8,8.5*s); let yy=top-4;
+    txt(g,x0,yy,'MATÉRIAS POR PORTE DO VEÍCULO',{fill:C.red,'font-family':MONO,'font-size':f,'font-weight':700});
+    el('line',{x1:x0-12,x2:x0-12,y1:top-14,y2:bottom,stroke:C.rule,'stroke-width':1},g);
+    const rowH=(bottom-yy-8)/tiers.length;
+    tiers.forEach((t,k)=>{const ry=yy+10+k*rowH; const nf=Math.min(rowH*0.42,30*s);
+      const pt=txt(g,x0,ry+nf,t.p+'%',{fill:t.c===C.rule?C.grey:t.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      const lx=x0+pt.getComputedTextLength()+10*s;
+      txt(g,lx,ry+nf*0.45,t.l+' · '+t.n,{fill:C.ink,'font-family':MONO,'font-size':f,'font-weight':700});
+      txt(g,lx,ry+nf*0.45+f*1.4,t.d,{fill:C.grey,'font-family':MONO,'font-size':f});
+      el('rect',{x:x0,y:ry+nf+6,width:pw,height:3,fill:C.rule},g);
+      el('rect',{x:x0,y:ry+nf+6,width:pw*t.p/39,height:3,fill:t.c===C.rule?C.grey:t.c},g)});
+  }
+ }});
+</script></body></html>
