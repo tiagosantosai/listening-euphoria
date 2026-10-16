@@ -34,15 +34,26 @@ window.renderInfo=function(D){
     const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
     let y=pad;
     const kf=Math.max(9,11*s);
-    txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,{fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'});
+    const avail=W-2*pad;
+    {const ko={fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'};
+     let kt=txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,ko);
+     if(kt.getComputedTextLength()>avail&&D.kickerShort&&!compact){kt.remove();kt=txt(svg,pad,y+kf,D.kickerShort,ko)}
+     const kl=kt.getComputedTextLength(); if(kl>avail)kt.setAttribute('font-size',kf*avail/kl*0.98);}
     y+=kf+8*s;
-    const hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    let hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
     const hl=compact?D.headShort:D.head;
+    {const probe=hl.map(t=>txt(svg,0,-100,t,{'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'}));
+     const mw=Math.max(...probe.map(t=>t.getComputedTextLength())); probe.forEach(t=>t.remove()); if(mw>avail)hf=hf*avail/mw*0.98;}
     txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
     y+=hf*1.08;
     if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.08}
     const showDeck=!tiny&&H>460;
-    if(showDeck){const df=Math.max(11,13*s);y+=6*s;lines(svg,pad,y+df,compact?D.deckShort:D.deck,{fill:C.ink,'font-family':BODY,'font-size':df},df*1.4);y+=df*1.4*(compact?D.deckShort:D.deck).length}
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;
+      const src=compact?D.deckShort:D.deck, o={fill:C.ink,'font-family':BODY,'font-size':df}, out=[];
+      src.forEach(par=>{const words=par.split(' ');let cur='';const pr=txt(svg,0,-100,'',o);
+        words.forEach(w=>{const t=cur?cur+' '+w:w;pr.textContent=t;if(pr.getComputedTextLength()>avail&&cur){out.push(cur);cur=w}else cur=t});
+        if(cur)out.push(cur);pr.remove();});
+      lines(svg,pad,y+df,out,o,df*1.4);y+=df*1.4*out.length}
     y+=10*s;
     const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
     D.kpis.forEach((k,i)=>{const x=pad+i*kw;
@@ -54,14 +65,18 @@ window.renderInfo=function(D){
     ((compact&&D.legendShort)?D.legendShort:D.legend).forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
     if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
     y+=gf+6*s;
-    const foot=Math.max(9,9*s)*(mid?2:1)*1.5+8;
+    const foot=Math.max(9,9*s)*2*1.5+8;
     const evRoom=2*Math.max(8,9*s)*1.25+10;
     const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
     const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
     const cw=right-left, ch=Math.max(60,bottom-top);
     D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
     const ff=Math.max(8,8.5*s);
-    lines(svg,pad,H-pad-(mid?ff*1.5:0),mid?D.footShort:[D.foot],{fill:C.grey,'font-family':MONO,'font-size':ff},ff*1.5);
+    {const fo={fill:C.grey,'font-family':MONO,'font-size':ff};let useShort=mid;
+     if(!useShort){const pr=txt(svg,0,-100,D.foot,fo);if(pr.getComputedTextLength()>avail)useShort=true;pr.remove()}
+     const fl=useShort?D.footShort:[D.foot];
+     const ts=fl.map((t,i)=>txt(svg,pad,H-pad-(fl.length-1-i)*ff*1.5,t,fo));
+     const mw=Math.max(...ts.map(t=>t.getComputedTextLength()));if(mw>avail)ts.forEach(t=>t.setAttribute('font-size',ff*avail/mw*0.98));}
   }
   draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
