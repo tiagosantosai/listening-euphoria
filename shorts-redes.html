@@ -10,7 +10,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 #tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
 </style>
 
-<title>Impactos nas redes · Listening YouTube Shorts</title></head><body>
+<title>Alcance da amostra · Listening YouTube Shorts</title></head><body>
 <div id="info"></div><div id="tip" hidden></div>
 <script>
 // Infográficos do listening — SVG responsivo que sempre cabe na janela (sem rolagem)
@@ -90,17 +90,17 @@ const press=[0.17,0,2.07,1.91,1.47,1.21,1.07,1.08,1.01,4.25,2.43,1.01,0.80];
 const nmat=[5,6,18,22,17,13,8,8,14,26,10,22,15];
 const conv=[0.1,1.3,0,0.4,2.5,0.9,44.9,1.1,1.5,1.0,5.1,8.2,21.4];
 const LMAX=16, RMAX=1600, CL=15, CR=1500;
-const ev=[{i:1,long:'"ELE AINDA NÃO ACREDITA" · 13 MI',short:'13 MI'},{i:6,long:'CANÇÃO DA SELEÇÃO · 108 MI',short:'COPA 108 MI'},{i:9,long:'COPA: CAZÉTV',short:'COPA'},{i:12,long:'"COMECE A POSTAR" + IA DA CAZÉTV',short:'POSTAR'}];
-renderInfo({aria:'Impactos, interações e conversas por mês nas redes sobre YouTube Shorts e concorrentes, de outubro de 2025 a outubro de 2026',
- kicker:'LISTENING / YOUTUBE SHORTS × CONCORRENTES / OUT 2025 – OUT 2026', kickerShort:'SHORTS × CONCORRENTES / 12 MESES',
+const ev=[{i:6,long:'1 VÍDEO DE TORCIDA (TIKTOK)',short:'TORCIDA'},{i:9,long:'COPA: CAZÉTV',short:'COPA'},{i:12,long:'"COMECE A POSTAR"',short:'POSTAR'}];
+renderInfo({aria:'Alcance e engajamento, por mês, dos 159 posts e vídeos mapeados no listening de YouTube Shorts e concorrentes, de outubro de 2025 a outubro de 2026',
+ kicker:'LISTENING / YOUTUBE SHORTS × CONCORRENTES / ALCANCE DA AMOSTRA / OUT 2025 – OUT 2026', kickerShort:'SHORTS × CONCORRENTES / ALCANCE DA AMOSTRA',
  head:['Copa gera views. Criar gera conversa.'], headShort:['Copa gera views.','Criar gera conversa.'],
- deck:['Um vídeo de torcida no TikTok (abr/26) fez 108 mi de views, mas só 0,4 comentário a cada mil views.','Os vídeos sobre "começar a postar" e "vergonha de gravar" (out/26) tiveram 4,4 por mil: 10× mais conversa.'],
- deckShort:['Torcida: 108 mi de views, pouca conversa.','"Começar a postar": 10× mais comentários.'],
- kpis:[{n:'138 mi',l:'VIEWS NAS REDES',ls:'VIEWS',c:'#111111'},{n:'18,5 mi',l:'ALCANCE POTENCIAL · IMPRENSA*',ls:'IMPRENSA*',c:'#1F5BFF'},{n:'8,1 mi',l:'INTERAÇÕES',ls:'INTERAÇÕES',c:'#E8352C'},{n:'88 mil',l:'CONVERSAS · COMENTÁRIOS',ls:'COMENTÁRIOS',c:'#C98A00'}],
- legend:[{t:'■ VIEWS',c:'#111111'},{t:'— INTERAÇÕES',c:'#E8352C'},{t:'··· COMENTÁRIOS (×10)',c:'#C98A00'},{t:'■ IMPRENSA*',c:'#1F5BFF'}],
- axisNote:'EIXO DIREITO, EM VERMELHO: INTERAÇÕES E COMENTÁRIOS · ESCALA 10× MAIOR · COMENTÁRIOS ×10 · ABRIL CORTADO (▲)', yLeft:true, yRight:true,
- foot:'FONTE: EUPHORIA CREATIVE · Views = reels do Instagram + TikTok. *Imprensa: soma, no mês, da audiência média diária dos veículos que publicaram (Comscore ago/26, visitantes únicos ÷ 30) — teto, não leitura. Out/26 parcial.',
- footShort:['FONTE: EUPHORIA · *Imprensa = audiência diária dos veículos','somada no mês (Comscore ago/26): teto, não leitura. Out/26 parcial.'],
+ deck:['Não é o volume de conversa sobre as plataformas: é quanto os 159 posts e vídeos mapeados (Instagram + TikTok) foram vistos e comentados.','Abr/26: um vídeo de torcida fez 108 mi de views e pouca conversa. Out/26: vídeos sobre começar a postar tiveram 10× mais comentários por view.'],
+ deckShort:['Alcance dos 159 posts e vídeos mapeados,','não o volume de conversa. Criar gera 10× mais comentários.'],
+ kpis:[{n:'138 mi',l:'VIEWS DA AMOSTRA',ls:'VIEWS',c:'#111111'},{n:'18,5 mi',l:'ALCANCE POTENCIAL · IMPRENSA*',ls:'IMPRENSA*',c:'#1F5BFF'},{n:'8,1 mi',l:'INTERAÇÕES',ls:'INTERAÇÕES',c:'#E8352C'},{n:'88 mil',l:'CONVERSAS · COMENTÁRIOS',ls:'COMENTÁRIOS',c:'#C98A00'}],
+ legend:[{t:'■ VIEWS',c:'#111111'},{t:'— INTERAÇÕES',c:'#E8352C'},{t:'··· COMENTÁRIOS ×10',c:'#C98A00'},{t:'■ IMPRENSA*',c:'#1F5BFF'}],
+ axisNote:'EIXO DIREITO (VERMELHO): INTERAÇÕES E COMENTÁRIOS · ▲ = PICO CORTADO', yLeft:true, yRight:true,
+ foot:'FONTE: EUPHORIA CREATIVE · Soma dos 159 posts e vídeos mapeados (47 IG + 112 TikTok), por mês; não é o total da internet. *Imprensa: audiência diária dos veículos somada no mês (Comscore ago/26), teto. Out/26 parcial.',
+ footShort:['FONTE: EUPHORIA · soma dos 159 posts e vídeos mapeados. *Imprensa:','audiência diária dos veículos somada no mês (Comscore ago/26), teto.'],
  chart(P){
   const {svg,left,right,top,bottom,cw,ch,s,compact,C,MONO,DISP,el,txt,tip}=P;
   const n=days.length, xs=i=>left+cw*(i/(n-1)), yL=v=>bottom-ch*Math.min(v,CL)/LMAX, yR=v=>bottom-ch*Math.min(v,CR)/RMAX;
@@ -108,7 +108,6 @@ renderInfo({aria:'Impactos, interações e conversas por mês nas redes sobre Yo
   function fmt(v){return v.toLocaleString('pt-BR',{maximumFractionDigits:1})}
   [0,5,10,15].forEach(v=>{txt(g,left-6,yL(v)+3,v?v+' mi':'0',{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
   [0,500,1000,1500].forEach(v=>{txt(g,right+6,yR(v)+3,v?(v>=1000?fmt(v/1000)+' mi':v+' mil'):'0',{fill:C.red,'font-family':MONO,'font-size':af})});
-  txt(g,right+6,bottom-ch+3,'10×',{fill:C.red,'font-family':MONO,'font-size':af,'font-weight':700});
   let d=`M${xs(0)},${bottom}`; imp.forEach((v,i)=>d+=` L${xs(i)},${yL(v)}`); d+=` L${xs(n-1)},${bottom} Z`;
   el('path',{d,fill:C.ink,opacity:0.92},g);
   const bw=Math.max(6,cw/(n-1)*0.42);
@@ -118,11 +117,12 @@ renderInfo({aria:'Impactos, interações e conversas por mês nas redes sobre Yo
   el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
   days.forEach((dd,i)=>{txt(g,xs(i),bottom+af+6,(cw/(n-1))<48?dshort[i]:dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'})});
   const vf=Math.max(10,12*s);
-  txt(g,xs(6)+8,yL(CL)+vf,compact?'▲ 110 mi':'▲ 110 mi views',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'start'});
-  if(!compact)txt(g,xs(6)+8,yL(CL)+vf*2.3,'▲ 6,8 mi interações',{fill:C.red,'font-family':DISP,'font-size':vf*0.85,'font-weight':900,'text-anchor':'start'});
-  txt(g,xs(1)+6,yL(13.05)-4,'13 mi',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'start'});
-  txt(g,xs(9)+bw/2+4,yL(4.25)+4,compact?'4,3 mi':'4,3 mi imprensa',{fill:'#1F5BFF','font-family':DISP,'font-size':vf*0.9,'font-weight':900,'text-anchor':'start'});
-  txt(g,xs(12)-6,yL(4.87)-6,'4,9 mi',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
+  function lab(x,y,t,o){const e=txt(g,x,y,t,o);const b=e.getBBox();const r=el('rect',{x:b.x-3,y:b.y-1,width:b.width+6,height:b.height+2,fill:C.paper,opacity:0.92},g);g.insertBefore(r,e);return e}
+  lab(xs(6)+8,yL(CL)+vf,compact?'▲ 110 mi':'▲ 110 mi views',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'start'});
+  if(!compact)lab(xs(6)+8,yL(CL)+vf*2.3,'▲ 6,8 mi interações',{fill:C.red,'font-family':DISP,'font-size':vf*0.85,'font-weight':900,'text-anchor':'start'});
+  lab(xs(1)+8,yL(13.05)+vf*0.4,'13 mi',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'start'});
+  lab(xs(9)-bw/2-5,yL(4.25)+vf*0.4,compact?'4,3 mi':'4,3 mi imprensa',{fill:'#1F5BFF','font-family':DISP,'font-size':vf*0.9,'font-weight':900,'text-anchor':'end'});
+  lab(xs(12)-bw/2-5,yL(4.87)+vf*0.4,'4,9 mi',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
   placeEvents(g,ev,xs,top-4,P,i=>Math.min(yL(imp[i]),yR(inter[i])));
   days.forEach((dd,i)=>{const w=cw/(n-1);const r=el('rect',{x:xs(i)-w/2,y:top,width:w,height:ch,fill:'transparent'},g);
     const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}</b><br>${fmt(imp[i])} mi views<br>${fmt(inter[i])} mil interações<br>${fmt(conv[i])} mil comentários<br>${nmat[i]} matérias · ${fmt(press[i])} mi de audiência potencial`,p.clientX,p.clientY)};
