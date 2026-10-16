@@ -1,0 +1,196 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:240px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+
+<title>Assinaturas e motes · Listening YouTube</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infográficos do listening — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    const avail=W-2*pad;
+    {const ko={fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'};
+     let kt=txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,ko);
+     if(kt.getComputedTextLength()>avail&&D.kickerShort&&!compact){kt.remove();kt=txt(svg,pad,y+kf,D.kickerShort,ko)}
+     const kl=kt.getComputedTextLength(); if(kl>avail)kt.setAttribute('font-size',kf*avail/kl*0.98);}
+    y+=kf+8*s;
+    let hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    {const probe=hl.map(t=>txt(svg,0,-100,t,{'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'}));
+     const mw=Math.max(...probe.map(t=>t.getComputedTextLength())); probe.forEach(t=>t.remove()); if(mw>avail)hf=hf*avail/mw*0.98;}
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.08;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.08}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;
+      const src=compact?D.deckShort:D.deck, o={fill:C.ink,'font-family':BODY,'font-size':df}, out=[];
+      src.forEach(par=>{const words=par.split(' ');let cur='';const pr=txt(svg,0,-100,'',o);
+        words.forEach(w=>{const t=cur?cur+' '+w:w;pr.textContent=t;if(pr.getComputedTextLength()>avail&&cur){out.push(cur);cur=w}else cur=t});
+        if(cur)out.push(cur);pr.remove();});
+      lines(svg,pad,y+df,out,o,df*1.4);y+=df*1.4*out.length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    ((compact&&D.legendShort)?D.legendShort:D.legend).forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+6*s;
+    const foot=Math.max(9,9*s)*2*1.5+8;
+    const evRoom=2*Math.max(8,9*s)*1.25+10;
+    const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
+    const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    {const fo={fill:C.grey,'font-family':MONO,'font-size':ff};let useShort=mid;
+     if(!useShort){const pr=txt(svg,0,-100,D.foot,fo);if(pr.getComputedTextLength()>avail)useShort=true;pr.remove()}
+     const fl=useShort?D.footShort:[D.foot];
+     const ts=fl.map((t,i)=>txt(svg,pad,H-pad-(fl.length-1-i)*ff*1.5,t,fo));
+     const mw=Math.max(...ts.map(t=>t.getComputedTextLength()));if(mw>avail)ts.forEach(t=>t.setAttribute('font-size',ff*avail/mw*0.98));}
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+function placeEvents(g,ev,xs,yTop,P,valY){
+  const f=Math.max(8,9*P.s), lh=f*1.25, ends=[-1e9,-1e9];
+  ev.forEach(e=>{const x=xs(e.i), lab=P.compact?e.short:e.long;
+    const w=lab.length*f*0.62; let r=1; if(x-w/2<ends[1]+8){r=0} if(r===0&&x-w/2<ends[0]+8){r=1}
+    ends[r]=x+w/2; const ty=yTop-(r?0:lh);
+    let ax='middle',tx=x; if(x+w/2>P.W-6){ax='end';tx=x+4} if(x-w/2<6){ax='start';tx=x-4}
+    P.el('line',{x1:x,x2:x,y1:ty+3,y2:Math.max(ty+4,valY(e.i)-5),stroke:P.C.ink,'stroke-width':0.7,'stroke-dasharray':'1 2'},g);
+    P.txt(g,tx,ty,lab,{fill:P.C.ink,'font-family':P.MONO,'font-size':f,'font-weight':700,'text-anchor':ax});
+  });
+}
+</script>
+<style>
+#tip.pin{pointer-events:auto;max-width:280px}
+#tip a{color:#FFFFFF;text-decoration:underline;text-underline-offset:2px;display:block;margin-top:4px;font-weight:700}
+#tip a:hover{color:#FFD5D2}
+#tip .x{font-weight:400;opacity:.85;display:block;margin-top:4px}
+#tip .lk{margin-top:6px;border-top:1px solid #444;padding-top:4px}
+</style>
+<script>
+// DADOS: assinaturas, motes e campanhas, 16/10/2025 a 16/10/2026. k = principal; br = Brasil; ph = fase do mote (0,1,2)
+const LN={M:{n:'MARCA',c:'#111111'},P:{n:'PLATAFORMA',c:'#E8352C'},A:{n:'ANUNCIANTES',c:'#1F5BFF'},S:{n:'MUSIC',c:'#7B3FE4'},T:{n:'YOUTUBE TV',c:'#C98A00'}};
+const SG=[
+{ph:0,l:'S',t:'23/10/25',q:'"Twin engine"',qs:'Twin engine',x:'Lyor Cohen, ao anunciar US$ 8 bi pagos à indústria musical: anúncios + assinaturas.',L:[['Comunicado · YouTube Blog','https://blog.youtube/news-and-events/8-billion-youtubes-twin-engine-continues-to-fuel-the-future-of-music/'],['Cobertura · Music Business Worldwide','https://www.musicbusinessworldwide.com/youtube-paid-the-music-industry-over-8bn-over-the-past-year-lyor-cohen-says/']]},
+{ph:0,l:'M',t:'10/11/25',q:'"Assistir ao YouTube é se ver nele"',qs:'Se ver nele',k:1,br:1,x:'Campanha "O Brasil está aqui": 16 criadores, 8 filmes. A marca como espelho da diversidade brasileira.',L:[['▶ Campanha e filmes · YouTube Blog Brasil','https://blog.youtube/intl/pt-br/inside-youtube/campanha-yt-2025/'],['▶ #EpicCollabs com Cocielo · Instagram','https://www.instagram.com/p/DQpWjsWgAxY/'],['Cobertura · Grandes Nomes da Propaganda','https://grandesnomesdapropaganda.com.br/?p=37922']]},
+{ph:0,l:'M',t:'02/12/25',q:'YouTube Recap',qs:'Recap',x:'Primeira retrospectiva pessoal, à moda do Wrapped. Vira produto e ação de fim de ano.',L:[['▶ Recap com Hank Green · TikTok','https://www.tiktok.com/@youtube/video/7579430502810029326'],['▶ Recap com Hank Green · Instagram','https://www.instagram.com/p/DRyJPKWjGu5/'],['▶ Recap 2025 Brasil · Instagram','https://www.instagram.com/p/DSXfzWzCZCM/']]},
+{ph:0,l:'T',t:'10/12/25',q:'"TV should be easy"',qs:'TV easy',x:'Planos do YouTube TV por gênero ("skinny bundles"), no ar em 09/02/26.',L:[['Comunicado · YouTube Blog','https://blog.youtube/news-and-events/introducing-youtube-tv-plans-launching-early-2026/'],['Cobertura · TechCrunch','https://techcrunch.com/2025/12/10/youtube-tv-to-launch-genre-based-subscription-plans-in-2026/']]},
+{ph:0,l:'S',t:'17/12/25',q:'"Every play should count"',qs:'Every play',x:'Saída dos charts da Billboard nos EUA, em defesa do peso do stream com anúncio.',L:[['Comunicado · YouTube Blog','https://blog.youtube/news-and-events/youtube-billboard-chart-update/'],['Cobertura · Variety','https://variety.com/2025/digital/news/youtube-will-stop-submitting-data-to-billboard-charts-1236611347/']]},
+{ph:0,l:'M',t:'20/01/26',q:'"Unified but never uniform"',qs:'Nova identidade',k:1,x:'Nova identidade global: primeira em movimento, fonte própria, feita pelo YouTube Creative Studio.',L:[['▶ Peças da identidade · Ad Age','https://adage.com/creativity/work/aa-youtube-new-global-visual-identity/'],['▶ Sistema visual · Creative Boom','https://www.creativeboom.com/news/youtube-turns-20-and-unveils-a-new-global-marketing-identity'],['Cobertura · Meio & Mensagem','https://www.meioemensagem.com.br/midia/youtube-reformula-sua-identidade-visual-globalmente']]},
+{ph:1,l:'M',t:'21/01/26',q:'"YouTube is the new TV"',qs:'A nova TV',k:1,x:'Carta do CEO: "because creators are the new prime time". Evolui o "criadores são a nova Hollywood".',L:[['Carta de Neal Mohan · YouTube Blog','https://blog.youtube/inside-youtube/the-future-of-youtube-2026/'],['Cobertura · CNBC','https://www.cnbc.com/2026/01/21/youtube-chief-says-managing-ai-slop-is-a-priority-for-2026-.html']]},
+{ph:1,l:'T',t:'02/26',q:'"Don\'t Settle for Meh"',qs:'No Meh',k:1,x:'Filme do YouTube TV no Super Bowl LX contra a TV ao vivo "meh". Voltou na Copa como "taking meh off the mehnu".',L:[['▶ Filme · Ads of the World','https://www.adsoftheworld.com/campaigns/don-t-settle-for-meh'],['▶ Bastidores · Muse by Clios','https://musebyclios.com/?p=125556'],['▶ "Meh off the mehnu" · TikTok','https://www.tiktok.com/@youtube/video/7653137005072715021']]},
+{ph:1,l:'A',t:'23/03/26',q:'"There\'s only one YouTube"',qs:'Creator Partn.',k:1,br:1,x:'NewFronts: BrandConnect vira YouTube Creator Partnerships em 7 mercados, Brasil incluído.',L:[['Comunicado · YouTube Blog','https://blog.youtube/news-and-events/youtube-creator-partnerships-newfronts-2026/'],['Cobertura · AdExchanger','https://www.adexchanger.com/platforms/google-is-pitching-buyers-on-gemini-and-youtube-creators-at-the-newfronts/'],['Cobertura · PPC Land','https://ppc.land/youtube-creator-partnerships-replaces-brandconnect-in-7-markets/']]},
+{ph:1,l:'A',t:'26/03/26',q:'"Bring, Build, Boost"',qs:'Bring Build Boost',x:'NewFronts: trazer, construir e impulsionar anúncios com criadores e IA.',L:[['Cobertura · The ATDB','https://www.theatdb.com/news/youtubes-newfronts-presentation-tells-brands-to-bring-build-and-boost-their-ads-with-creators-and-ai'],['Cobertura · Deadline','https://deadline.com/2026/03/youtube-creators-advertisers-newfronts-1236766909/']]},
+{ph:2,l:'M',t:'01/04 → 13/05/26',q:'"Welcome to the YouTube era"',qs:'Era YouTube',k:1,x:'Convite e abertura do Brandcast NY ("the future of media"). Vira o mote do ciclo 2026.',L:[['Convite · YouTube Blog','https://blog.youtube/news-and-events/youtube-brandcast-2026-lineup/'],['Destaques · YouTube Blog','https://blog.youtube/news-and-events/brandcast-2026-highlights/'],['▶ Brandcast · Instagram','https://www.instagram.com/p/DYThzAaBc3B/'],['Cobertura · Adweek','https://www.adweek.com/convergent-tv/youtube-brandcast-2026-creators/']]},
+{ph:2,l:'A',t:'20/05/26',q:'"The best ads must be answers"',qs:'Ads = answers',x:'Google Marketing Live: o YouTube entra como parte da tese de IA do Google.',L:[['Coleção GML 2026 · Google Blog','https://blog.google/products/ads-commerce/google-marketing-live-2026-collection/'],['Cobertura · PPC Land','https://ppc.land/google-marketing-live-2026-every-announcement-that-actually-matters/']]},
+{ph:2,l:'P',t:'23/09/26',q:'"Innovate in the YouTube Era"',qs:'Innovate',x:'Made on YouTube: o mote aplicado a produto e criadores.',L:[['▶ Post de Neal Mohan · Instagram','https://www.instagram.com/p/DdphXKLjYAK/'],['▶ Made on YouTube com Troye Sivan · Instagram','https://www.instagram.com/p/DdpXAl4lO0s/'],['Anúncios · YouTube Blog','https://blog.youtube/news-and-events/innovation-youtube-era-made-on-viewers-creators/']]},
+{ph:2,l:'A',t:'07/10/26',q:'"Bem-vindos à Era YouTube"',qs:'Era YouTube BR',k:1,br:1,x:'Brandcast Brasil: "a nova sala de estar do brasileiro" e "propulsor de crescimento".',L:[['Comunicado · YouTube Blog Brasil','https://blog.youtube/intl/pt-br/news-and-events/brandcast-brasil-2026/'],['Cobertura · Meio & Mensagem','https://www.meioemensagem.com.br/midia/youtube-focara-na-creator-economy-em-2027'],['Análise · B9','https://www.b9.com.br/era-youtube-brandcast-2026/']]},
+];
+const PH=[{t:'PLATAFORMA / 20 ANOS',ts:'20 ANOS',r:'OUT/25 – JAN/26',bg:'#CFCAC0',fg:'#111111'},{t:'"A NOVA TV"',ts:'NOVA TV',r:'JAN – MAR/26',bg:'#111111',fg:'#FFFFFF'},{t:'"ERA YOUTUBE"',ts:'ERA YOUTUBE',r:'ABR – OUT/26',bg:'#E8352C',fg:'#FFFFFF'}];
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+renderInfo({aria:'Assinaturas, motes e campanhas do YouTube de outubro de 2025 a outubro de 2026, agrupados pelas três fases do discurso, com links para as execuções',
+ kicker:'LISTENING / YOUTUBE · ASSINATURAS, MOTES E CAMPANHAS / OUT 2025 – OUT 2026', kickerShort:'YOUTUBE / ASSINATURAS',
+ head:['14 assinaturas, nenhum slogan novo:','o mote virou "Era YouTube".'], headShort:['14 assinaturas,','um mote: "Era YouTube".'],
+ deck:['"Broadcast Yourself" segue aposentado. O que mudou foi a identidade visual (jan/26) e o mote, de plataforma para "nova TV" e depois "Era YouTube", que chega ao Brasil em out/26.','Passe o mouse (ou toque) em um cartão para ver a leitura e os links das execuções.'],
+ deckShort:['Sem slogan novo; muda o mote.','Toque num cartão para ver os links.'],
+ kpis:[{n:'14',l:'ASSINATURAS E MOTES',ls:'MOTES',c:'#111111'},{n:'7',l:'PRINCIPAIS (CARTÃO CHEIO)',ls:'PRINCIPAIS',c:'#E8352C'},{n:'3',l:'COM RECORTE BRASIL',ls:'BRASIL',c:'#1F5BFF'},{n:'0',l:'NOVO SLOGAN INSTITUCIONAL',ls:'SLOGAN NOVO',c:'#C98A00'}],
+ legend:[{t:'■ MARCA',c:'#111111'},{t:'■ PLATAFORMA',c:'#E8352C'},{t:'■ ANUNCIANTES',c:'#1F5BFF'},{t:'■ MUSIC',c:'#7B3FE4'},{t:'■ YOUTUBE TV',c:'#C98A00'},{t:'BR = RECORTE BRASIL',c:'#1F5BFF'}],
+ legendShort:[{t:'■ MARCA',c:'#111111'},{t:'■ PLAT.',c:'#E8352C'},{t:'■ ANUNC.',c:'#1F5BFF'},{t:'■ MUSIC',c:'#7B3FE4'},{t:'■ TV',c:'#C98A00'}],
+ axisNote:'', yLeft:false, yRight:false,
+ foot:'FONTE: EUPHORIA CREATIVE · comunicados oficiais (blog.youtube, Google), keynotes, perfis oficiais e mídia de negócios e publicidade. Links abrem as execuções e a cobertura de cada assinatura.',
+ footShort:['FONTE: EUPHORIA · comunicados, keynotes, perfis','oficiais e mídia de negócios e publicidade.'],
+ chart(P){
+  const {svg,left,right,top,bottom,s,compact,C,MONO,DISP,el,txt,tip}=P;
+  const g=el('g',{},svg); const gap=Math.max(6,(compact?6:10)*s);
+  const colW=(right-left-2*gap)/3; const af=Math.max(7.5,(compact?7.5:8.5)*s);
+  const hh=Math.max(compact?26:30,(compact?28:34)*s);
+  const rows=Math.max(...[0,1,2].map(p=>SG.filter(e=>e.ph===p).length));
+  const vg=Math.max(4,6*s); const y0=top+hh+vg; const cardH=(bottom-y0-(rows-1)*vg)/rows;
+  // medidor de texto
+  const probe=txt(g,0,-200,'',{'font-family':DISP,'font-weight':900});
+  function wrap(str,w,fs){probe.setAttribute('font-size',fs);const out=[];let cur='';
+    str.split(' ').forEach(wd=>{const t=cur?cur+' '+wd:wd;probe.textContent=t;if(probe.getComputedTextLength()>w&&cur){out.push(cur);cur=wd}else cur=t});if(cur)out.push(cur);
+    probe.textContent=out.reduce((a,b)=>a.length>b.length?a:b,'');return {out,ok:probe.getComputedTextLength()<=w}}
+  const padX=Math.max(5,8*s), dateF=Math.max(7.5,(compact?7.5:8.5)*s), metaH=dateF+Math.max(4,6*s);
+  const tw=colW-2*padX-4;
+  // tamanho único de fonte que caiba em todos os cartões
+  let qf=Math.min(compact?13:20*s,cardH*0.42);
+  for(;qf>7;qf-=0.5){let ok=true;for(const e of SG){const r=wrap(compact?e.qs:e.q,tw,qf);if(!r.ok||metaH+r.out.length*qf*1.08+padX*0.6>cardH){ok=false;break}}if(ok)break}
+  // modo em linha (data à esquerda) quando o cartão é baixo
+  probe.setAttribute('font-family',MONO);probe.setAttribute('font-size',dateF);probe.textContent='01/04→13/05/26';const dateW=probe.getComputedTextLength()+dateF*1.2;probe.setAttribute('font-family',DISP);const tagW=dateF*3.2; let qfI=Math.min(cardH*0.55,16*s,cardH-4);
+  for(;qfI>7;qfI-=0.5){let ok=true;for(const e of SG){const r=wrap(compact?e.qs:e.q,tw-dateW-tagW,qfI);if(r.out.length>1||!r.ok){ok=false;break}}if(ok)break}
+  const inline=!compact&&qfI>qf+0.5; if(inline)qf=qfI;
+  // tooltip fixável com links
+  let hideT=null, pinned=null;
+  const show=(e,bx)=>{clearTimeout(hideT);
+    const links=e.L.map(a=>`<a href="${esc(a[1])}" target="_blank" rel="noopener">${esc(a[0])} ↗</a>`).join('');
+    tip.innerHTML=`<b>${e.t} · ${LN[e.l].n}${e.br?' · BRASIL':''}</b><br>${esc(e.q)}<span class="x">${esc(e.x)}</span><div class="lk">${links}</div>`;
+    tip.classList.add('pin');tip.hidden=false;const r=tip.getBoundingClientRect();
+    let L=bx.right+6, T=bx.top; if(L+r.width>innerWidth-6)L=bx.left-r.width-6; if(L<6){L=Math.max(6,Math.min(innerWidth-r.width-6,bx.left));T=bx.bottom+6; if(T+r.height>innerHeight-6)T=bx.top-r.height-6}
+    if(T+r.height>innerHeight-6)T=innerHeight-r.height-6; if(T<6)T=6; tip.style.left=L+'px';tip.style.top=T+'px'};
+  const hide=()=>{hideT=setTimeout(()=>{if(!pinned){tip.hidden=true;tip.classList.remove('pin')}},250)};
+  tip.onmouseenter=()=>clearTimeout(hideT); tip.onmouseleave=()=>{pinned=null;hide()};
+  if(!window.__sigClick){window.__sigClick=1;document.addEventListener('click',ev=>{if(!tip.contains(ev.target)&&!ev.target.closest('.card')){pinned=null;tip.hidden=true;tip.classList.remove('pin')}})}
+  PH.forEach((p,i)=>{const x=left+i*(colW+gap);
+    el('rect',{x,y:top,width:colW,height:hh,fill:p.bg},g);
+    const t1=txt(g,x+padX,top+hh*0.45,compact?p.ts:p.t,{fill:p.fg,'font-family':MONO,'font-size':af,'font-weight':700});
+    if(t1.getComputedTextLength()>colW-2*padX)t1.textContent=p.ts;
+    txt(g,x+padX,top+hh*0.82,p.r,{fill:p.fg,'font-family':MONO,'font-size':af*0.92,opacity:0.8});
+    SG.filter(e=>e.ph===i).forEach((e,j)=>{const y=y0+j*(cardH+vg), c=LN[e.l].c, inv=!!e.k;
+      const cg=el('g',{class:'card',style:'cursor:pointer',role:'button',tabindex:0,'aria-label':e.q},g);
+      el('rect',{x,y,width:colW,height:cardH,fill:inv?c:'#F4F2EE'},cg);
+      if(!inv)el('rect',{x,y,width:4,height:cardH,fill:c},cg);
+      const fg=inv?'#FFFFFF':'#111111';
+      const dY=inline?y+cardH/2+dateF*0.35:y+padX*0.5+dateF;
+      txt(cg,x+padX+(inv?0:2),dY,inline?e.t.replace(' → ','→'):e.t,{fill:inv?'#FFFFFF':C.grey,'font-family':MONO,'font-size':dateF,'font-weight':700,opacity:inv?0.85:1});
+      const tag=txt(cg,x+colW-padX,dY,(e.br?'BR ':'')+'↗',{fill:inv?'#FFFFFF':(e.br?'#1F5BFF':c),'font-family':MONO,'font-size':dateF,'font-weight':700,'text-anchor':'end'});
+      const r=wrap(compact?e.qs:e.q,inline?tw-dateW-tagW:tw,qf);
+      if(inline)txt(cg,x+padX+(inv?0:2)+dateW,y+cardH/2+qf*0.35,r.out[0],{fill:fg,'font-family':DISP,'font-size':qf,'font-weight':900,'letter-spacing':'-0.01em'});
+      else r.out.forEach((ln,k)=>txt(cg,x+padX+(inv?0:2),y+padX*0.5+metaH+qf*0.92+k*qf*1.08,ln,{fill:fg,'font-family':DISP,'font-size':qf,'font-weight':900,'letter-spacing':'-0.01em'}));
+      if(e.br&&inv)el('rect',{x:x+colW-6,y,width:6,height:cardH,fill:'#1F5BFF'},cg);
+      const box=()=>cg.getBoundingClientRect();
+      cg.addEventListener('mouseenter',()=>show(e,box()));
+      cg.addEventListener('mouseleave',()=>{if(pinned!==e)hide()});
+      cg.addEventListener('click',ev=>{ev.stopPropagation();pinned=e;show(e,box())});
+      cg.addEventListener('keydown',ev=>{if(ev.key==='Enter'){pinned=e;show(e,box())}});
+    });
+  });
+  probe.remove();
+ }});
+</script>
