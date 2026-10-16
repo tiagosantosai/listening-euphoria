@@ -96,30 +96,35 @@ renderInfo({aria:'Matriz de temas das conversas sobre cada plataforma, separando
  head:['Quem cria fala de alcance.','No Shorts, também de dinheiro.'], headShort:['Quem cria fala de alcance.','No Shorts, de dinheiro.'],
  deck:['Criadores: 83% das menções ao TikTok falam de alcance; no Shorts, 41% falam de dinheiro, o maior peso entre as três grandes.','Audiência: o Shorts é lembrado pelos comentários e pela comunidade (21%) e comparado (14%); o TikTok, pelo Shop (15%).'], deckShort:['Criadores: TikTok = alcance (83%);','Shorts = alcance (51%) e dinheiro (41%).'],
  kpis:[{n:'1.231',l:'MENÇÕES CLASSIFICADAS',ls:'MENÇÕES',c:'#111111'},{n:'679',l:'DE QUEM ASSISTE',ls:'AUDIÊNCIA',c:'#1F5BFF'},{n:'552',l:'DE QUEM CRIA',ls:'CRIADORES',c:'#E8352C'}],
- legend:[{t:'● TAMANHO = % DAS MENÇÕES DA PLATAFORMA NAQUELE TEMA',c:'#8A867D'}],
+ legend:[{t:'CADA NÚMERO = % DAS MENÇÕES À PLATAFORMA SOBRE O TEMA',c:'#111111'}],
  axisNote:'', yLeft:false, yRight:false,
- foot:'FONTE: EUPHORIA CREATIVE · comentários e legendas de TikTok, Instagram e YouTube que citam a plataforma, classificados por palavra-chave e revisados à mão. Uma menção pode ter mais de um tema. Kwai entre criadores: n pequeno (12).',
+ foot:'FONTE: EUPHORIA CREATIVE · comentários e legendas de TikTok, Instagram e YouTube que citam a plataforma, classificados por palavra-chave e revisados por amostragem. Uma menção pode ter mais de um tema. Kwai entre criadores: n pequeno (12).',
  footShort:['FONTE: EUPHORIA · comentários e legendas que citam a plataforma,','classificados por tema. Uma menção pode ter mais de um tema.'],
  chart(P){
-  const {svg,left,right,top,bottom,s,compact,C,MONO,DISP,el,txt,tip,W}=P;
-  const g=el('g',{},svg); const af=Math.max(8,8.5*s);
-  const stack=W<760; const gap=stack?18:40;
+  const {svg,left,right,top,bottom,s,compact,C,MONO,DISP,BODY,el,txt,tip,W}=P;
+  const g=el('g',{},svg); const af=Math.max(8.5,9*s);
+  const stack=W<560||(W<760&&(bottom-top)>330); const gap=stack?16:28;
   const pw=stack?(right-left):(right-left-gap)/2, ph=stack?(bottom-top-gap)/2:(bottom-top);
-  [[A,nA,'AUDIÊNCIA · QUEM ASSISTE','#1F5BFF'],[Cr,nC,'CRIADORES · QUEM POSTA','#E8352C']].forEach(([M,N,title,tc],k)=>{
+  const T2=[['ALCANCE E','ALGORITMO'],['DINHEIRO E','GANHOS'],['TEMPO E','VÍCIO'],['QUALIDADE','DO CONTEÚDO'],['COMENTÁRIOS','E PÚBLICO'],['FERRAMENTAS','DE EDIÇÃO'],['COMPARAÇÃO','DIRETA']];
+  const mix=(hex,t)=>{const n=parseInt(hex.slice(1),16),r=n>>16,gg=(n>>8)&255,b=n&255;const m=(c)=>Math.round(255+(c-255)*t);return `rgb(${m(r)},${m(gg)},${m(b)})`};
+  [[A,nA,'QUEM ASSISTE · AUDIÊNCIA','#1F5BFF'],[Cr,nC,'QUEM CRIA · CRIADORES','#E8352C']].forEach(([M,N,title,tc],k)=>{
     const x0=left+(stack?0:k*(pw+gap)), y0=top+(stack?k*(ph+gap):0);
-    txt(g,x0,y0+af,title,{fill:tc,'font-family':MONO,'font-size':af,'font-weight':700});
-    const labW=Math.min(compact?62:120,pw*0.28), gx=x0+labW, gw=pw-labW, cw=gw/temas.length;
-    const hy=y0+af*2.6, gy=hy+af*1.2, rh=(y0+ph-gy)/plats.length, rmax=Math.max(4,Math.min(cw,rh)*0.42);
-    temas.forEach((t,j)=>txt(g,gx+cw*j+cw/2,hy,(cw>=86?temas:cw>=46?temasM:temasS)[j],{fill:C.grey,'font-family':MONO,'font-size':af*0.9,'font-weight':700,'text-anchor':'middle'}));
-    plats.forEach((p,i)=>{const cy=gy+rh*i+rh/2;
-      const showN=rh>=af*3.2;txt(g,x0,cy+(showN?-1:af*0.35),(pw<520?platsS:plats)[i],{fill:PC[i],'font-family':MONO,'font-size':af,'font-weight':700});
-      if(showN)txt(g,x0,cy+af+2,'n='+N[i],{fill:C.grey,'font-family':MONO,'font-size':af*0.85});
-      el('line',{x1:gx,x2:gx+gw,y1:cy,y2:cy,stroke:C.rule,'stroke-width':0.6},g);
-      temas.forEach((t,j)=>{const v=M[i][j], cx=gx+cw*j+cw/2, r=v?Math.max(2.5,rmax*Math.sqrt(v/100)):0;
-        if(r)el('circle',{cx,cy,r,fill:PC[i],opacity:0.85},g);
-        if(v>=10&&r>af*0.9)txt(g,cx,cy+af*0.35,v,{fill:C.paper,'font-family':MONO,'font-size':af*0.9,'font-weight':700,'text-anchor':'middle'});
-        const hit=el('rect',{x:cx-cw/2,y:cy-rh/2,width:cw,height:rh,fill:'transparent'},g);
-        const h=e=>{const q=e.touches?e.touches[0]:e;showTip(tip,`<b>${plats[i]} · ${title.split(' ·')[0]}</b><br>${temas[j]}: ${v}% das ${N[i]} menções`,q.clientX,q.clientY)};
+    txt(g,x0,y0+af,title,{fill:tc,'font-family':MONO,'font-size':af*1.05,'font-weight':700});
+    const labW=Math.min(compact?64:118,pw*0.27), gx=x0+labW, gw=pw-labW, cw=gw/temas.length;
+    const two=cw>=58, hy=y0+af*2.9, gy=hy+(two?af*1.4:af*0.6)+6, rh=Math.min((y0+ph-gy)/plats.length, af*4.2);
+    temas.forEach((t,j)=>{const cx=gx+cw*j+cw/2; if(two){txt(g,cx,hy,T2[j][0],{fill:C.grey,'font-family':MONO,'font-size':af*0.82,'font-weight':700,'text-anchor':'middle'});txt(g,cx,hy+af*1.05,T2[j][1],{fill:C.grey,'font-family':MONO,'font-size':af*0.82,'font-weight':700,'text-anchor':'middle'})} else txt(g,cx,hy+af*0.6,(cw>=40?temasM:temasS)[j],{fill:C.grey,'font-family':MONO,'font-size':af*0.82,'font-weight':700,'text-anchor':'middle'})});
+    plats.forEach((p,i)=>{const ry=gy+rh*i, cy=ry+rh/2; const showN=rh>=af*3; const lf=Math.min(af,rh*0.62);
+      txt(g,x0,cy+(showN?-1:lf*0.35),(pw<520?platsS:plats)[i],{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});
+      el('rect',{x:x0-6,y:cy-af*0.8,width:3,height:Math.min(af*1.6,rh-4),fill:PC[i]},g);
+      if(showN)txt(g,x0,cy+af+2,N[i]+' menções',{fill:C.grey,'font-family':MONO,'font-size':af*0.8});
+      const mx=Math.max(...M[i]);
+      temas.forEach((t,j)=>{const v=M[i][j], cx=gx+cw*j;
+        const tt=Math.min(1,v/60); const fill=v?mix(tc,0.08+0.92*tt):'#F4F3F0';
+        el('rect',{x:cx+1,y:ry+1,width:cw-2,height:rh-2,rx:3,fill},g);
+        const lab=v+'%'; const bold=v===mx&&v>=10;
+        txt(g,cx+cw/2,cy+Math.min(af,rh*0.6)*0.4,lab,{fill:tt>0.45?'#FFFFFF':(v?C.ink:'#B5B1A8'),'font-family':DISP,'font-size':Math.min(af*(bold?1.45:1.15),cw*0.36,rh*0.6),'font-weight':bold?900:600,'text-anchor':'middle'});
+        const hit=el('rect',{x:cx,y:ry,width:cw,height:rh,fill:'transparent'},g);
+        const h=e=>{const q=e.touches?e.touches[0]:e;showTip(tip,`<b>${plats[i]} · ${title.split(' ·')[1]||title}</b><br>${temas[j]}: ${v}% das ${N[i]} menções`,q.clientX,q.clientY)};
         hit.addEventListener('mousemove',h);hit.addEventListener('touchstart',h,{passive:true});hit.addEventListener('mouseleave',()=>tip.hidden=true)});
     });
   });
