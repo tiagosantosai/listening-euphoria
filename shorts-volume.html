@@ -1,0 +1,132 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:240px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+
+<title>Volume de conversa · Listening YouTube Shorts</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infográficos do listening — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,{fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'});
+    y+=kf+8*s;
+    const hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.02;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.02}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;lines(svg,pad,y+df,compact?D.deckShort:D.deck,{fill:C.ink,'font-family':BODY,'font-size':df},df*1.4);y+=df*1.4*(compact?D.deckShort:D.deck).length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    D.legend.forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+6*s;
+    const foot=Math.max(9,9*s)*(mid?2:1)*1.5+8;
+    const evRoom=2*Math.max(8,9*s)*1.25+10;
+    const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
+    const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    lines(svg,pad,H-pad-(mid?ff*1.5:0),mid?D.footShort:[D.foot],{fill:C.grey,'font-family':MONO,'font-size':ff},ff*1.5);
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+function placeEvents(g,ev,xs,yTop,P,valY){
+  const f=Math.max(8,9*P.s), lh=f*1.25, ends=[-1e9,-1e9];
+  ev.forEach(e=>{const x=xs(e.i), lab=P.compact?e.short:e.long;
+    const w=lab.length*f*0.62; let r=1; if(x-w/2<ends[1]+8){r=0} if(r===0&&x-w/2<ends[0]+8){r=1}
+    ends[r]=x+w/2; const ty=yTop-(r?0:lh);
+    let ax='middle',tx=x; if(x+w/2>P.W-6){ax='end';tx=x+4} if(x-w/2<6){ax='start';tx=x-4}
+    P.el('line',{x1:x,x2:x,y1:ty+3,y2:Math.max(ty+4,valY(e.i)-5),stroke:P.C.ink,'stroke-width':0.7,'stroke-dasharray':'1 2'},g);
+    P.txt(g,tx,ty,lab,{fill:P.C.ink,'font-family':P.MONO,'font-size':f,'font-weight':700,'text-anchor':ax});
+  });
+}
+</script>
+<script>
+const days=['OUT/25','NOV','DEZ','JAN/26','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT/26'];
+const dshort=['O','N','D','J','F','M','A','M','J','J','A','S','O'];
+const press=[5,6,18,22,17,13,8,8,14,26,10,22,15], ig=[0,0,0,0,0,1,0,1,2,1,3,3,36], tt=[1,4,3,3,12,6,6,13,7,14,12,14,17];
+const ys=[1,3,7,11,4,3,2,3,6,10,4,8,9];
+const tot=days.map((_,i)=>press[i]+ig[i]+tt[i]);
+const ev=[{i:2,long:'RETROSPECTIVA 2025',short:'RETRO'},{i:3,long:'200 BI VIEWS/DIA',short:'200 BI'},{i:4,long:'CARNAVAL + BBB26',short:'CARNAVAL'},{i:7,long:'KWAI NA COPA',short:'KWAI'},{i:9,long:'COPA: CAZÉTV',short:'COPA'},{i:11,long:'SÉRIES DE SHORTS',short:'SÉRIES'},{i:12,long:'BRANDCAST',short:'BRANDCAST'}];
+const tiers=[{l:'GRANDE',d:'≥ 20 mi visitantes/mês',n:5,p:3,c:'#111111'},{l:'MÉDIO',d:'1 a 20 mi',n:52,p:28,c:'#1F5BFF'},{l:'PEQUENO',d:'< 1 mi',n:37,p:20,c:'#8A867D'},{l:'FORA DO RANKING',d:'nicho, trade e blogs oficiais',n:90,p:49,c:'#CFCAC0'}];
+renderInfo({aria:'Volume de conversa por mês, por rede, de outubro de 2025 a outubro de 2026, sobre YouTube Shorts e concorrentes',
+ kicker:'LISTENING / YOUTUBE SHORTS × CONCORRENTES / OUT 2025 – OUT 2026', kickerShort:'SHORTS × CONCORRENTES / 12 MESES',
+ head:['A Copa foi o pico da imprensa.','Nas redes, a conversa é sobre criar.'], headShort:['A Copa puxou a imprensa.','Nas redes, criar.'],
+ deck:['Julho/26 (CazéTV no YouTube) somou 26 matérias; 71 das 184 matérias falam do YouTube/Shorts, 32 do TikTok e 24 do Kwai.','No TikTok e no Instagram, os vídeos mais comentados são sobre medo de postar, "flopar" e como começar do zero.'],
+ deckShort:['Julho (Copa/CazéTV) foi o pico da imprensa.','Nas redes: medo de postar e "flopar".'],
+ kpis:[{n:'343',l:'CONTEÚDOS MAPEADOS',ls:'CONTEÚDOS',c:'#111111'},{n:'184',l:'MATÉRIAS · 71 SOBRE O SHORTS',ls:'MATÉRIAS',c:'#1F5BFF'},{n:'47',l:'POSTS NO INSTAGRAM',ls:'POSTS IG',c:'#E8352C'},{n:'112',l:'VÍDEOS NO TIKTOK',ls:'TIKTOK',c:'#8A867D'}],
+ legend:[{t:'■ IMPRENSA',c:'#1F5BFF'},{t:'■ INSTAGRAM',c:'#E8352C'},{t:'■ TIKTOK',c:'#8A867D'}],
+ axisNote:'', yLeft:true, yRight:false,
+ foot:'FONTE: EUPHORIA CREATIVE · itens mapeados por mês de publicação. Porte: Comscore MMX Multi-Platform, Brasil, ago/26. Out/25 a partir de 16/10; out/26 até 16/10 (parcial). Instagram concentrado em out/26 por limite da busca.',
+ footShort:['FONTE: EUPHORIA · itens por mês de publicação. Comscore ago/26.','Out/26 parcial. Instagram concentrado em out/26 (limite da busca).'],
+ chart(P){
+  const {svg,left,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip,W}=P; let right=P.right;
+  const g=el('g',{},svg); const af=Math.max(8,8.5*s);
+  const panel=W>=760; if(panel){const pw=Math.min(300,(right-left)*0.3); drawTiers(right-pw+10,pw-10); right=right-pw-24}
+  const cw=right-left, n=days.length, bw=cw/n, gap=Math.max(3,bw*0.22), xs=i=>left+bw*i+bw/2, y=v=>bottom-ch*v/78;
+  [0,20,40,60].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
+  days.forEach((dd,i)=>{let b=0;[[press,C.blue],[ig,C.red],[tt,C.grey]].forEach(([a,c])=>{const v=a[i];if(v){el('rect',{x:left+bw*i+gap/2,y:y(b+v),width:bw-gap,height:y(b)-y(b+v),fill:c},g);if(v>=6&&bw>26)txt(g,xs(i),y(b+v/2)+3.5,v,{fill:c===C.grey?C.ink:C.paper,'font-family':MONO,'font-size':af,'text-anchor':'middle','font-weight':700})}b+=v});
+    txt(g,xs(i),y(tot[i])-5,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(10,(tot[i]>=60?16:12)*s),'font-weight':900,'text-anchor':'middle'});
+    txt(g,xs(i),bottom+af+6,bw<44?dshort[i]:dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
+    const r=el('rect',{x:left+bw*i,y:top,width:bw,height:ch,fill:'transparent'},g);
+    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}</b><br>${tot[i]} conteúdos<br>${press[i]} matérias (${ys[i]} sobre YouTube/Shorts)<br>${ig[i]} posts · ${tt[i]} vídeos TikTok`,p.clientX,p.clientY)};
+    r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)});
+  el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
+  placeEvents(g,ev,xs,top-4,P,i=>y(tot[i])-14);
+  function drawTiers(x0,pw){
+    const f=Math.max(8,8.5*s); let yy=top-4;
+    txt(g,x0,yy,'MATÉRIAS POR PORTE DO VEÍCULO',{fill:C.red,'font-family':MONO,'font-size':f,'font-weight':700});
+    el('line',{x1:x0-12,x2:x0-12,y1:top-14,y2:bottom,stroke:C.rule,'stroke-width':1},g);
+    const rowH=(bottom-yy-8)/tiers.length;
+    tiers.forEach((t,k)=>{const ry=yy+10+k*rowH; const nf=Math.min(rowH*0.42,30*s);
+      const pt=txt(g,x0,ry+nf,t.p+'%',{fill:t.c===C.rule?C.grey:t.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      const lx=x0+pt.getComputedTextLength()+10*s;
+      txt(g,lx,ry+nf*0.45,t.l+' · '+t.n,{fill:C.ink,'font-family':MONO,'font-size':f,'font-weight':700});
+      txt(g,lx,ry+nf*0.45+f*1.4,t.d,{fill:C.grey,'font-family':MONO,'font-size':f});
+      el('rect',{x:x0,y:ry+nf+6,width:pw,height:3,fill:C.rule},g);
+      el('rect',{x:x0,y:ry+nf+6,width:pw*t.p/49,height:3,fill:t.c===C.rule?C.grey:t.c},g)});
+  }
+ }});
+</script>
+
+</body></html>
