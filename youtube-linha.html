@@ -1,0 +1,188 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:240px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+
+<title>Linha do tempo · Listening YouTube</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infográficos do listening — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,{fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'});
+    y+=kf+8*s;
+    const hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.08;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.08}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;lines(svg,pad,y+df,compact?D.deckShort:D.deck,{fill:C.ink,'font-family':BODY,'font-size':df},df*1.4);y+=df*1.4*(compact?D.deckShort:D.deck).length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    ((compact&&D.legendShort)?D.legendShort:D.legend).forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+6*s;
+    const foot=Math.max(9,9*s)*(mid?2:1)*1.5+8;
+    const evRoom=2*Math.max(8,9*s)*1.25+10;
+    const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
+    const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    lines(svg,pad,H-pad-(mid?ff*1.5:0),mid?D.footShort:[D.foot],{fill:C.grey,'font-family':MONO,'font-size':ff},ff*1.5);
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+function placeEvents(g,ev,xs,yTop,P,valY){
+  const f=Math.max(8,9*P.s), lh=f*1.25, ends=[-1e9,-1e9];
+  ev.forEach(e=>{const x=xs(e.i), lab=P.compact?e.short:e.long;
+    const w=lab.length*f*0.62; let r=1; if(x-w/2<ends[1]+8){r=0} if(r===0&&x-w/2<ends[0]+8){r=1}
+    ends[r]=x+w/2; const ty=yTop-(r?0:lh);
+    let ax='middle',tx=x; if(x+w/2>P.W-6){ax='end';tx=x+4} if(x-w/2<6){ax='start';tx=x-4}
+    P.el('line',{x1:x,x2:x,y1:ty+3,y2:Math.max(ty+4,valY(e.i)-5),stroke:P.C.ink,'stroke-width':0.7,'stroke-dasharray':'1 2'},g);
+    P.txt(g,tx,ty,lab,{fill:P.C.ink,'font-family':P.MONO,'font-size':f,'font-weight':700,'text-anchor':ax});
+  });
+}
+</script>
+<script>
+// DADOS: marcos por linha de produto, 16/10/2025 a 16/10/2026. k = marco-chave; br = recorte Brasil; e = data final (período)
+const T0=Date.UTC(2025,9,16), T1=Date.UTC(2026,9,16);
+const d=s=>{const [a,b,c]=s.split('/');return Date.UTC(+c,+b-1,+a)};
+const LANES=[{k:'M',n:'MARCA',ns:'MARCA',c:'#111111'},{k:'P',n:'PLATAFORMA E IA',ns:'PLATAF.',c:'#E8352C'},{k:'A',n:'ANUNCIANTES',ns:'ANUNC.',c:'#1F5BFF'},{k:'S',n:'MUSIC E PREMIUM',ns:'MUSIC',c:'#7B3FE4'},{k:'T',n:'TV E ESPORTES',ns:'TV/ESP.',c:'#C98A00'}];
+const EV=[
+{l:'M',t:'10/11/2025',s:'"O Brasil está aqui"',ss:'BR aqui',x:'Campanha nacional com 16 criadores. Assinatura: "Assistir ao YouTube é se ver nele".',k:1,br:1},
+{l:'M',t:'02/12/2025',s:'Recap',ss:'Recap',x:'Primeira retrospectiva pessoal do YouTube, à moda do Wrapped.',k:1},
+{l:'M',t:'11/12/2025',s:'Mohan, CEO do Ano (TIME)',ss:'TIME',x:'Neal Mohan eleito CEO do Ano pela TIME.'},
+{l:'M',t:'20/01/2026',s:'Nova identidade',ss:'Identidade',x:'Refresh global com identidade em movimento e fonte própria: "unified but never uniform".',k:1},
+{l:'M',t:'21/01/2026',s:'Carta: "a nova TV"',ss:'Carta',x:'Carta do CEO: "YouTube is the new TV because creators are the new prime time".',k:1},
+{l:'M',t:'11/10/2026',s:'B9 analisa "Era YouTube"',ss:'B9',x:'Análise crítica do mote no Brasil.',br:1},
+{l:'P',t:'22/10/2025',s:'Detecção de semelhança por IA',ss:'IA',x:'Ferramenta contra deepfakes liberada a criadores do YPP.'},
+{l:'P',t:'29/01/2026',s:'Contra o "AI slop"',ss:'Slop',x:'Conter conteúdo de IA de baixa qualidade vira prioridade de 2026.'},
+{l:'P',t:'09/04/2026',s:'Avatares de IA no Shorts',ss:'Avatar',x:'Criadores podem gerar avatares de IA com a própria voz.'},
+{l:'P',t:'19/05/2026',s:'I/O: Ask YouTube, Gemini',ss:'I/O',x:'Busca conversacional e remix com Gemini Omni no Shorts.'},
+{l:'P',t:'11/06/2026',s:'Google for Brasil',ss:'G4B',x:'"Pergunte ao Studio": IA em português para criadores.',br:1},
+{l:'P',t:'10/08/2026',s:'Novo YPP',ss:'YPP',x:'Novas regras do Programa de Parcerias, válidas em fev/27.'},
+{l:'P',t:'23/09/2026',s:'Made on YouTube: "YouTube Era"',ss:'Made On',x:'Mote "innovate in the YouTube Era"; IA de edição e afiliados em 35 países.',k:1},
+{l:'A',t:'30/10/2025',s:'3T25: +15%',ss:'3T25',x:'Receita de anúncios de US$ 10,3 bi no 3º tri de 2025.'},
+{l:'A',t:'05/02/2026',s:'Receita 2025 > US$ 60 bi',ss:'US$60bi',x:'Primeira divulgação da receita anual total do YouTube.'},
+{l:'A',t:'23/03/2026',s:'Creator Partnerships',ss:'Creator P.',x:'NewFronts: BrandConnect vira YouTube Creator Partnerships (Brasil incluído).',k:1},
+{l:'A',t:'13/05/2026',s:'Brandcast: "YouTube era"',ss:'Brandcast',x:'Brandcast NY: "Welcome to the YouTube era"; criadores como "a nova Hollywood".',k:1},
+{l:'A',t:'30/06/2026',s:'Cannes: Creator Club',ss:'Cannes',x:'Primeiro Creator Club do YouTube em Cannes Lions.'},
+{l:'A',t:'16/07/2026',s:'Warc: desaceleração',ss:'Warc',x:'Propmark/Warc: publicidade acima de US$ 40 bi, mas crescimento desacelera.',br:1},
+{l:'A',t:'07/10/2026',s:'Brandcast Brasil',ss:'BC BR',x:'"Bem-vindos à Era YouTube": 130 mi de adultos, 90 mi na TV conectada.',k:1,br:1},
+{l:'S',t:'23/10/2025',s:'US$ 8 bi, "twin engine"',ss:'US$8bi',x:'Repasse à indústria musical; anúncios + assinaturas "firing on all cylinders".',k:1},
+{l:'S',t:'17/12/2025',s:'Fora dos charts Billboard',ss:'Billboard',x:'"Every play should count": saída dos charts dos EUA.'},
+{l:'S',t:'16/03/2026',s:'Carta de Lyor Cohen',ss:'Lyor',x:'"Music IS culture"; videoclipe e IA como ferramentas.'},
+{l:'S',t:'10/04/2026',s:'Premium sobe nos EUA',ss:'Preço',x:'Alta de até US$ 4/mês nos EUA; Brasil sem mudança.'},
+{l:'S',t:'20/05/2026',s:'Lite no Google AI Pro',ss:'Lite',x:'Premium Lite vira benefício do plano de IA do Google.'},
+{l:'S',t:'23/07/2026',s:'Assinaturas > anúncios',ss:'Assin.',x:'Alphabet: assinaturas do YouTube crescem mais rápido que anúncios.'},
+{l:'S',t:'14/10/2026',s:'Rótulo de IA nas músicas',ss:'IA',x:'YouTube Music passa a rotular faixas feitas com IA.'},
+{l:'T',t:'30/10/2025',e:'14/11/2025',s:'Apagão Disney',ss:'Disney',x:'ESPN e ABC fora do YouTube TV por duas semanas.'},
+{l:'T',t:'17/12/2025',s:'Oscar a partir de 2029',ss:'Oscar',x:'Oscar exclusivo e gratuito no YouTube de 2029 a 2033.',k:1},
+{l:'T',t:'06/02/2026',s:'"Don\'t Settle for Meh"',ss:'Meh',x:'Filme do YouTube TV no Super Bowl LX.',k:1},
+{l:'T',t:'17/03/2026',s:'FIFA: plataforma preferida',ss:'FIFA',x:'YouTube vira "Preferred Platform" da Copa 2026.'},
+{l:'T',t:'14/05/2026',s:'2 bi h de Shorts na TV',ss:'CTV',x:'A sala de estar é a tela que mais cresce.'},
+{l:'T',t:'11/06/2026',e:'19/07/2026',s:'Copa na CazéTV',ss:'Copa',x:'104 jogos grátis; picos de até 23 mi de aparelhos; 120 mi alcançados.',k:1,br:1},
+{l:'T',t:'10/09/2026',s:'Nielsen: 14,2%',ss:'14,2%',x:'Recorde de audiência de TV nos EUA (julho).'},
+];
+const MOTE=[{a:'16/10/2025',b:'21/01/2026',t:'PLATAFORMA / 20 ANOS',ts:'20 ANOS'},{a:'21/01/2026',b:'01/04/2026',t:'"A NOVA TV"',ts:'NOVA TV'},{a:'01/04/2026',b:'16/10/2026',t:'"ERA YOUTUBE"',ts:'ERA YOUTUBE'}];
+const MES=['OUT/25','NOV','DEZ','JAN/26','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT/26'];
+const MS=['O','N','D','J','F','M','A','M','J','J','A','S','O'];
+renderInfo({aria:'Linha do tempo dos marcos de posicionamento do YouTube por linha de produto, de outubro de 2025 a outubro de 2026',
+ kicker:'LISTENING / YOUTUBE · POSICIONAMENTO DE MARCA / LINHA DO TEMPO POR PRODUTO / OUT 2025 – OUT 2026', kickerShort:'YOUTUBE / LINHA DO TEMPO',
+ head:['De plataforma a "Era YouTube":','34 marcos em cinco frentes.'], headShort:['De plataforma','a "Era YouTube".'],
+ deck:['O mote muda duas vezes: "a nova TV" na carta do CEO (jan/26) e "Era YouTube" a partir do Brandcast (abr–mai/26), que chega ao Brasil em out/26.','Marcos-chave em círculo cheio; anel azul = recorte Brasil. Toque em um ponto para ver o detalhe.'],
+ deckShort:['O mote muda: "nova TV" (jan) e','"Era YouTube" (abr). Toque nos pontos.'],
+ kpis:[{n:'34',l:'MARCOS MAPEADOS',ls:'MARCOS',c:'#111111'},{n:'12',l:'MARCOS-CHAVE',ls:'CHAVE',c:'#E8352C'},{n:'6',l:'COM RECORTE BRASIL',ls:'BRASIL',c:'#1F5BFF'},{n:'3',l:'MOTES NO ANO',ls:'MOTES',c:'#C98A00'}],
+ legend:[{t:'● MARCO-CHAVE',c:'#111111'},{t:'○ MARCO',c:'#8A867D'},{t:'◎ RECORTE BRASIL',c:'#1F5BFF'},{t:'▬ PERÍODO',c:'#8A867D'}],
+ legendShort:[{t:'● CHAVE',c:'#111111'},{t:'○ MARCO',c:'#8A867D'},{t:'◎ BRASIL',c:'#1F5BFF'}],
+ axisNote:'', yLeft:false, yRight:false,
+ foot:'FONTE: EUPHORIA CREATIVE · marcos de imprensa e canais oficiais (blog.youtube, Google, keynotes, entrevistas e mídia de negócios), por data. Seleção editorial dos 164 itens mapeados. Out/26 parcial (até 16/10).',
+ footShort:['FONTE: EUPHORIA · marcos de imprensa e canais oficiais;','seleção editorial dos 164 itens. Out/26 parcial.'],
+ chart(P){
+  const {svg,top,bottom,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W}=P;
+  const g=el('g',{},svg); const f=Math.max(8,(compact?8:9.5)*s); const af=Math.max(8,8.5*s);
+  const labW=compact?Math.max(44,52*s):Math.max(96,120*s);
+  const left=P.left+labW, right=P.right-4, cw=right-left;
+  const X=t=>left+cw*Math.min(1,Math.max(0,(t-T0)/(T1-T0)));
+  // faixa de mote
+  const mh=Math.max(14,18*s); const my=top;
+  MOTE.forEach((m,i)=>{const x1=X(d(m.a)),x2=X(d(m.b));el('rect',{x:x1,y:my,width:x2-x1-2,height:mh,fill:i==2?'#E8352C':(i==1?'#111111':'#CFCAC0')},g);
+    const lab=compact?m.ts:m.t; const tt=txt(g,x1+5,my+mh*0.7,lab,{fill:i==0?'#111111':'#FFFFFF','font-family':MONO,'font-size':af,'font-weight':700});
+    if(tt.getComputedTextLength()>x2-x1-10)tt.remove()});
+  txt(g,P.left,my+mh*0.7,'MOTE',{fill:C.grey,'font-family':MONO,'font-size':af,'font-weight':700});
+  const axisH=af+10; const ly0=my+mh+8, ly1=bottom-axisH; const lh=(ly1-ly0)/LANES.length;
+  // grade mensal
+  for(let i=0;i<13;i++){const t=Date.UTC(2025,9+i,1);const x=i==0?left:X(t);
+    el('line',{x1:x,x2:x,y1:ly0,y2:ly1,stroke:C.rule,'stroke-width':0.6},g);
+    const mid=i==12?(x+right)/2:(x+X(Date.UTC(2025,10+i,1)))/2;
+    txt(g,i==0?(left+X(Date.UTC(2025,10,1)))/2:mid,ly1+af+6,(cw/12<46)?MS[i]:MES[i],{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'})}
+  const r=Math.max(3.5,(compact?4:5.5)*s), lineH=f*1.35;
+  LANES.forEach((L,li)=>{const y0=ly0+li*lh, yc=y0+lh*0.5;
+    if(li%2==0)el('rect',{x:P.left,y:y0,width:right-P.left,height:lh,fill:'#F4F2EE'},g);
+    el('rect',{x:P.left,y:y0+4,width:3,height:lh-8,fill:L.c},g);
+    const nf=Math.max(8.5,(compact?8.5:10.5)*s);
+    const words=(compact?L.ns:L.n).split(' ');
+    if(!compact&&words.length>2){txt(g,P.left+9,yc-2,words.slice(0,-2).join(' '),{fill:L.c,'font-family':MONO,'font-size':nf,'font-weight':700});txt(g,P.left+9,yc-2+nf*1.2,words.slice(-2).join(' '),{fill:L.c,'font-family':MONO,'font-size':nf,'font-weight':700})}
+    else txt(g,P.left+9,yc+nf*0.35,compact?L.ns:L.n,{fill:L.c,'font-family':MONO,'font-size':nf,'font-weight':700});
+    el('line',{x1:left,x2:right,y1:yc,y2:yc,stroke:L.c,'stroke-width':1,opacity:0.35},g);
+    // rótulos: linhas acima e abaixo do eixo da faixa
+    const slots=[], nRows=Math.max(1,Math.floor((lh/2-r-2)/lineH));
+    for(let k=0;k<nRows;k++){slots.push({y:yc-r-4-k*lineH,end:-1e9});slots.push({y:yc+r+4+f+k*lineH,end:-1e9})}
+    EV.filter(e=>e.l==L.k).sort((a,b)=>d(a.t)-d(b.t)).forEach(e=>{
+      const x=X(d(e.t));
+      if(e.e){el('rect',{x,y:yc-r*0.6,width:Math.max(2,X(d(e.e))-x),height:r*1.2,fill:L.c,opacity:0.45,rx:r*0.6},g)}
+      const c=el('circle',{cx:x,cy:yc,r:e.k?r*1.15:r,fill:e.k?L.c:'#FFFFFF',stroke:L.c,'stroke-width':1.6},g);
+      if(e.br)el('circle',{cx:x,cy:yc,r:(e.k?r*1.15:r)+3,fill:'none',stroke:'#1F5BFF','stroke-width':1.8},g);
+      const lab=(compact?e.ss:e.s); const fs=e.k?f:f*0.92;
+      const tmp=txt(g,0,-100,lab,{'font-family':BODY,'font-size':fs,'font-weight':e.k?700:600}); const w=tmp.getComputedTextLength(); tmp.remove();
+      let tx=x-r; if(tx+w>right)tx=right-w;
+      const sl=slots.find(q=>tx>q.end+6);
+      if(sl){txt(g,tx,sl.y,lab,{fill:e.k?C.ink:'#55524C','font-family':BODY,'font-size':fs,'font-weight':e.k?700:600});sl.end=tx+w;
+        if(Math.abs(sl.y-yc)>lineH*1.2)el('line',{x1:x,x2:x,y1:sl.y<yc?sl.y+3:sl.y-f,y2:sl.y<yc?yc-r:yc+r,stroke:L.c,'stroke-width':0.6,'stroke-dasharray':'1 2'},g)}
+      const hit=el('circle',{cx:x,cy:yc,r:Math.max(12,r*2.5),fill:'transparent'},g);
+      const h=ev=>{const p=ev.touches?ev.touches[0]:ev;showTip(tip,`<b>${e.t}${e.e?' – '+e.e:''} · ${L.n}</b><br>${e.s}${e.br?' 🇧🇷':''}<br>${e.x}`,p.clientX,p.clientY)};
+      hit.addEventListener('mousemove',h);hit.addEventListener('touchstart',h,{passive:true});hit.addEventListener('mouseleave',()=>tip.hidden=true);
+    });
+  });
+ }});
+</script>
+
+</body></html>
