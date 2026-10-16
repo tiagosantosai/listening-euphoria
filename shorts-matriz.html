@@ -1,0 +1,129 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:240px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+
+<title>Shorts × concorrentes · temas por plataforma</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infográficos do listening — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,{fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'});
+    y+=kf+8*s;
+    const hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.2;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.2}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;lines(svg,pad,y+df,compact?D.deckShort:D.deck,{fill:C.ink,'font-family':BODY,'font-size':df},df*1.4);y+=df*1.4*(compact?D.deckShort:D.deck).length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    D.legend.forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+6*s;
+    const foot=Math.max(9,9*s)*(mid?2:1)*1.5+8;
+    const evRoom=2*Math.max(8,9*s)*1.25+10;
+    const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
+    const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    lines(svg,pad,H-pad-(mid?ff*1.5:0),mid?D.footShort:[D.foot],{fill:C.grey,'font-family':MONO,'font-size':ff},ff*1.5);
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+function placeEvents(g,ev,xs,yTop,P,valY){
+  const f=Math.max(8,9*P.s), lh=f*1.25, ends=[-1e9,-1e9];
+  ev.forEach(e=>{const x=xs(e.i), lab=P.compact?e.short:e.long;
+    const w=lab.length*f*0.62; let r=1; if(x-w/2<ends[1]+8){r=0} if(r===0&&x-w/2<ends[0]+8){r=1}
+    ends[r]=x+w/2; const ty=yTop-(r?0:lh);
+    let ax='middle',tx=x; if(x+w/2>P.W-6){ax='end';tx=x+4} if(x-w/2<6){ax='start';tx=x-4}
+    P.el('line',{x1:x,x2:x,y1:ty+3,y2:Math.max(ty+4,valY(e.i)-5),stroke:P.C.ink,'stroke-width':0.7,'stroke-dasharray':'1 2'},g);
+    P.txt(g,tx,ty,lab,{fill:P.C.ink,'font-family':P.MONO,'font-size':f,'font-weight':700,'text-anchor':ax});
+  });
+}
+</script>
+<script>
+// DADOS (substituir após a classificação): % das menções de cada plataforma, por tema, em cada perspectiva
+const plats=['YOUTUBE SHORTS','TIKTOK','INSTAGRAM REELS','KWAI'], platsS=['SHORTS','TIKTOK','REELS','KWAI'];
+const temas=['ALCANCE','DINHEIRO','TEMPO/VÍCIO','QUALIDADE','PÚBLICO','FERRAMENTAS','COMPARAÇÃO'];
+const temasM=['ALCANCE','DINHEIRO','VÍCIO','QUALID.','PÚBLICO','FERRAM.','COMPARA'];
+const temasS=['ALC','R$','VÍC','QUAL','PÚB','FERR','COMP'];
+const nA=[235,269,127,48], nC=[196,306,38,12];
+const A=[[7,3,2,7,21,5,14],[4,15,1,8,10,1,11],[2,2,4,9,9,2,9],[0,15,0,6,2,2,6]];
+const Cr=[[51,41,5,7,9,14,7],[83,28,1,3,4,4,5],[63,29,3,8,0,13,21],[67,50,8,33,0,8,8]];
+const PC=['#E8352C','#111111','#7B3FE4','#C98A00'];
+renderInfo({aria:'Matriz de temas das conversas sobre cada plataforma, separando audiência e criadores',
+ kicker:'LISTENING / YOUTUBE SHORTS × CONCORRENTES / DO QUE SE FALA DE CADA PLATAFORMA', kickerShort:'SHORTS × CONCORRENTES / TEMAS',
+ head:['Quem cria fala de alcance.','No Shorts, também de dinheiro.'], headShort:['Quem cria fala de alcance.','No Shorts, de dinheiro.'],
+ deck:['Criadores: 83% das menções ao TikTok falam de alcance; no Shorts, 41% falam de dinheiro, o maior peso entre as três grandes.','Audiência: o Shorts é lembrado pelos comentários e pela comunidade (21%) e comparado (14%); o TikTok, pelo Shop (15%).'], deckShort:['Criadores: TikTok = alcance (83%);','Shorts = alcance (51%) e dinheiro (41%).'],
+ kpis:[{n:'1.231',l:'MENÇÕES CLASSIFICADAS',ls:'MENÇÕES',c:'#111111'},{n:'679',l:'DE QUEM ASSISTE',ls:'AUDIÊNCIA',c:'#1F5BFF'},{n:'552',l:'DE QUEM CRIA',ls:'CRIADORES',c:'#E8352C'}],
+ legend:[{t:'● TAMANHO = % DAS MENÇÕES DA PLATAFORMA NAQUELE TEMA',c:'#8A867D'}],
+ axisNote:'', yLeft:false, yRight:false,
+ foot:'FONTE: EUPHORIA CREATIVE · comentários e legendas de TikTok, Instagram e YouTube que citam a plataforma, classificados por palavra-chave e revisados à mão. Uma menção pode ter mais de um tema. Kwai entre criadores: n pequeno (12).',
+ footShort:['FONTE: EUPHORIA · comentários e legendas que citam a plataforma,','classificados por tema. Uma menção pode ter mais de um tema.'],
+ chart(P){
+  const {svg,left,right,top,bottom,s,compact,C,MONO,DISP,el,txt,tip,W}=P;
+  const g=el('g',{},svg); const af=Math.max(8,8.5*s);
+  const stack=W<760; const gap=stack?18:40;
+  const pw=stack?(right-left):(right-left-gap)/2, ph=stack?(bottom-top-gap)/2:(bottom-top);
+  [[A,nA,'AUDIÊNCIA · QUEM ASSISTE','#1F5BFF'],[Cr,nC,'CRIADORES · QUEM POSTA','#E8352C']].forEach(([M,N,title,tc],k)=>{
+    const x0=left+(stack?0:k*(pw+gap)), y0=top+(stack?k*(ph+gap):0);
+    txt(g,x0,y0+af,title,{fill:tc,'font-family':MONO,'font-size':af,'font-weight':700});
+    const labW=Math.min(compact?62:120,pw*0.28), gx=x0+labW, gw=pw-labW, cw=gw/temas.length;
+    const hy=y0+af*2.6, gy=hy+af*1.2, rh=(y0+ph-gy)/plats.length, rmax=Math.max(4,Math.min(cw,rh)*0.42);
+    temas.forEach((t,j)=>txt(g,gx+cw*j+cw/2,hy,(cw>=86?temas:cw>=46?temasM:temasS)[j],{fill:C.grey,'font-family':MONO,'font-size':af*0.9,'font-weight':700,'text-anchor':'middle'}));
+    plats.forEach((p,i)=>{const cy=gy+rh*i+rh/2;
+      const showN=rh>=af*3.2;txt(g,x0,cy+(showN?-1:af*0.35),(pw<520?platsS:plats)[i],{fill:PC[i],'font-family':MONO,'font-size':af,'font-weight':700});
+      if(showN)txt(g,x0,cy+af+2,'n='+N[i],{fill:C.grey,'font-family':MONO,'font-size':af*0.85});
+      el('line',{x1:gx,x2:gx+gw,y1:cy,y2:cy,stroke:C.rule,'stroke-width':0.6},g);
+      temas.forEach((t,j)=>{const v=M[i][j], cx=gx+cw*j+cw/2, r=v?Math.max(2.5,rmax*Math.sqrt(v/100)):0;
+        if(r)el('circle',{cx,cy,r,fill:PC[i],opacity:0.85},g);
+        if(v>=10&&r>af*0.9)txt(g,cx,cy+af*0.35,v,{fill:C.paper,'font-family':MONO,'font-size':af*0.9,'font-weight':700,'text-anchor':'middle'});
+        const hit=el('rect',{x:cx-cw/2,y:cy-rh/2,width:cw,height:rh,fill:'transparent'},g);
+        const h=e=>{const q=e.touches?e.touches[0]:e;showTip(tip,`<b>${plats[i]} · ${title.split(' ·')[0]}</b><br>${temas[j]}: ${v}% das ${N[i]} menções`,q.clientX,q.clientY)};
+        hit.addEventListener('mousemove',h);hit.addEventListener('touchstart',h,{passive:true});hit.addEventListener('mouseleave',()=>tip.hidden=true)});
+    });
+  });
+ }});
+</script>
+
+</body></html>
