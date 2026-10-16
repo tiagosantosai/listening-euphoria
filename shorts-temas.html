@@ -1,0 +1,123 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:240px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+
+<title>Shorts × concorrentes · temas por mês</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infográficos do listening — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,{fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'});
+    y+=kf+8*s;
+    const hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.2;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.2}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;lines(svg,pad,y+df,compact?D.deckShort:D.deck,{fill:C.ink,'font-family':BODY,'font-size':df},df*1.4);y+=df*1.4*(compact?D.deckShort:D.deck).length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    D.legend.forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+6*s;
+    const foot=Math.max(9,9*s)*(mid?2:1)*1.5+8;
+    const evRoom=2*Math.max(8,9*s)*1.25+10;
+    const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
+    const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    lines(svg,pad,H-pad-(mid?ff*1.5:0),mid?D.footShort:[D.foot],{fill:C.grey,'font-family':MONO,'font-size':ff},ff*1.5);
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+function placeEvents(g,ev,xs,yTop,P,valY){
+  const f=Math.max(8,9*P.s), lh=f*1.25, ends=[-1e9,-1e9];
+  ev.forEach(e=>{const x=xs(e.i), lab=P.compact?e.short:e.long;
+    const w=lab.length*f*0.62; let r=1; if(x-w/2<ends[1]+8){r=0} if(r===0&&x-w/2<ends[0]+8){r=1}
+    ends[r]=x+w/2; const ty=yTop-(r?0:lh);
+    let ax='middle',tx=x; if(x+w/2>P.W-6){ax='end';tx=x+4} if(x-w/2<6){ax='start';tx=x-4}
+    P.el('line',{x1:x,x2:x,y1:ty+3,y2:Math.max(ty+4,valY(e.i)-5),stroke:P.C.ink,'stroke-width':0.7,'stroke-dasharray':'1 2'},g);
+    P.txt(g,tx,ty,lab,{fill:P.C.ink,'font-family':P.MONO,'font-size':f,'font-weight':700,'text-anchor':ax});
+  });
+}
+</script>
+<script>
+const days=['OUT/25','NOV','DEZ','JAN/26','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT/26'];
+const dshort=['O','N','D','J','F','M','A','M','J','J','A','S','O'];
+const T={"Alcance": [0, 39, 23, 65, 24, 38, 35, 22, 34, 29, 46, 106, 145], "Dinheiro": [1, 21, 27, 45, 13, 32, 27, 17, 22, 35, 25, 80, 66], "Vício": [0, 3, 1, 10, 4, 14, 10, 9, 3, 3, 4, 13, 4], "Qualidade": [0, 4, 6, 10, 4, 4, 5, 5, 6, 19, 11, 15, 18], "Público": [1, 8, 6, 13, 7, 7, 9, 6, 5, 8, 15, 12, 7], "Ferramentas": [1, 14, 28, 20, 14, 12, 10, 7, 14, 15, 34, 78, 41], "Comparação": [2, 12, 8, 16, 8, 12, 9, 7, 4, 6, 16, 26, 33]};
+const G=[{k:'Alcance',l:'ALCANCE E ALGORITMO',s:'ALCANCE',c:'#2a78d6',v:T['Alcance']},{k:'Dinheiro',l:'DINHEIRO E GANHOS',s:'DINHEIRO',c:'#eb6834',v:T['Dinheiro']},{k:'Ferramentas',l:'FERRAMENTAS E FORMATO',s:'FERRAM.',c:'#1baf7a',v:T['Ferramentas']},{k:'Comparação',l:'COMPARAÇÃO',s:'COMPARA',c:'#eda100',v:T['Comparação']},{k:'Outros',l:'QUALIDADE, PÚBLICO E VÍCIO',s:'OUTROS',c:'#B5B1A8',v:days.map((_,i)=>T['Qualidade'][i]+T['Público'][i]+T['Vício'][i])}];
+const tot=days.map((_,i)=>G.reduce((a,g)=>a+g.v[i],0));
+const MOM=[{a:1,b:1,l:'BLACK FRIDAY',s:'BF',r:0},{a:3,b:6,l:'BBB26',s:'BBB',r:0},{a:4,b:4,l:'CARNAVAL',s:'CAR',r:1},{a:8,b:9,l:'COPA DO MUNDO',s:'COPA',r:0},{a:8,b:8,l:'SÃO JOÃO',s:'SJ',r:1},{a:10,b:12,l:'ELEIÇÕES',s:'ELEIÇÕES',r:0},{a:11,b:11,l:'A FAZENDA',s:'FAZ',r:1}];
+const YMAX=380, TICKS=[0,100,200,300];
+renderInfo({aria:'Menções a temas de uso das plataformas por mês, com os momentos culturais do período destacados',
+ kicker:'LISTENING / YOUTUBE SHORTS × CONCORRENTES / TEMAS AO LONGO DO TEMPO', kickerShort:'SHORTS × CONCORRENTES / TEMAS POR MÊS',
+ head:['Os grandes momentos mexem pouco','na conversa sobre uso.'], headShort:['Grandes momentos','mexem pouco na conversa.'],
+ deck:['Menções a temas por mês em comentários e matérias sobre uso das plataformas. Na Copa (jun–jul), o volume ficou entre 88 e 115;','o pico de set–out/26 vem de alcance e ferramentas (Edits, Reels de 20 min), não das eleições nem de A Fazenda.'],
+ deckShort:['Na Copa, 88 a 115 menções por mês.','O pico de set–out vem de alcance e ferramentas.'],
+ kpis:[{n:'1.753',l:'MENÇÕES A TEMAS',ls:'MENÇÕES',c:'#111111'},{n:'35%',l:'FALAM DE ALCANCE',ls:'ALCANCE',c:'#2a78d6'},{n:'23%',l:'FALAM DE DINHEIRO',ls:'DINHEIRO',c:'#eb6834'},{n:'7',l:'MOMENTOS DESTACADOS',ls:'MOMENTOS',c:'#8A867D'}],
+ legend:G.map(g=>({t:'■ '+g.s,c:g.c})),
+ axisNote:'', yLeft:true, yRight:false,
+ foot:'FONTE: EUPHORIA CREATIVE · 5.240 comentários e 86 matérias sobre uso, por mês; uma menção pode ter mais de um tema. Meses recentes têm mais comentários na amostra.',
+ footShort:['FONTE: EUPHORIA · comentários e matérias sobre uso, por mês. Meses','recentes têm mais comentários na amostra. Out/25 e out/26 parciais.'],
+ chart(P){
+  const {svg,left,right,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip,W}=P;
+  const g=el('g',{},svg); const af=Math.max(8,8.5*s);
+  const n=days.length, cw=right-left, bw=cw/n, gap=Math.max(3,bw*0.24), xs=i=>left+bw*i+bw/2;
+  const laneH=af*1.9, strip=laneH*2+6, btop=top+strip+af*1.6, bch=bottom-btop, y=v=>bottom-bch*v/YMAX;
+  MOM.forEach(m=>{const x0=left+bw*m.a+1, x1=left+bw*(m.b+1)-1, yy=top+m.r*(laneH+3);
+    el('rect',{x:left+bw*m.a,y:btop-af*0.4,width:bw*(m.b-m.a+1),height:bottom-btop+af*0.4,fill:'#F2EFE8',opacity:m.r?0.5:0.9},g);
+    el('rect',{x:x0,y:yy,width:x1-x0,height:laneH,rx:3,fill:'#111111',opacity:m.r?0.55:0.85},g);
+    const lab=(x1-x0)>m.l.length*af*0.62+8?m.l:m.s; if((x1-x0)>lab.length*af*0.6+4)txt(g,(x0+x1)/2,yy+laneH*0.68,lab,{fill:'#FFFFFF','font-family':MONO,'font-size':af*0.9,'font-weight':700,'text-anchor':'middle'});
+    const hit=el('rect',{x:x0,y:yy,width:x1-x0,height:laneH,fill:'transparent'},g);const h=e=>{const q=e.touches?e.touches[0]:e;showTip(tip,`<b>${m.l}</b><br>${days[m.a]}${m.b>m.a?' a '+days[m.b]:''}`,q.clientX,q.clientY)};hit.addEventListener('mousemove',h);hit.addEventListener('touchstart',h,{passive:true});hit.addEventListener('mouseleave',()=>tip.hidden=true)});
+  TICKS.forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
+  days.forEach((dd,i)=>{let b=0;G.forEach(gg=>{const v=gg.v[i];if(v){const h=y(b)-y(b+v);el('rect',{x:left+bw*i+gap/2,y:y(b+v)+1,width:bw-gap,height:Math.max(0,h-2),fill:gg.c,rx:1.5},g);if(h>af*1.5&&bw>30)txt(g,xs(i),y(b+v/2)+3.5,v,{fill:'#111111','font-family':MONO,'font-size':af*0.9,'text-anchor':'middle','font-weight':700})}b+=v});
+    txt(g,xs(i),y(tot[i])-5,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(10,12*s),'font-weight':900,'text-anchor':'middle'});
+    txt(g,xs(i),bottom+af+6,bw<44?dshort[i]:dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
+    const r=el('rect',{x:left+bw*i,y:btop,width:bw,height:bch,fill:'transparent'},g);
+    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}</b> · ${tot[i]} menções<br>`+G.map(gg=>`${gg.s} ${gg.v[i]}`).join(' · ')+`<br>Momentos: ${MOM.filter(m=>i>=m.a&&i<=m.b).map(m=>m.l).join(', ')||'nenhum'}`,p.clientX,p.clientY)};
+    r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)});
+  el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
+ }});
+</script>
+
+</body></html>
