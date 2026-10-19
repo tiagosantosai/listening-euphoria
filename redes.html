@@ -30,7 +30,7 @@ window.renderInfo=function(D){
     const W=window.innerWidth,H=window.innerHeight;
     const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
     el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
-    const compact=W<620, tiny=H<380, mid=W<1000;
+    const compact=W<620, tiny=H<380, mid=W<1200;
     const pad=Math.max(14,Math.min(W*0.035,40));
     const s=Math.max(0.62,Math.min(W/1100,H/700,1.25)); // escala tipográfica
     let y=pad;
@@ -92,23 +92,23 @@ function placeEvents(g,ev,xs,yTop,P,valY){
 </script>
 
 <script>
-const days=['05/10','06/10','07/10','08/10','09/10','10/10','11/10','12/10','13/10','14/10','15/10'];
-const imp=[0.0,1.87,0.51,0.22,0.36,14.67,4.22,0.05,6.87,0.45,1.10];
-const inter=[0.2,380.0,266.5,11.8,33.5,1542.1,794.7,2.3,548.4,31.2,73.9];
-const press=[0,0.62,7.09,1.08,0.72,2.09,6.50,0,7.10,1.98,0];
-const nmat=[0,2,42,11,2,12,18,0,19,7,1];
-const conv=[0.0,93.6,44.6,2.4,2.5,191.2,73.3,0.6,24.4,1.9,3.4];
-const ev=[{i:1,long:'DANIELA DECLARA\nVOTO EM LULA',short:'VOTO'},{i:2,long:'DANIELA\nCOBRA IVETE',short:'COBRANÇA'},{i:5,long:'IVETE PEDE\n"LUCIDEZ"',short:'LUCIDEZ'},{i:6,long:'MARCHA NA\nPAULISTA',short:'MARCHA'},{i:8,long:'MORRE\nNETINHO',short:'NETINHO'}];
+const days=["05/10", "06/10", "07/10", "08/10", "09/10", "10/10", "11/10", "12/10", "13/10", "14/10", "15/10", "16/10", "17/10", "18/10", "19/10"];
+const imp=[0.0, 1.87, 0.51, 0.22, 0.36, 14.67, 4.22, 0.05, 6.87, 0.45, 1.72, 0.19, 0.01, 5.05, 0.33];
+const inter=[0.2, 380.0, 266.5, 11.8, 33.5, 1542.1, 794.7, 2.3, 548.4, 31.2, 103.4, 19.4, 10.5, 1020.3, 80.3];
+const press=[0, 0.62, 7.09, 1.08, 0.72, 2.09, 6.5, 0, 7.1, 1.98, 0, 4.55, 3.97, 4.62, 0.04];
+const nmat=[0, 2, 42, 11, 2, 12, 18, 0, 19, 7, 1, 22, 4, 25, 3];
+const conv=[0.0, 93.6, 44.6, 2.4, 2.5, 191.2, 73.3, 0.6, 24.4, 1.9, 4.7, 2.0, 1.0, 89.0, 7.1];
+const ev=[{i:1,long:'DANIELA DECLARA\nVOTO EM LULA',short:'VOTO'},{i:2,long:'DANIELA\nCOBRA IVETE',short:'COBRANÇA'},{i:5,long:'IVETE PEDE\n"LUCIDEZ"',short:'LUCIDEZ'},{i:6,long:'MARCHA NA\nPAULISTA',short:'MARCHA'},{i:8,long:'MORRE\nNETINHO',short:'NETINHO'},{i:11,long:'IVETE NA\nPROPAGANDA',short:'PROPAG.'},{i:13,long:'ATO EM\nSALVADOR',short:'ATO'}];
 renderInfo({aria:'Impactos, interações e conversas nas redes por dia, de 5 a 15 de outubro de 2026',
- kicker:'LISTENING / IVETE SANGALO & DANIELA MERCURY / 05–15 OUT 2026', kickerShort:'IVETE & DANIELA / 05–15 OUT',
+ kicker:'LISTENING / IVETE SANGALO & DANIELA MERCURY / 05–19 OUT 2026', kickerShort:'IVETE & DANIELA / 05–19 OUT',
  head:['14,7 milhões de views em um único dia.'], headShort:['14,7 mi de views','em um único dia.'],
- deck:['A "lucidez" de Ivete em Fortaleza gerou o maior pico do monitoramento. A morte de Netinho veio em segundo:','muito alcance, pouca conversa (4 comentários a cada mil views, contra 50 na declaração de voto de Daniela).'],
- deckShort:['A "lucidez" de Ivete gerou o maior pico.','Netinho: muito alcance, pouca conversa.'],
- kpis:[{n:'30,3 mi',l:'VIEWS NAS REDES',ls:'VIEWS',c:'#111111'},{n:'27,2 mi',l:'ALCANCE POTENCIAL · IMPRENSA*',ls:'IMPRENSA*',c:'#1F5BFF'},{n:'3,7 mi',l:'INTERAÇÕES',ls:'INTERAÇÕES',c:'#E8352C'},{n:'438 mil',l:'CONVERSAS · COMENTÁRIOS',ls:'COMENTÁRIOS',c:'#C98A00'}],
+ deck:['A "lucidez" de Ivete (10/10) segue como o maior pico. O ato de Daniela em Salvador (18/10) teve o 2º maior volume de interações:','1 mi, com 5 mi de views nas redes e 4,6 mi de alcance potencial na imprensa no mesmo dia.'],
+ deckShort:['Ato de Daniela (18/10): 2º maior dia','em interações (1 mi), com 5 mi de views.'],
+ kpis:[{n:'36,5 mi',l:'VIEWS NAS REDES',ls:'VIEWS',c:'#111111'},{n:'40,4 mi',l:'ALCANCE POTENCIAL · IMPRENSA*',ls:'IMPRENSA*',c:'#1F5BFF'},{n:'4,8 mi',l:'INTERAÇÕES',ls:'INTERAÇÕES',c:'#E8352C'},{n:'538 mil',l:'CONVERSAS · COMENTÁRIOS',ls:'COMENTÁRIOS',c:'#C98A00'}],
  legend:[{t:'■ VIEWS',c:'#111111'},{t:'— INTERAÇÕES',c:'#E8352C'},{t:'··· COMENTÁRIOS',c:'#C98A00'},{t:'■ IMPRENSA*',c:'#1F5BFF'}],
  axisNote:'EIXO DIREITO, EM VERMELHO: INTERAÇÕES E COMENTÁRIOS · ESCALA 10× MAIOR', yLeft:true, yRight:true,
- foot:'FONTE: EUPHORIA CREATIVE · Views = reels do Instagram + TikTok. *Imprensa: audiência média diária dos veículos que publicaram no dia (Comscore ago/26, visitantes únicos ÷ 30) — teto potencial, não leitura da matéria. 15/10 parcial.',
- footShort:['FONTE: EUPHORIA · *Imprensa = audiência diária dos veículos','(Comscore ago/26): teto potencial, não leitura. 15/10 parcial.'],
+ foot:'FONTE: EUPHORIA CREATIVE · Views = reels do Instagram + TikTok. *Imprensa: audiência média diária dos veículos que publicaram no dia (Comscore ago/26, visitantes únicos ÷ 30) — teto potencial, não leitura da matéria. 19/10 parcial.',
+ footShort:['FONTE: EUPHORIA · *Imprensa = audiência diária dos veículos','(Comscore ago/26): teto potencial, não leitura. 19/10 parcial.'],
  chart(P){
   const {svg,left,right,top,bottom,cw,ch,s,compact,C,MONO,DISP,el,txt,tip}=P;
   const n=days.length, xs=i=>left+cw*(i/(n-1)), yL=v=>bottom-ch*v/16.5, yR=v=>bottom-ch*v/1750;
@@ -133,6 +133,7 @@ renderInfo({aria:'Impactos, interações e conversas nas redes por dia, de 5 a 1
   // rótulos diretos
   const vf=Math.max(10,12*s);
   txt(g,xs(5)-6,yL(14.67)-6,compact?'14,7 mi':'14,7 mi views',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
+  if(!compact)txt(g,xs(13)+Math.max(6,cw/(n-1)*0.42)/2+5,yL(5.05)-4,'5,1 mi',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900});
   txt(g,xs(8)-Math.max(6,cw/(n-1)*0.42)/2-5,yL(6.87)-4,'6,9 mi',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
   placeEvents(g,ev,xs,top-4,P,i=>Math.min(yL(imp[i]),yR(inter[i])));
   // interação: toque/passar o mouse
