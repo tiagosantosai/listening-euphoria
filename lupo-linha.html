@@ -1,0 +1,191 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:250px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+<title>Linha do tempo · Listening Lupo</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    const avail=W-2*pad;
+    {const ko={fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'};
+     let kt=txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,ko);
+     if(kt.getComputedTextLength()>avail&&D.kickerShort&&!compact){kt.remove();kt=txt(svg,pad,y+kf,D.kickerShort,ko)}
+     const kl=kt.getComputedTextLength(); if(kl>avail)kt.setAttribute('font-size',kf*avail/kl*0.98);}
+    y+=kf+8*s;
+    let hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    {const probe=hl.map(t=>txt(svg,0,-100,t,{'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'}));
+     const mw=Math.max(...probe.map(t=>t.getComputedTextLength())); probe.forEach(t=>t.remove()); if(mw>avail)hf=hf*avail/mw*0.98;}
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.08;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.08}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;
+      const src=compact?D.deckShort:D.deck, o={fill:C.ink,'font-family':BODY,'font-size':df}, out=[];
+      src.forEach(par=>{const words=par.split(' ');let cur='';const pr=txt(svg,0,-100,'',o);
+        words.forEach(w=>{const t=cur?cur+' '+w:w;pr.textContent=t;if(pr.getComputedTextLength()>avail&&cur){out.push(cur);cur=w}else cur=t});
+        if(cur)out.push(cur);pr.remove();});
+      lines(svg,pad,y+df,out,o,df*1.4);y+=df*1.4*out.length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      const lt=txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});
+      const ll=lt.getComputedTextLength(); if(ll>kw-12)lt.setAttribute('font-size',lf*(kw-12)/ll);});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    ((compact&&D.legendShort)?D.legendShort:D.legend).forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+6*s;
+    const foot=Math.max(9,9*s)*2*1.5+8;
+    const evRoom=2*Math.max(8,9*s)*1.25+10;
+    const top=y+evRoom, bottom=H-pad-foot-Math.max(10,11*s)-6;
+    const left=pad+(D.yLeft?Math.max(26,34*s):0), right=W-pad-(D.yRight?Math.max(30,40*s):0);
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    {const fo={fill:C.grey,'font-family':MONO,'font-size':ff};let useShort=mid;
+     if(!useShort){const pr=txt(svg,0,-100,D.foot,fo);if(pr.getComputedTextLength()>avail)useShort=true;pr.remove()}
+     const fl=useShort?D.footShort:[D.foot];
+     const ts=fl.map((t,i)=>txt(svg,pad,H-pad-(fl.length-1-i)*ff*1.5,t,fo));
+     const mw=Math.max(...ts.map(t=>t.getComputedTextLength()));if(mw>avail)ts.forEach(t=>t.setAttribute('font-size',ff*avail/mw*0.98));}
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+function placeEvents(g,ev,xs,yTop,P,valY){
+  const f=Math.max(8,9*P.s), lh=f*1.25, ends=[-1e9,-1e9];
+  ev.forEach(e=>{const x=xs(e.i), lab=P.compact?e.short:e.long;
+    const w=lab.length*f*0.62; let r=1; if(x-w/2<ends[1]+8){r=0} if(r===0&&x-w/2<ends[0]+8){r=1}
+    ends[r]=x+w/2; const ty=yTop-(r?0:lh);
+    let ax='middle',tx=x; if(x+w/2>P.W-6){ax='end';tx=x+4} if(x-w/2<6){ax='start';tx=x-4}
+    P.el('line',{x1:x,x2:x,y1:ty+3,y2:Math.max(ty+4,valY(e.i)-5),stroke:P.C.ink,'stroke-width':0.7,'stroke-dasharray':'1 2'},g);
+    P.txt(g,tx,ty,lab,{fill:P.C.ink,'font-family':P.MONO,'font-size':f,'font-weight':700,'text-anchor':ax});
+  });
+}
+</script>
+<script>
+const T0=Date.UTC(2025,9,23), T1=Date.UTC(2026,9,23);
+const d=s=>{const [a,b,c]=s.split('/');return Date.UTC(+c,+b-1,+a)};
+const LANES=[{k:'P',n:'PARAGUAI E REPUTAÇÃO',ns:'PARAG.',c:'#E8352C'},{k:'N',n:'NEGÓCIOS E GESTÃO',ns:'NEGÓC.',c:'#111111'},{k:'C',n:'COMUNICAÇÃO E CAMPANHAS',ns:'COMUN.',c:'#1F5BFF'},{k:'D',n:'PRODUTO E CANAIS',ns:'PROD.',c:'#7B3FE4'},{k:'S',n:'LUPO SPORT',ns:'SPORT',c:'#C98A00'}];
+const EV=[
+{l:'P',t:'17/11/2025',s:'"O Brasil empurrou a gente"',ss:'Folha',x:'Liliana Aufiero à Folha: "Não é que a Lupo foi para o Paraguai, o Brasil empurrou a gente para o Paraguai." Repercute em Gazeta do Povo, Oeste e regionais.',k:1},
+{l:'P',t:'20/11/2025',s:'TikTok politiza o caso',ss:'TikTok',x:'Nove vídeos de terceiros em nov/25 somam 2,3 mi de views. Nos comentários, críticas ao governo e aos impostos dominam.'},
+{l:'P',t:'03/01/2026',s:'Família desmente saída',ss:'Desment.',x:'Bisneta do fundador esclarece nas redes que a fábrica no Paraguai "não representa a saída da empresa do Brasil".'},
+{l:'P',t:'09/02/2026',s:'Nega fechar fábricas',ss:'Nega',x:'Lupo classifica como "incorretas" as informações sobre fechamento de fábricas no Brasil.'},
+{l:'P',t:'09/07/2026',s:'Tema volta no TikTok',ss:'Volta',x:'Vídeo de empreendedorismo cita a Lupo e passa de 800 mil views.'},
+{l:'P',t:'21/08/2026',e:'27/08/2026',s:'Fake news + 4 checagens',ss:'Checag.',x:'Posts dizem que a Lupo "saiu do Brasil". Aos Fatos, Lupa, Reuters e AFP classificam como falso; a empresa reforça as 4 fábricas brasileiras.',k:1},
+{l:'P',t:'23/09/2026',s:'Abvtex cita a Lupo',ss:'Abvtex',x:'Associação do varejo têxtil alerta para novas fábricas no Paraguai; a Lupo é citada como exemplo.'},
+{l:'N',t:'09/01/2026',s:'R$ 70 mi em Araraquara',ss:'R$70mi',x:'Investimento na fábrica-mãe, em meio aos rumores de saída do Brasil.',k:1},
+{l:'N',t:'20/03/2026',s:'Bootcamp de IA',ss:'IA',x:'5 mil bolsas gratuitas com a DIO.'},
+{l:'N',t:'26/03/2026',s:'2025: R$ 1,6 bi',ss:'2025',x:'Receita +2,8%; lucro ajustado de R$ 158,7 mi. Lupo Sport cresce 34,7%.'},
+{l:'N',t:'12/05/2026',s:'1º CEO de fora da família',ss:'CEO',x:'Carlos Mazzeu assume como CEO; Liliana Aufiero vai para a presidência do conselho.',k:1},
+{l:'N',t:'11/08/2026',s:'1S26: lucro +96%',ss:'1S26',x:'Receita +2,3%. Marca Lupo cai 2,6%; Lupo Sport sobe 23,8%; e-commerce próprio +40%.'},
+{l:'N',t:'04/09/2026',s:'Meta: exportar 5%',ss:'Export.',x:'Mazzeu: "nosso próximo foco é a América do Sul". Exportação hoje é 1,1% da receita.'},
+{l:'C',t:'08/12/2025',s:'Natal: coral de robôs',ss:'Natal',x:'Motor Propaganda: robôs humanoides cantam "Tocando em Frente". Mensagem: tecnologia ao lado das pessoas.',k:1},
+{l:'C',t:'25/03/2026',s:'105 anos em Araraquara',ss:'105',x:'Festa e filme \"no lugar onde tudo começou\". Reel com 12,2 mi de views no Instagram.',k:1},
+{l:'C',t:'26/04/2026',s:'Pom Pom + Lupo',ss:'PomPom',x:'Meia de brinde em farmácias, na compra de R$ 40.'},
+{l:'C',t:'30/07/2026',s:'Dia dos Pais',ss:'Pais',x:'"Cada um ama do seu jeito": 34,7 mi de views no Instagram e 8,9 mi no TikTok, os maiores do ano.',k:1},
+{l:'C',t:'21/08/2026',s:'Nova diretoria de marca',ss:'Diretoria',x:'Gabriela Rodrigues (ex-Arezzo) passa a liderar produto, comunicação e marketing de Lupo, Lupo Sport, TriFil e Scala.',k:1},
+{l:'C',t:'14/10/2026',s:'Halloween',ss:'Hallow.',x:'Meias que brilham no escuro. Comentário mais curtido junto com os elogios: "lupo usando IA que vergonha".'},
+{l:'D',t:'19/12/2025',s:'Tênis Origem',ss:'Tênis',x:'Estreia em calçados, com cabedal em malha, em 100 lojas.',k:1},
+{l:'D',t:'07/01/2026',s:'Linha Fifties',ss:'Fifties',x:'Reel com 28 mil curtidas, o 3º maior do ano no @lupooficial.'},
+{l:'D',t:'19/06/2026',s:'Coleção verde-amarela',ss:'Copa',x:'Peças para a torcida na Copa.'},
+{l:'D',t:'19/08/2026',s:'iFood: 1.400 itens',ss:'iFood',x:'Primeira marca de moda íntima no iFood, com 40 lojas em SP, RJ e BH como mini-hubs.',k:1},
+{l:'D',t:'20/08/2026',s:'Lobo, marca premium',ss:'Lobo',x:'Nova marca masculina com algodão Pima.',k:1},
+{l:'S',t:'27/10/2025',s:'Corre LSport cresce',ss:'Corre',x:'Circuito de corrida chega a mais cidades.'},
+{l:'S',t:'08/11/2025',s:'Black Lupo Sport',ss:'Black',x:'74 posts no Instagram em nov/25, o mês mais intenso do perfil.'},
+{l:'S',t:'17/01/2026',s:'Rodrigo Mussi e Ana Laura',ss:'Mussi',x:'Casal de criadores assina a rotina de 2026 com a marca, com cupom próprio.'},
+{l:'S',t:'18/03/2026',s:'Circuito vai a 15 cidades',ss:'15 cid.',x:'Corre Lupo Sport passa de 6 para 15 etapas e dobra a projeção de público.',k:1},
+{l:'S',t:'03/04/2026',s:'Meias L\'Étape',ss:'Ciclismo',x:'Parceria com o L\'Étape Brasil, de ciclismo.'},
+{l:'S',t:'28/08/2026',s:'Dez Milhas Garoto',ss:'Garoto',x:'Acordo com a corrida capixaba reforça o foco em running.'},
+];
+const MOTE=[{a:'23/10/2025',b:'12/05/2026',t:'LILIANA: EFICIÊNCIA, PARAGUAI E ARARAQUARA',ts:'LILIANA'},{a:'12/05/2026',b:'19/08/2026',t:'TRANSIÇÃO: MAZZEU CEO',ts:'MAZZEU'},{a:'19/08/2026',b:'23/10/2026',t:'NOVA GESTÃO DE MARCA',ts:'NOVA MARCA'}];
+const MES=['OUT/25','NOV','DEZ','JAN/26','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT/26'];
+const MS=['O','N','D','J','F','M','A','M','J','J','A','S','O'];
+renderInfo({aria:'Linha do tempo da Lupo em cinco frentes, de outubro de 2025 a outubro de 2026',
+ kicker:'LISTENING / LUPO · MOMENTO DE MARCA / LINHA DO TEMPO POR FRENTE / OUT 2025 – OUT 2026', kickerShort:'LUPO / LINHA DO TEMPO',
+ head:['Centenária em transição:','30 marcos em cinco frentes.'], headShort:['Centenária','em transição.'],
+ deck:['O ano começa com a fala sobre o Paraguai (nov/25) e termina com uma nova gestão de marca: CEO de fora da família (mai/26), iFood, Lobo e diretoria integrada de produto e marketing (ago/26).','Marcos-chave em círculo cheio. Toque em um ponto para ver o detalhe.'],
+ deckShort:['Do Paraguai (nov/25) à nova gestão','de marca (ago/26). Toque nos pontos.'],
+ kpis:[{n:'30',l:'MARCOS MAPEADOS',ls:'MARCOS',c:'#111111'},{n:'12',l:'MARCOS-CHAVE',ls:'CHAVE',c:'#E8352C'},{n:'4',l:'NOVAS FRENTES DE NEGÓCIO',ls:'NOVAS FRENTES',c:'#7B3FE4'},{n:'3',l:'FASES NO ANO',ls:'FASES',c:'#C98A00'}],
+ legend:[{t:'● MARCO-CHAVE',c:'#111111'},{t:'○ MARCO',c:'#8A867D'},{t:'▬ PERÍODO',c:'#8A867D'}],
+ legendShort:[{t:'● CHAVE',c:'#111111'},{t:'○ MARCO',c:'#8A867D'}],
+ axisNote:'', yLeft:false, yRight:false,
+ foot:'FONTE: EUPHORIA CREATIVE · marcos de imprensa, perfis oficiais e TikTok de terceiros, por data. Novas frentes: tênis, iFood, Lobo e exportação. Seleção editorial. Out/26 parcial (até 23/10).',
+ footShort:['FONTE: EUPHORIA · imprensa, perfis oficiais e TikTok;','seleção editorial. Out/26 parcial.'],
+ chart(P){
+  const {svg,top,bottom,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W}=P;
+  const g=el('g',{},svg); const f=Math.max(8,(compact?8:9.5)*s); const af=Math.max(8,8.5*s);
+  const labW=compact?Math.max(44,52*s):Math.max(110,132*s);
+  const left=P.left+labW, right=P.right-4, cw=right-left;
+  const X=t=>left+cw*Math.min(1,Math.max(0,(t-T0)/(T1-T0)));
+  const mh=Math.max(14,18*s); const my=top;
+  MOTE.forEach((m,i)=>{const x1=X(d(m.a)),x2=X(d(m.b));el('rect',{x:x1,y:my,width:x2-x1-2,height:mh,fill:i==2?'#E8352C':(i==1?'#111111':'#CFCAC0')},g);
+    const lab=compact?m.ts:m.t; let tt=txt(g,x1+5,my+mh*0.7,lab,{fill:i==0?'#111111':'#FFFFFF','font-family':MONO,'font-size':af,'font-weight':700});
+    if(tt.getComputedTextLength()>x2-x1-10){tt.textContent=m.ts;if(tt.getComputedTextLength()>x2-x1-10)tt.remove()}});
+  txt(g,P.left,my+mh*0.7,'FASE',{fill:C.grey,'font-family':MONO,'font-size':af,'font-weight':700});
+  const axisH=af+10; const ly0=my+mh+8, ly1=bottom-axisH; const lh=(ly1-ly0)/LANES.length;
+  for(let i=0;i<=12;i++){const t=Date.UTC(2025,9+i,1);const x=X(t);
+    if(i>0)el('line',{x1:x,x2:x,y1:ly0,y2:ly1,stroke:C.rule,'stroke-width':0.6},g);
+    const a=i==0?left:x, b=i==12?right:X(Date.UTC(2025,10+i,1));
+    txt(g,(a+b)/2,ly1+af+6,(cw/12<46)?MS[i]:MES[i],{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'})}
+  const r=Math.max(3.5,(compact?4:5.5)*s), lineH=f*1.35;
+  LANES.forEach((L,li)=>{const y0=ly0+li*lh, yc=y0+lh*0.5;
+    if(li%2==0)el('rect',{x:P.left,y:y0,width:right-P.left,height:lh,fill:'#F4F2EE'},g);
+    el('rect',{x:P.left,y:y0+4,width:3,height:lh-8,fill:L.c},g);
+    const nf=Math.max(8.5,(compact?8.5:10.5)*s);
+    const words=(compact?L.ns:L.n).split(' ');
+    if(!compact&&words.length>1){const h=Math.ceil(words.length/2);txt(g,P.left+9,yc-2,words.slice(0,h).join(' '),{fill:L.c,'font-family':MONO,'font-size':nf,'font-weight':700});txt(g,P.left+9,yc-2+nf*1.2,words.slice(h).join(' '),{fill:L.c,'font-family':MONO,'font-size':nf,'font-weight':700})}
+    else txt(g,P.left+9,yc+nf*0.35,compact?L.ns:L.n,{fill:L.c,'font-family':MONO,'font-size':nf,'font-weight':700});
+    el('line',{x1:left,x2:right,y1:yc,y2:yc,stroke:L.c,'stroke-width':1,opacity:0.35},g);
+    const slots=[], nRows=Math.max(1,Math.floor((lh/2-r-2)/lineH));
+    for(let k=0;k<nRows;k++){slots.push({y:yc-r-4-k*lineH,end:-1e9});slots.push({y:yc+r+4+f+k*lineH,end:-1e9})}
+    EV.filter(e=>e.l==L.k).sort((a,b)=>d(a.t)-d(b.t)).forEach(e=>{
+      const x=X(d(e.t));
+      if(e.e){el('rect',{x,y:yc-r*0.6,width:Math.max(2,X(d(e.e))-x),height:r*1.2,fill:L.c,opacity:0.45,rx:r*0.6},g)}
+      el('circle',{cx:x,cy:yc,r:e.k?r*1.15:r,fill:e.k?L.c:'#FFFFFF',stroke:L.c,'stroke-width':1.6},g);
+      const lab=(compact?e.ss:e.s); const fs=e.k?f:f*0.92;
+      const tmp=txt(g,0,-100,lab,{'font-family':BODY,'font-size':fs,'font-weight':e.k?700:600}); const w=tmp.getComputedTextLength(); tmp.remove();
+      let tx=x-r; if(tx+w>right)tx=right-w;
+      const sl=slots.find(q=>tx>q.end+6);
+      if(sl){txt(g,tx,sl.y,lab,{fill:e.k?C.ink:'#55524C','font-family':BODY,'font-size':fs,'font-weight':e.k?700:600});sl.end=tx+w;
+        if(Math.abs(sl.y-yc)>lineH*1.2)el('line',{x1:x,x2:x,y1:sl.y<yc?sl.y+3:sl.y-f,y2:sl.y<yc?yc-r:yc+r,stroke:L.c,'stroke-width':0.6,'stroke-dasharray':'1 2'},g)}
+      const hit=el('circle',{cx:x,cy:yc,r:Math.max(12,r*2.5),fill:'transparent'},g);
+      const h=ev=>{const p=ev.touches?ev.touches[0]:ev;showTip(tip,`<b>${e.t}${e.e?' – '+e.e:''} · ${L.n}</b><br>${e.s}<br>${e.x}`,p.clientX,p.clientY)};
+      hit.addEventListener('mousemove',h);hit.addEventListener('touchstart',h,{passive:true});hit.addEventListener('mouseleave',()=>tip.hidden=true);
+    });
+  });
+ }});
+</script>
+</body></html>
