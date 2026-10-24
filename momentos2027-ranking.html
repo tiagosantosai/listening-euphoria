@@ -1,0 +1,181 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:260px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+
+<title>Momentos 2027 · ranking</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infográficos Euphoria — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    const avail=W-2*pad;
+    {const ko={fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'};
+     let kt=txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,ko);
+     if(kt.getComputedTextLength()>avail&&D.kickerShort&&!compact){kt.remove();kt=txt(svg,pad,y+kf,D.kickerShort,ko)}
+     const kl=kt.getComputedTextLength(); if(kl>avail)kt.setAttribute('font-size',kf*avail/kl*0.98);}
+    y+=kf+8*s;
+    let hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    {const probe=hl.map(t=>txt(svg,0,-100,t,{'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'}));
+     const mw=Math.max(...probe.map(t=>t.getComputedTextLength())); probe.forEach(t=>t.remove()); if(mw>avail)hf=hf*avail/mw*0.98;}
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.08;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.08}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;
+      const src=compact?D.deckShort:D.deck, o={fill:C.ink,'font-family':BODY,'font-size':df}, out=[];
+      src.forEach(par=>{const words=par.split(' ');let cur='';const pr=txt(svg,0,-100,'',o);
+        words.forEach(w=>{const t=cur?cur+' '+w:w;pr.textContent=t;if(pr.getComputedTextLength()>avail&&cur){out.push(cur);cur=w}else cur=t});
+        if(cur)out.push(cur);pr.remove();});
+      lines(svg,pad,y+df,out,o,df*1.4);y+=df*1.4*out.length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    ((compact&&D.legendShort)?D.legendShort:D.legend).forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+10*s;
+    const foot=Math.max(9,9*s)*2*1.5+8;
+    const top=y, bottom=H-pad-foot-6;
+    const left=pad, right=W-pad;
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    {const fo={fill:C.grey,'font-family':MONO,'font-size':ff};let useShort=mid;
+     if(!useShort){const pr=txt(svg,0,-100,D.foot,fo);if(pr.getComputedTextLength()>avail)useShort=true;pr.remove()}
+     const fl=useShort?D.footShort:[D.foot];
+     const ts=fl.map((t,i)=>txt(svg,pad,H-pad-(fl.length-1-i)*ff*1.5,t,fo));
+     const mw=Math.max(...ts.map(t=>t.getComputedTextLength()));if(mw>avail)ts.forEach(t=>t.setAttribute('font-size',ff*avail/mw*0.98));}
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+// DADOS COMUNS · índice de busca no YouTube (Google Trends, Pesquisa no YouTube, BR), Carnaval 2026 = 100
+const VERT={E:{n:'ESPORTES',ns:'ESPORTES',c:'#1F5BFF'},M:{n:'MÚSICA',ns:'MÚSICA',c:'#E8352C'},A:{n:'AUDIOVISUAL',ns:'AUDIOV.',c:'#7B3FE4'},G:{n:'GAMES',ns:'GAMES',c:'#C98A00'}};
+const EV=[
+{v:'E',n:'Super Bowl LXI',ns:'Super Bowl',t:'14/02',yt:19,web:9,x:'Base: Super Bowl 2026. TikTok #superbowl: 96 bi de views (global).'},
+{v:'E',n:'Kings League Brasil',ns:'Kings League',t:'15/01',e:'20/05',yt:20.5,web:6.3,x:'Temporada anual. Em 2026, 25 mi de espectadores (18,3 mi na CazéTV + 7,1 mi no canal da liga).'},
+{v:'E',n:'Final da Champions',ns:'Champions',t:'05/06',yt:19,web:9,x:'Base: final de 2026.'},
+{v:'E',n:'Finais da NBA',ns:'NBA',t:'03/06',e:'20/06',yt:4,web:12,x:'Interesse contínuo na temporada, sem pico forte nas finais.'},
+{v:'E',n:'Copa Feminina no Brasil',ns:'Copa Fem.',t:'24/06',e:'25/07',yt:12,web:60,proj:1,x:'Base 2023 (Austrália/NZ, jogos de madrugada) = 12. Em 2027: Globo e CazéTV com os 64 jogos; porte G projetado.'},
+{v:'E',n:'Pan de Lima',ns:'Pan',t:'23/07',e:'08/08',yt:4.6,web:6.1,x:'Base: Pan de Santiago 2023.'},
+{v:'E',n:'GP de São Paulo de F1',ns:'GP SP',t:'05/11',e:'07/11',yt:7.4,web:11.3,x:'Volta da Sprint em Interlagos. Base: GP 2025.'},
+{v:'E',n:'Finais Sul-Americana e Libertadores',ns:'Libertadores',t:'20/11',e:'27/11',yt:12,web:52,x:'Sul-Americana 20/11, Libertadores 27/11. Base: final de 2025.'},
+{v:'E',n:'Brasileirão',ns:'Brasileirão',t:'01/02',e:'05/12',yt:7,web:95,span:1,x:'Temporada (datas pelo padrão de 2026). 7º tema em alta no YouTube Brasil em 2025.'},
+{v:'M',n:'Megashows (Rush, Karol G, U2)',ns:'Megashows',t:'22/01',e:'12/03',yt:2,web:null,x:'Rush em 6 estádios, Karol G (12/02), Foo Fighters (18 e 20/02), U2 (10 e 12/03).'},
+{v:'M',n:'Grammy',ns:'Grammy',t:'07/02',yt:11,web:6,x:'Base: Grammy 2026.'},
+{v:'M',n:'Carnaval',ns:'Carnaval',t:'05/02',e:'10/02',yt:100,web:100,x:'Âncora da escala. TikTok #carnaval: 71 bi de views.'},
+{v:'M',n:'Lollapalooza',ns:'Lolla',t:'19/03',e:'21/03',yt:9,web:6,x:'Transmissão em Multishow, Bis e Globoplay. #lollapaloozabrasil: 394 mi de views.'},
+{v:'M',n:'São João',ns:'São João',t:'24/06',yt:26,web:14,x:'Junho inteiro, pico em 24/06. #saojoao: 17 bi de views.'},
+{v:'M',n:'Parintins',ns:'Parintins',t:'25/06',e:'27/06',yt:5.3,web:2.1,x:'Base: festival de 2026.'},
+{v:'M',n:'The Town',ns:'The Town',t:'04/09',e:'12/09',yt:17.4,web:19,x:'Base: edição de 2023. Slipknot é o primeiro headliner.'},
+{v:'M',n:'Latin Grammy',ns:'L. Grammy',t:'15/11',yt:0.5,web:0.9,x:'Novembro. Base: edição de 2025.'},
+{v:'A',n:'BBB 27',ns:'BBB 27',t:'11/01',e:'20/04',yt:33,web:66,x:'100 dias. Maior volume acumulado de busca do audiovisual. Ambiente oficial no Roblox.'},
+{v:'A',n:'Oscar',ns:'Oscar',t:'14/03',yt:17,web:32,x:'Base: Oscar 2026.'},
+{v:'A',n:'Zelda (filme)',ns:'Zelda',t:'29/04',yt:6.4,web:null,x:'Ponte entre games e cinema.'},
+{v:'A',n:'Star Wars: Starfighter',ns:'Star Wars',t:'27/05',yt:2,web:2,x:'Base: termo "star wars", 2025–26.'},
+{v:'A',n:'Além do Aranhaverso',ns:'Aranhaverso',t:'17/06',yt:30,web:5,x:'Base: "homem-aranha" em 2026, ano de Um Novo Dia.'},
+{v:'A',n:'Shrek 5',ns:'Shrek 5',t:'01/07',yt:8,web:1,x:'Férias de julho. #shrek: 55 bi de views (global).'},
+{v:'A',n:'Filme Minecraft 2',ns:'Minecraft 2',t:'22/07',yt:65,web:15,x:'Índice da franquia Minecraft (jogo + filme). Férias de julho.'},
+{v:'A',n:'Frozen 3',ns:'Frozen 3',t:'25/11',yt:6,web:1,x:'Base: termo "frozen", 2025–26.'},
+{v:'A',n:'CCXP',ns:'CCXP',t:'02/12',e:'05/12',yt:0.7,web:1.7,x:'Início de dezembro. Base: CCXP 2025.'},
+{v:'A',n:'Vingadores: Guerras Secretas',ns:'Vingadores',t:'16/12',yt:16,web:4,x:'Base: "vingadores" em 2026, ano de Doomsday.'},
+{v:'G',n:'Férias: Roblox, Minecraft, Free Fire',ns:'Férias',t:'01/01',e:'31/01',yt:86,web:21,x:'Pico anual dos três em jan/26: Roblox 86, Minecraft 65, Free Fire 29.'},
+{v:'G',n:'GTA VI, 1º trimestre',ns:'GTA VI',t:'01/01',e:'31/03',yt:34,web:11,x:'Lançado em 19/11/26. Trailer 1: 93 mi de views no YouTube em 24h.'},
+{v:'G',n:'gamescom latam',ns:'gc latam',t:'22/04',e:'25/04',yt:null,web:null,x:'Distrito Anhembi, SP. Busca abaixo do limite de leitura do Trends.'},
+{v:'G',n:'Summer Game Fest',ns:'SGF',t:'04/06',e:'08/06',yt:2.3,web:0.8,x:'Showcases de junho. Base: 2026.'},
+{v:'G',n:'gamescom Colônia',ns:'gamescom',t:'23/08',e:'29/08',yt:1.4,web:0.5,x:'Base: gamescom 2026.'},
+{v:'G',n:'Brasil Game Show',ns:'BGS',t:'09/10',e:'12/10',yt:0.5,web:0.7,x:'Base: BGS 2026.'},
+{v:'G',n:'Worlds de LoL',ns:'Worlds',t:'15/10',e:'14/11',yt:1.4,web:0.7,x:'Coreia do Sul; final prevista para 14/11.'},
+{v:'G',n:'The Game Awards',ns:'TGA',t:'09/12',yt:3.9,web:1.5,x:'Dezembro. Base: TGA 2025.'}
+];
+const tierOf=e=>e.proj?'G':e.yt==null?'P':e.yt>=50?'XL':e.yt>=20?'G':e.yt>=8?'M':'P';
+const fmt=x=>x==null?'n/m':(x<10?x.toLocaleString('pt-BR',{maximumFractionDigits:1}):Math.round(x).toLocaleString('pt-BR'));
+const d27=s=>{const [a,b]=s.split('/');return Date.UTC(2027,+b-1,+a)};
+const FOOT='FONTE: EUPHORIA CREATIVE · Google Trends (Pesquisa no YouTube e na Web, Brasil), última edição de cada evento, coleta em 24/10/2026; datas oficiais dos organizadores.';
+const FOOTS=['FONTE: EUPHORIA · Google Trends (YouTube e Web, BR),','última edição de cada evento; coleta em 24/10/2026.'];
+</script>
+<script>
+renderInfo({aria:'Ranking dos momentos culturais de 2027 pelo índice de busca no YouTube, com a afinidade de cada momento com o YouTube em relação ao Google',
+ kicker:'MOMENTOS CULTURAIS 2027 · YOUTUBE / TAMANHO DA OPORTUNIDADE E AFINIDADE', kickerShort:'MOMENTOS 2027 / OPORTUNIDADE',
+ head:['Tamanho e afinidade:','onde o YouTube é o destino da busca.'], headShort:['Tamanho e','afinidade.'],
+ deck:['À esquerda, o índice de busca no YouTube (Carnaval 2026 = 100, escala logarítmica). À direita, a afinidade: busca no YouTube ÷ busca no Google, na mesma escala (Carnaval = 1×). Acima de 1×, o público procura o momento mais no YouTube.'],
+ deckShort:['Esquerda: busca no YouTube (Carnaval = 100).','Direita: YouTube ÷ Google (Carnaval = 1×).'],
+ kpis:[{n:'8×',l:'SHREK 5, MAIOR AFINIDADE',ls:'SHREK 5',c:'#7B3FE4'},{n:'4×',l:'FÉRIAS DE GAMES (JAN)',ls:'FÉRIAS',c:'#C98A00'},{n:'3×',l:'GTA VI E KINGS LEAGUE',ls:'GTA / KINGS',c:'#1F5BFF'},{n:'0,07×',l:'BRASILEIRÃO, MENOR AFINIDADE',ls:'BRASILEIRÃO',c:'#E8352C'}],
+ legend:[{t:'■ ESPORTES',c:'#1F5BFF'},{t:'■ MÚSICA',c:'#E8352C'},{t:'■ AUDIOVISUAL',c:'#7B3FE4'},{t:'■ GAMES',c:'#C98A00'},{t:'XL ≥50 · G 20–50 · M 8–20 · P <8',c:'#8A867D'}],
+ legendShort:[{t:'■ ESP',c:'#1F5BFF'},{t:'■ MÚS',c:'#E8352C'},{t:'■ AUDIOV',c:'#7B3FE4'},{t:'■ GAMES',c:'#C98A00'}],
+ axisNote:'', foot:FOOT, footShort:FOOTS,
+ chart(P){
+  let {svg,top,bottom,left,right,s,compact,C,MONO,BODY,el,txt,tip}=P;
+  const g=el('g',{},svg);
+  let rows=EV.filter(e=>e.yt!=null).sort((a,b)=>b.yt-a.yt);
+  const axisH=Math.max(8,8.5*s)+12; const hdr=Math.max(12,14*s); const top0=top; top+=hdr;
+  const maxRows=Math.floor((bottom-top-axisH)/Math.max(11,12*s));
+  if(rows.length>maxRows)rows=rows.slice(0,maxRows);
+  const rh=(bottom-top-axisH)/rows.length, f=Math.max(7.5,Math.min(rh*0.66,11*s)), af=Math.max(8,8.5*s);
+  const nameW=compact?Math.max(78,(right-left)*0.3):Math.max(170,210*s);
+  const gap=compact?10:28*s;
+  const affW=compact?Math.max(70,(right-left)*0.26):(right-left-nameW)*0.36;
+  const bx0=left+nameW, bx1=right-affW-gap, ax0=right-affW, ax1=right;
+  const LB=v=>bx0+(bx1-bx0)*(Math.log10(v)-Math.log10(0.3))/(Math.log10(100)-Math.log10(0.3));
+  const LA=v=>ax0+(ax1-ax0)*(Math.log10(Math.min(10,Math.max(0.05,v)))-Math.log10(0.05))/(Math.log10(10)-Math.log10(0.05));
+  const yb=top+rows.length*rh;
+  [1,10,100].forEach(v=>{const x=LB(v);el('line',{x1:x,x2:x,y1:top,y2:yb,stroke:C.rule,'stroke-width':0.6},g);txt(g,x,yb+af+6,String(v),{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'})});
+  txt(g,bx0,top0+af,'BUSCA NO YOUTUBE (CARNAVAL = 100)',{fill:C.grey,'font-family':MONO,'font-size':af*0.9,'font-weight':700});
+  [0.1,1,10].forEach(v=>{const x=LA(v);el('line',{x1:x,x2:x,y1:top,y2:yb,stroke:v==1?C.ink:C.rule,'stroke-width':v==1?1:0.6,'stroke-dasharray':v==1?'3 2':'none'},g);txt(g,x,yb+af+6,(v+'×').replace('.',','),{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'})});
+  txt(g,ax0,top0+af,compact?'AFINIDADE':'AFINIDADE (YOUTUBE ÷ GOOGLE)',{fill:C.grey,'font-family':MONO,'font-size':af*0.9,'font-weight':700});
+  rows.forEach((e,i)=>{const y=top+i*rh, yc=y+rh/2, c=VERT[e.v].c, t=tierOf(e);
+    if(i%2==0)el('rect',{x:left,y,width:right-left,height:rh,fill:'#F7F5F1'},g);
+    const nm=compact?e.ns:e.n;
+    txt(g,left,yc+f*0.35,nm,{fill:C.ink,'font-family':BODY,'font-size':f,'font-weight':(t=='XL'||t=='G')?700:500});
+    const bw=Math.max(2,LB(e.yt)-LB(0.3));
+    el('rect',{x:bx0,y:yc-rh*0.3,width:bw,height:rh*0.6,fill:c,opacity:e.proj?0.45:0.9},g);
+    if(e.proj)el('rect',{x:bx0,y:yc-rh*0.3,width:LB(30)-LB(0.3),height:rh*0.6,fill:'none',stroke:c,'stroke-dasharray':'3 2'},g);
+    const lb=txt(g,bx0+bw+4,yc+f*0.35,fmt(e.yt)+(e.proj?' → G proj.':(compact?'':' · '+t)),{fill:C.ink,'font-family':MONO,'font-size':f*0.92,'font-weight':700});
+    if(e.web){const a=e.yt/e.web, x=LA(a);
+      el('line',{x1:LA(1),x2:x,y1:yc,y2:yc,stroke:c,'stroke-width':1.2,opacity:0.5},g);
+      el('circle',{cx:x,cy:yc,r:Math.max(2.5,rh*0.26),fill:c},g);
+      const at=(a<10?a.toLocaleString('pt-BR',{maximumFractionDigits:a<0.1?2:1}):Math.round(a))+'×';
+      if(!compact){const rt=a>=1&&a<3;txt(g,rt?x+7:(a>=3?x-8:x-7),yc+f*0.35,at,{fill:C.ink,'font-family':MONO,'font-size':f*0.85,'text-anchor':rt?'start':'end'})}}
+    else if(!compact)txt(g,LA(1)+6,yc+f*0.35,'sem dado no Google',{fill:C.grey,'font-family':MONO,'font-size':f*0.8});
+    const hit=el('rect',{x:left,y,width:right-left,height:rh,fill:'transparent'},g);
+    const h=ev=>{const p=ev.touches?ev.touches[0]:ev;showTip(tip,`<b>${e.t}/2027${e.e?' – '+e.e+'/2027':''} · ${VERT[e.v].n}</b><br>${e.n}<br>Busca YouTube: ${fmt(e.yt)}${e.proj?' (base 2023)':''} · Google: ${fmt(e.web)}${e.web?' · Afinidade '+(e.yt/e.web).toLocaleString('pt-BR',{maximumFractionDigits:2})+'×':''}<br>Porte ${t}${e.proj?' projetado':''} · ${e.x}`,p.clientX,p.clientY)};
+    hit.addEventListener('mousemove',h);hit.addEventListener('touchstart',h,{passive:true});hit.addEventListener('mouseleave',()=>tip.hidden=true);
+  });
+ }});
+</script>
+</body></html>
