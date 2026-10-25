@@ -13,10 +13,10 @@
 --s1:#5B84E0;--s2:#D9659C;--s3:#BE8A22;--s4:#16A596;--s5:#9277E0;--grid:#332E3D;--tipbg:#EFE9DD;--tipfg:#1C1A24;
 --q1:#2B2638;--q2:#43365E;--q3:#5F4890;--q4:#8466C8;--q5:#B49CF0}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif}
-#wrap{position:fixed;inset:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
-#frame{position:fixed;inset:6px;border:1px solid var(--rule);pointer-events:none}
-#frame:after{content:"";position:absolute;inset:3px;border:1px solid var(--rule);opacity:.55}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:1px solid var(--rule);pointer-events:none}
+#frame:after{content:"";position:absolute;top:3px;left:3px;right:3px;bottom:3px;border:1px solid var(--rule);opacity:.55}
 .kick{font:600 clamp(9px,1.05vw,11.5px)/1.2 'Inter',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.6em}
 .kick:before{content:"";width:22px;height:1px;background:var(--gold)}
 .kick .dia{font-size:.8em}
@@ -33,7 +33,7 @@ h1 em{font-style:normal;color:var(--s5)}
 .legend i{width:11px;height:11px;border-radius:2px;display:inline-block}
 .legend i.ln{height:2px;border-radius:0;width:16px}
 #chart{flex:1;min-height:80px;position:relative}
-#chart svg{position:absolute;inset:0;display:block;overflow:visible}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
 .foot{font:400 clamp(8.5px,.85vw,10px)/1.4 'Inter',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
 .foot b{color:var(--gold);font-weight:600;letter-spacing:.1em}
 #tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Inter',sans-serif;padding:8px 11px;border-radius:3px;max-width:260px;box-shadow:0 4px 18px rgba(0,0,0,.18);pointer-events:none}
@@ -85,11 +85,13 @@ function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fil
   el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':.8,'stroke-dasharray':'1.5 2.5'},g)})}
 function monthAxis(g,days,x,bw,y){const M={'01':'JAN','02':'FEV','03':'MAR','04':'ABR','05':'MAI','06':'JUN','07':'JUL','08':'AGO','09':'SET','10':'OUT','11':'NOV','12':'DEZ'};
  days.forEach((d,i)=>{const [dd,mm]=d.split('/');if(dd==='01')tx(g,x(i)+bw/2,y,M[mm],{'font-size':10,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})})}
-function boot(draw){const host=document.getElementById('chart');
- function go(){host.innerHTML='';const W=host.clientWidth,H=host.clientHeight;document.body.classList.toggle('sm',innerWidth<620);
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';document.body.classList.toggle('sm',innerWidth<620);
   const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
- go();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(go,60)});
- matchMedia('(prefers-color-scheme: dark)').addEventListener('change',go);
+ go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+ try{const mq=matchMedia('(prefers-color-scheme: dark)');mq.addEventListener?mq.addEventListener('change',go):mq.addListener(go)}catch(e){}
  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
 </script>
 <script>
