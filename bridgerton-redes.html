@@ -1,0 +1,120 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Impactos nas redes · Bridgerton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FBF7F0;--paper2:#F3ECDF;--ink:#1E2340;--ink2:#565A73;--muted:#8B8A94;--rule:#DCCFB8;--gold:#A8842C;
+--s1:#2F5DB8;--s2:#C04E86;--s3:#B98314;--s4:#008F82;--s5:#7350C4;--grid:#E9E0CF;--tipbg:#1E2340;--tipfg:#FBF7F0;
+--q1:#EFE7F7;--q2:#D9C8EE;--q3:#B89BE0;--q4:#8E6AD0;--q5:#5E3BA8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#1C1A24;--paper2:#25222F;--ink:#EFE9DD;--ink2:#C9C2B3;--muted:#9A95A3;--rule:#4A4356;--gold:#D4B062;
+--s1:#5B84E0;--s2:#D9659C;--s3:#BE8A22;--s4:#16A596;--s5:#9277E0;--grid:#332E3D;--tipbg:#EFE9DD;--tipfg:#1C1A24;
+--q1:#2B2638;--q2:#43365E;--q3:#5F4890;--q4:#8466C8;--q5:#B49CF0}}
+:root[data-theme="dark"]{--paper:#1C1A24;--paper2:#25222F;--ink:#EFE9DD;--ink2:#C9C2B3;--muted:#9A95A3;--rule:#4A4356;--gold:#D4B062;
+--s1:#5B84E0;--s2:#D9659C;--s3:#BE8A22;--s4:#16A596;--s5:#9277E0;--grid:#332E3D;--tipbg:#EFE9DD;--tipfg:#1C1A24;
+--q1:#2B2638;--q2:#43365E;--q3:#5F4890;--q4:#8466C8;--q5:#B49CF0}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif}
+#wrap{position:fixed;inset:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:fixed;inset:6px;border:1px solid var(--rule);pointer-events:none}
+#frame:after{content:"";position:absolute;inset:3px;border:1px solid var(--rule);opacity:.55}
+.kick{font:600 clamp(9px,1.05vw,11.5px)/1.2 'Inter',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.6em}
+.kick:before{content:"";width:22px;height:1px;background:var(--gold)}
+.kick .dia{font-size:.8em}
+h1{font:600 italic clamp(21px,3.5vw,42px)/1.05 'Cormorant Garamond',Georgia,serif;margin:.22em 0 .12em;letter-spacing:-.005em}
+h1 em{font-style:normal;color:var(--s5)}
+.deck{font:400 clamp(11.5px,1.25vw,14px)/1.45 'Inter',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:980px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi{min-width:0}
+.kpi b{display:block;font:700 clamp(18px,2.6vw,30px)/1 'Playfair Display',Georgia,serif;letter-spacing:-.01em}
+.kpi span{display:block;font:600 clamp(8.5px,.9vw,10px)/1.3 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:2px;margin-bottom:6px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:600 clamp(9px,.95vw,11px)/1.3 'Inter',sans-serif;color:var(--ink2);margin:.1em 0 .3em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.legend i.ln{height:2px;border-radius:0;width:16px}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;inset:0;display:block;overflow:visible}
+.foot{font:400 clamp(8.5px,.85vw,10px)/1.4 'Inter',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font-weight:600;letter-spacing:.1em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Inter',sans-serif;padding:8px 11px;border-radius:3px;max-width:260px;box-shadow:0 4px 18px rgba(0,0,0,.18);pointer-events:none}
+#tip b{font:600 italic 14px/1.2 'Cormorant Garamond',serif;display:block;margin-bottom:2px}
+#tip a{color:inherit}
+#tip.pin{pointer-events:auto}
+.sm .deck.long{display:none}
+@media (max-height:460px){.deck{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+@media (max-height:380px){.kpis{display:none}}
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick">Listening Bridgerton · últimos 90 dias<span class="dia">◆</span></div>
+<h1>Na entressafra, quem gera <em>views</em> é o produto, não a série</h1>
+<p class="deck">Views, interações e alcance potencial da imprensa dos posts e vídeos mapeados (Instagram, TikTok, X e YouTube), pela data de publicação. O maior volume de views veio de um look "estilo Bridgerton" no TikTok (29/07). O maior volume de interações veio do anúncio do spin-off de Violet (08/10).</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--s4)"></i><b>15,7 mi</b><span>views</span></div><div class="kpi"><i style="background:var(--s2)"></i><b>1,27 mi</b><span>interações</span></div><div class="kpi"><i style="background:var(--ink)"></i><b>23,6 mil</b><span>comentários</span></div><div class="kpi"><i style="background:var(--s1)"></i><b>23,4 mi</b><span>alcance potencial imprensa*</span></div></div>
+<div class="legend"></div>
+<div id="chart"></div>
+<div class="foot"><b>EUPHORIA CREATIVE</b> · *Alcance potencial: soma da audiência média diária (Comscore ago/26, visitantes únicos ÷ 30) dos veículos que publicaram no dia; é um teto, não leitura, e não se compara um a um com os views. ▲ = valor acima da escala. 25/10 parcial.</div>
+</div>
+<div id="tip" hidden></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+function hit(node,html,link){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+function diamond(p,x,y,r,fill){return el('path',{d:`M${x},${y-r}L${x+r},${y}L${x},${y+r}L${x-r},${y}Z`,fill},p)}
+function rbar(p,x,y,w,h,r,fill,horiz){ // rounded data-end only
+ r=Math.min(r,horiz?h/2:w/2,horiz?w:h); if(w<=0||h<=0)return el('rect',{x,y,width:Math.max(w,0),height:Math.max(h,0),fill},p);
+ const d=horiz?`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`
+ :`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;
+ return el('path',{d,fill},p)}
+function nice(mx,k){k=k||4;const raw=mx/k,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;return {step:st,max:Math.ceil(mx/st)*st}}
+function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fill(-1e9);const lh=12;
+ evs.sort((a,b)=>a.x-b.x).forEach(e=>{const t=tx(g,0,0,e.lab,{'font-size':9.5,'font-weight':700,fill:css('--ink'),'font-family':'Inter','letter-spacing':'.05em'});const w=t.getComputedTextLength();
+  let ax=e.x-w/2;if(ax<L)ax=L;if(ax+w>R)ax=R-w;let r=0;while(r<rows-1&&ax<ends[r]+8)r++;ends[r]=ax+w;
+  const ty=top-4-(rows-1-r)*lh;t.setAttribute('x',ax);t.setAttribute('y',ty);
+  el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':.8,'stroke-dasharray':'1.5 2.5'},g)})}
+function monthAxis(g,days,x,bw,y){const M={'01':'JAN','02':'FEV','03':'MAR','04':'ABR','05':'MAI','06':'JUN','07':'JUL','08':'AGO','09':'SET','10':'OUT','11':'NOV','12':'DEZ'};
+ days.forEach((d,i)=>{const [dd,mm]=d.split('/');if(dd==='01')tx(g,x(i)+bw/2,y,M[mm],{'font-size':10,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})})}
+function boot(draw){const host=document.getElementById('chart');
+ function go(){host.innerHTML='';const W=host.clientWidth,H=host.clientHeight;document.body.classList.toggle('sm',innerWidth<620);
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ go();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(go,60)});
+ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',go);
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>
+const D={"days": ["27/07", "28/07", "29/07", "30/07", "31/07", "01/08", "02/08", "03/08", "04/08", "05/08", "06/08", "07/08", "08/08", "09/08", "10/08", "11/08", "12/08", "13/08", "14/08", "15/08", "16/08", "17/08", "18/08", "19/08", "20/08", "21/08", "22/08", "23/08", "24/08", "25/08", "26/08", "27/08", "28/08", "29/08", "30/08", "31/08", "01/09", "02/09", "03/09", "04/09", "05/09", "06/09", "07/09", "08/09", "09/09", "10/09", "11/09", "12/09", "13/09", "14/09", "15/09", "16/09", "17/09", "18/09", "19/09", "20/09", "21/09", "22/09", "23/09", "24/09", "25/09", "26/09", "27/09", "28/09", "29/09", "30/09", "01/10", "02/10", "03/10", "04/10", "05/10", "06/10", "07/10", "08/10", "09/10", "10/10", "11/10", "12/10", "13/10", "14/10", "15/10", "16/10", "17/10", "18/10", "19/10", "20/10", "21/10", "22/10", "23/10", "24/10", "25/10"], "press": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 19, 2, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 2, 0, 0, 1, 0], "ig": [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 2, 6, 0, 1, 2, 4, 1, 2, 3, 0, 2, 0, 0, 1, 1, 1, 2, 2, 0], "tt": [0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 2, 2, 1, 2, 0, 1, 1, 1, 0, 0, 2, 1, 0, 2, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 7, 1, 0, 1, 1, 2, 1, 1, 0, 0, 0, 1, 3, 4, 3, 4, 1, 1], "x": [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 1, 2, 0, 1, 2, 0, 1, 2, 2, 0, 0, 0, 3, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 5, 2, 1, 3, 0, 3, 3, 2, 1, 2, 0, 0, 1, 4, 0, 1, 0, 2, 0, 1, 4, 1, 1, 0, 1, 2, 1, 0, 0, 2, 1, 0, 1, 0, 0, 3, 0, 0], "yt": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 2, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "reach": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.06, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.31, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.31, 0.0, 3.47, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.94, 0.0, 0.06, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.94, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.41, 0.0, 0.0, 6.62, 1.41, 1.94, 0.0, 0.0, 0.0, 0.0, 0.0, 1.41, 0.31, 0.0, 0.0, 0.0, 0.19, 0.0, 0.0, 0.0, 0.0], "nmat": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 19, 2, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 2, 0, 0, 1, 0], "views": [0.0, 0.0, 7.118, 0.0, 0.0, 0.0, 0.007, 0.0, 0.026, 0.099, 0.082, 0.0, 0.0, 0.0, 0.0, 0.0, 0.012, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.715, 0.037, 0.156, 0.0, 0.032, 0.076, 0.029, 0.085, 0.022, 0.036, 0.393, 0.006, 0.087, 0.055, 0.152, 0.018, 0.03, 0.0, 0.648, 0.093, 0.002, 0.48, 0.006, 0.0, 0.0, 0.0, 0.002, 0.0, 0.026, 0.167, 0.07, 0.008, 0.006, 0.031, 0.0, 0.014, 0.075, 0.029, 0.074, 0.082, 0.075, 0.0, 0.154, 0.24, 0.44, 0.004, 0.507, 0.02, 0.006, 0.017, 0.085, 0.132, 0.029, 0.022, 1.54, 0.521, 0.332, 0.003, 0.0, 0.118, 0.123, 0.005, 0.033, 0.012, 0.082, 0.121, 0.007, 0.0], "inter": [0.0, 0.0, 61.6, 0.0, 0.0, 0.0, 0.7, 0.0, 2.2, 13.8, 16.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 72.8, 1.3, 4.9, 0.0, 1.8, 17.9, 1.3, 5.3, 0.9, 3.1, 31.0, 0.2, 10.1, 1.5, 16.0, 0.9, 1.2, 0.0, 59.3, 0.9, 0.3, 16.1, 0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.1, 12.5, 0.7, 0.7, 4.3, 0.0, 0.7, 4.1, 1.0, 13.6, 5.3, 11.9, 0.0, 13.6, 66.4, 74.4, 0.3, 54.8, 6.3, 0.1, 5.1, 449.4, 6.5, 2.2, 1.1, 40.8, 61.6, 23.6, 1.0, 0.0, 13.7, 6.0, 0.2, 3.2, 0.7, 12.6, 15.2, 0.4, 0.1], "com": [0.0, 0.0, 0.56, 0.0, 0.0, 0.0, 0.01, 0.0, 0.01, 0.39, 0.22, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.76, 0.0, 0.34, 0.0, 0.05, 1.34, 0.03, 0.04, 0.02, 0.01, 0.02, 0.0, 0.08, 0.03, 0.04, 0.07, 0.12, 0.0, 0.15, 0.0, 0.04, 0.62, 0.02, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.07, 0.11, 0.0, 0.0, 0.01, 0.0, 0.01, 0.06, 0.01, 0.01, 0.0, 0.22, 0.0, 0.06, 1.98, 0.3, 0.0, 0.62, 0.01, 0.0, 0.44, 10.99, 0.02, 0.04, 0.05, 1.75, 0.4, 0.35, 0.23, 0.0, 0.31, 0.04, 0.02, 0.02, 0.01, 0.26, 0.16, 0.01, 0.0], "tiers": {"grande": 14, "medio": 13, "pequeno": 3, "fora": 13}, "totals": {"press": 43, "ig": 46, "tt": 64, "x": 73, "yt": 12, "views": 15716973.0, "inter": 1265952.0, "com": 23568.0, "reach": 23.38}}, EV=[{"d": "29/07", "l": "LOOK \"ESTILO BRIDGERTON\" VIRALIZA", "s": "LOOK"}, {"d": "19/08", "l": "COLLAB BT \u00d7 BRIDGERTON", "s": "BT"}, {"d": "24/08", "l": "SINOPSE DA T5", "s": "T5"}, {"d": "06/09", "l": "EMMY DE JULIE ANDREWS", "s": "EMMY"}, {"d": "08/10", "l": "SPIN-OFF VIOLET & EDMUND", "s": "VIOLET"}, {"d": "20/10", "l": "FIM DAS GRAVA\u00c7\u00d5ES", "s": "FIM"}];
+boot((svg,W,H,sm)=>{
+ const n=D.days.length, L=sm?40:48, R=W-6, top=48, bot=H-20, gapP=sm?14:18;
+ const panels=[{k:'views',t:'VIEWS NAS REDES (MILHÕES)',c:'--s4',u:' mi',d:2,kind:'bar'},
+   {k:'inter',t:'INTERAÇÕES (MIL) · CURTIDAS + COMENTÁRIOS + COMPARTILHAMENTOS',ts:'INTERAÇÕES (MIL)',c:'--s2',u:' mil',d:1,kind:'bar'},
+   {k:'reach',t:'ALCANCE POTENCIAL DA IMPRENSA (MILHÕES/DIA)*',ts:'IMPRENSA* (MI/DIA)',c:'--s1',u:' mi',d:2,kind:'bar'}];
+ const ph=(bot-top-gapP*2)/3, bw=(R-L)/n, x=i=>L+i*bw;
+ panels.forEach((p,k)=>{const y0=top+k*(ph+gapP), yb=y0+ph, g=el('g',{},svg);
+  const vals=D[p.k], mx=Math.max(...vals), cap=nice(p.k==='views'?[...vals].sort((a,b)=>b-a)[1]*1.1:mx,2).max;
+  const y=v=>yb-(ph-14)*Math.min(v,cap)/cap;
+  tx(g,L,y0+8,sm&&p.ts?p.ts:p.t,{'font-size':9.5,'font-weight':700,'letter-spacing':'.12em',fill:css('--gold'),'font-family':'Inter'});
+  [0,cap/2,cap].forEach(v=>{el('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:css('--grid')},g);tx(g,L-5,y(v)+3.5,fmt(v,v<10&&v>0?1:0),{'text-anchor':'end','font-size':9.5,fill:css('--muted'),'font-family':'Inter'})});
+  vals.forEach((v,i)=>{if(!v)return;const yy=y(v);rbar(g,x(i)+bw*.14,yy,Math.max(1.2,bw*.72),yb-yy,2,css(p.c));
+   if(v>cap){diamond(g,x(i)+bw/2,yy-5,4,css('--gold'));tx(g,x(i)+bw+5,yy+4,fmt(v,p.d)+p.u+' ▲',{'font-family':'Playfair Display','font-weight':700,'font-size':12,fill:css('--ink')})}});
+  const im=vals.indexOf(mx);if(mx<=cap)tx(g,x(im)+bw+4,y(mx)+9,fmt(mx,p.d)+p.u,{'font-family':'Playfair Display','font-weight':700,'font-size':12,fill:css('--ink')});
+  el('line',{x1:L,x2:R,y1:yb,y2:yb,stroke:css('--ink'),'stroke-width':.8},g);
+ });
+ const g=el('g',{},svg);monthAxis(g,D.days,x,bw,bot+13);
+ D.days.forEach((d,i)=>{
+  const hz=el('rect',{x:x(i),y:top,width:bw,height:bot-top,fill:'transparent'},g);
+  hit(hz,`<b>${d}${i==n-1?' (parcial)':''}</b>${fmt(D.views[i],2)} mi views<br>${fmt(D.inter[i],1)} mil interações<br>${fmt(D.com[i],1)} mil comentários<br>${D.nmat[i]} matérias · ${fmt(D.reach[i],2)} mi de alcance potencial`)});
+ placeEv(g,EV.map(e=>{const i=D.days.indexOf(e.d);return {x:x(i)+bw/2,lab:sm?e.s:e.l}}),top-2,L,R,e=>bot,3);
+});
+</script>
+</body></html>
