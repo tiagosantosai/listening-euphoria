@@ -91,32 +91,32 @@ function placeEvents(g,ev,xs,yTop,P,valY){
 }
 </script>
 <script>
-const days=["05/10", "06/10", "07/10", "08/10", "09/10", "10/10", "11/10", "12/10", "13/10", "14/10", "15/10", "16/10", "17/10", "18/10", "19/10"];
-const press=[0, 2, 42, 11, 2, 12, 18, 0, 19, 7, 1, 22, 4, 25, 3], ig=[1, 7, 25, 3, 1, 16, 10, 1, 8, 3, 3, 3, 4, 19, 2], tt=[0, 2, 4, 1, 2, 10, 9, 2, 6, 8, 1, 13, 5, 32, 0];
-const tot=days.map((_,i)=>press[i]+ig[i]+tt[i]);
-const ev=[{i:1,long:'DANIELA DECLARA VOTO',short:'VOTO'},{i:2,long:'DANIELA COBRA IVETE',short:'COBRANÇA'},{i:5,long:'IVETE PEDE "LUCIDEZ"',short:'LUCIDEZ'},{i:6,long:'MARCHA NA PAULISTA',short:'MARCHA'},{i:8,long:'MORRE NETINHO',short:'NETINHO'},{i:11,long:'IVETE NA PROPAGANDA',short:'PROPAG.'},{i:13,long:'ATO EM SALVADOR',short:'ATO'}];
-const tiers=[{l:'GRANDE',d:'≥ 20 mi visitantes/mês',n:24,p:14,c:'#111111'},{l:'MÉDIO',d:'1 a 20 mi',n:56,p:33,c:'#1F5BFF'},{l:'PEQUENO',d:'< 1 mi',n:21,p:13,c:'#8A867D'},{l:'FORA DO RANKING',d:'abaixo do corte',n:67,p:40,c:'#CFCAC0'}];
-renderInfo({aria:'Volume de conversa por dia, por rede, de 5 a 15 de outubro de 2026',
- kicker:'LISTENING / IVETE SANGALO & DANIELA MERCURY / 05–19 OUT 2026', kickerShort:'IVETE & DANIELA / 05–19 OUT',
- head:['76 conteúdos em um único dia.'], headShort:['76 conteúdos','em um único dia.'],
- deck:['O ato pela democracia comandado por Daniela em Salvador (18/10) superou o pico de 07/10, com 25 matérias e 51 posts e vídeos.','Dois dias antes, a propaganda de Lula com a imagem de Ivete puxou 22 matérias.'],
- deckShort:['O ato de Daniela em Salvador (18/10)','superou o pico de 07/10.'],
- kpis:[{n:'369',l:'CONTEÚDOS MAPEADOS',ls:'CONTEÚDOS',c:'#111111'},{n:'168',l:'MATÉRIAS',ls:'MATÉRIAS',c:'#1F5BFF'},{n:'106',l:'POSTS NO INSTAGRAM',ls:'POSTS IG',c:'#E8352C'},{n:'95',l:'VÍDEOS NO TIKTOK',ls:'TIKTOK',c:'#8A867D'}],
- legend:[{t:'■ IMPRENSA',c:'#1F5BFF'},{t:'■ INSTAGRAM',c:'#E8352C'},{t:'■ TIKTOK',c:'#8A867D'}],
+const days=["05/10", "06/10", "07/10", "08/10", "09/10", "10/10", "11/10", "12/10", "13/10", "14/10", "15/10", "16/10", "17/10", "18/10", "19/10", "20/10", "21/10", "22/10", "23/10", "24/10", "25/10", "26/10"];
+const press=[0, 2, 42, 11, 2, 12, 18, 0, 19, 7, 1, 22, 4, 25, 5, 0, 10, 1, 1, 2, 12, 10], ig=[1, 7, 25, 3, 1, 16, 10, 1, 8, 3, 3, 3, 4, 19, 8, 6, 3, 2, 3, 4, 19, 12], tt=[0, 2, 4, 1, 2, 10, 9, 2, 6, 8, 1, 13, 5, 32, 1, 1, 1, 2, 1, 3, 8, 8], xx=[10, 39, 50, 15, 29, 77, 42, 24, 28, 9, 3, 46, 19, 37, 33, 24, 36, 13, 33, 29, 25, 18], yt=[1, 0, 7, 3, 1, 14, 19, 6, 5, 10, 4, 2, 2, 13, 1, 5, 2, 3, 1, 4, 1, 3];
+const tot=days.map((_,i)=>press[i]+ig[i]+tt[i]+xx[i]+yt[i]);
+const ev=[{i:1,long:'DANIELA DECLARA VOTO',short:'VOTO'},{i:2,long:'DANIELA COBRA IVETE',short:'COBRANÇA'},{i:5,long:'IVETE PEDE "LUCIDEZ"',short:'LUCIDEZ'},{i:8,long:'MORRE NETINHO',short:'NETINHO'},{i:11,long:'IVETE NA PROPAGANDA',short:'PROPAG.'},{i:13,long:'ATO EM SALVADOR',short:'ATO'},{i:16,long:'MP APURA SHOWMÍCIO',short:'MP'},{i:20,long:'LULA REELEITO',short:'2º TURNO'}];
+const tiers=[{l:'GRANDE',d:'≥ 20 mi visitantes/mês',n:30,p:15,c:'#111111'},{l:'MÉDIO',d:'1 a 20 mi',n:70,p:34,c:'#1F5BFF'},{l:'PEQUENO',d:'< 1 mi',n:27,p:13,c:'#8A867D'},{l:'FORA DO RANKING',d:'abaixo do corte',n:79,p:38,c:'#CFCAC0'}];
+renderInfo({aria:'Volume de conversa por dia, por rede, de 5 a 26 de outubro de 2026',
+ kicker:'LISTENING / IVETE SANGALO & DANIELA MERCURY / 05–26 OUT 2026 · RELATÓRIO FINAL', kickerShort:'IVETE & DANIELA / 05–26 OUT',
+ head:['1.233 conteúdos em 22 dias.'], headShort:['1.233 conteúdos','em 22 dias.'],
+ deck:['Com X e YouTube, a série teve três picos acima de 120 itens: 07/10 (Daniela cobra Ivete), 10/10 (a "lucidez") e 18/10 (o ato em Salvador).','O X responde por metade da amostra; no 2º turno (25/10), o volume voltou a subir, puxado pela festa de Daniela.'],
+ deckShort:['Três picos: 07/10, 10/10 e 18/10.','O X é metade da amostra.'],
+ kpis:[{n:'1.233',l:'CONTEÚDOS',ls:'TOTAL',c:'#111111'},{n:'206',l:'MATÉRIAS',ls:'IMPRENSA',c:'#1F5BFF'},{n:'161',l:'INSTAGRAM',ls:'IG',c:'#E8352C'},{n:'120',l:'TIKTOK',ls:'TT',c:'#8A867D'},{n:'639',l:'POSTS NO X',ls:'X',c:'#111111'},{n:'107',l:'YOUTUBE',ls:'YT',c:'#C98A00'}],
+ legend:[{t:'■ IMPRENSA',c:'#1F5BFF'},{t:'■ INSTAGRAM',c:'#E8352C'},{t:'■ TIKTOK',c:'#8A867D'},{t:'■ X',c:'#111111'},{t:'■ YOUTUBE',c:'#C98A00'}],
  axisNote:'', yLeft:true, yRight:false,
- foot:'FONTE: EUPHORIA CREATIVE · itens mapeados pela data de publicação. Porte: Comscore MMX Multi-Platform, Brasil, ago/26. 19/10 parcial.',
- footShort:['FONTE: EUPHORIA CREATIVE · itens por data de publicação.','Porte: Comscore MMX, Brasil, ago/26. 19/10 parcial.'],
+ foot:'FONTE: EUPHORIA CREATIVE · itens mapeados pela data de publicação. X e YouTube incluídos em toda a série. Porte: Comscore MMX, Brasil, ago/26. 26/10 parcial.',
+ footShort:['FONTE: EUPHORIA CREATIVE · itens por data de publicação.','Porte: Comscore MMX, ago/26. 26/10 parcial.'],
  chart(P){
   const {svg,left,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip,W}=P; let right=P.right;
   const g=el('g',{},svg); const af=Math.max(8,8.5*s);
   const panel=W>=760; if(panel){const pw=Math.min(300,(right-left)*0.3); drawTiers(right-pw+10,pw-10); right=right-pw-24}
-  const cw=right-left, n=days.length, bw=cw/n, gap=Math.max(3,bw*0.22), xs=i=>left+bw*i+bw/2, y=v=>bottom-ch*v/84;
-  [0,20,40,60].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
-  days.forEach((dd,i)=>{let b=0;[[press,C.blue],[ig,C.red],[tt,C.grey]].forEach(([a,c])=>{const v=a[i];if(v){el('rect',{x:left+bw*i+gap/2,y:y(b+v),width:bw-gap,height:y(b)-y(b+v)-(b?0:0),fill:c},g);if(v>=6&&bw>26)txt(g,xs(i),y(b+v/2)+3.5,v,{fill:c===C.grey?C.ink:C.paper,'font-family':MONO,'font-size':af,'text-anchor':'middle','font-weight':700})}b+=v});
-    txt(g,xs(i),y(tot[i])-5,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(10,(tot[i]>=60?16:12)*s),'font-weight':900,'text-anchor':'middle'});
+  const cw=right-left, n=days.length, bw=cw/n, gap=Math.max(3,bw*0.22), xs=i=>left+bw*i+bw/2, y=v=>bottom-ch*v/140;
+  [0,40,80,120].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
+  days.forEach((dd,i)=>{let b=0;[[press,C.blue],[ig,C.red],[tt,C.grey],[xx,C.ink],[yt,'#C98A00']].forEach(([a,c])=>{const v=a[i];if(v){el('rect',{x:left+bw*i+gap/2,y:y(b+v),width:bw-gap,height:y(b)-y(b+v)-(b?0:0),fill:c},g);if(v>=6&&bw>26)txt(g,xs(i),y(b+v/2)+3.5,v,{fill:c===C.grey?C.ink:C.paper,'font-family':MONO,'font-size':af,'text-anchor':'middle','font-weight':700})}b+=v});
+    txt(g,xs(i),y(tot[i])-5,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(10,(tot[i]>=120?15:11)*s),'font-weight':900,'text-anchor':'middle'});
     const step=compact&&cw<330?2:1; if(i%step===0)txt(g,xs(i),bottom+af+6,compact?dd.slice(0,2):dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
     const r=el('rect',{x:left+bw*i,y:top,width:bw,height:ch,fill:'transparent'},g);
-    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}</b><br>${tot[i]} conteúdos<br>${press[i]} matérias · ${ig[i]} posts · ${tt[i]} vídeos`,p.clientX,p.clientY)};
+    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}</b><br>${tot[i]} conteúdos<br>${press[i]} matérias · ${ig[i]} posts no IG · ${tt[i]} TikToks<br>${xx[i]} posts no X · ${yt[i]} vídeos no YouTube`,p.clientX,p.clientY)};
     r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)});
   el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
   placeEvents(g,ev,xs,top-4,P,i=>y(tot[i])-14);
