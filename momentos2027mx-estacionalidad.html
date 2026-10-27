@@ -1,0 +1,170 @@
+<!doctype html><html lang="es-MX"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:260px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+
+<title>Estacionalidad · México 2027</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script>
+// Infografías Euphoria — SVG responsivo que sempre cabe na janela (sem rolagem)
+(function(){
+const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
+const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
+function lines(p,x,y,arr,o,lh){arr.forEach((s,i)=>txt(p,x,y+i*lh,s,o))}
+
+window.renderInfo=function(D){
+  const root=document.getElementById('info'); const tip=document.getElementById('tip');
+  function draw(){
+    root.innerHTML='';
+    const W=window.innerWidth,H=window.innerHeight;
+    const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':D.aria},root);
+    el('rect',{x:0,y:0,width:W,height:H,fill:C.paper},svg);
+    const compact=W<620, tiny=H<380, mid=W<1200;
+    const pad=Math.max(14,Math.min(W*0.035,40));
+    const s=Math.max(0.62,Math.min(W/1100,H/700,1.25));
+    let y=pad;
+    const kf=Math.max(9,11*s);
+    const avail=W-2*pad;
+    {const ko={fill:C.red,'font-family':MONO,'font-size':kf,'font-weight':700,'letter-spacing':'0.04em'};
+     let kt=txt(svg,pad,y+kf,compact?D.kickerShort:D.kicker,ko);
+     if(kt.getComputedTextLength()>avail&&D.kickerShort&&!compact){kt.remove();kt=txt(svg,pad,y+kf,D.kickerShort,ko)}
+     const kl=kt.getComputedTextLength(); if(kl>avail)kt.setAttribute('font-size',kf*avail/kl*0.98);}
+    y+=kf+8*s;
+    let hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
+    const hl=compact?D.headShort:D.head;
+    {const probe=hl.map(t=>txt(svg,0,-100,t,{'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'}));
+     const mw=Math.max(...probe.map(t=>t.getComputedTextLength())); probe.forEach(t=>t.remove()); if(mw>avail)hf=hf*avail/mw*0.98;}
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    y+=hf*1.08;
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.08}
+    const showDeck=!tiny&&H>460;
+    if(showDeck){const df=Math.max(11,13*s);y+=6*s;
+      const src=compact?D.deckShort:D.deck, o={fill:C.ink,'font-family':BODY,'font-size':df}, out=[];
+      src.forEach(par=>{const words=par.split(' ');let cur='';const pr=txt(svg,0,-100,'',o);
+        words.forEach(w=>{const t=cur?cur+' '+w:w;pr.textContent=t;if(pr.getComputedTextLength()>avail&&cur){out.push(cur);cur=w}else cur=t});
+        if(cur)out.push(cur);pr.remove();});
+      lines(svg,pad,y+df,out,o,df*1.4);y+=df*1.4*out.length}
+    y+=10*s;
+    const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
+    D.kpis.forEach((k,i)=>{const x=pad+i*kw;
+      el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
+    y+=8+nf+lf+5+14*s;
+    const gf=Math.max(8.5,9.5*s); let gx=pad;
+    ((compact&&D.legendShort)?D.legendShort:D.legend).forEach(g=>{const t=txt(svg,gx,y+gf,g.t,{fill:g.c,'font-family':MONO,'font-size':gf,'font-weight':700});gx+=t.getComputedTextLength()+16*s});
+    if(D.axisNote&&W>=1000)txt(svg,W-pad,y+gf,D.axisNote,{fill:C.grey,'font-family':MONO,'font-size':gf*0.9,'text-anchor':'end'});
+    y+=gf+10*s;
+    const foot=Math.max(9,9*s)*2*1.5+8;
+    const top=y, bottom=H-pad-foot-6;
+    const left=pad, right=W-pad;
+    const cw=right-left, ch=Math.max(60,bottom-top);
+    D.chart({svg,left,right,top,bottom:top+ch,cw,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W,H});
+    const ff=Math.max(8,8.5*s);
+    {const fo={fill:C.grey,'font-family':MONO,'font-size':ff};let useShort=mid;
+     if(!useShort){const pr=txt(svg,0,-100,D.foot,fo);if(pr.getComputedTextLength()>avail)useShort=true;pr.remove()}
+     const fl=useShort?D.footShort:[D.foot];
+     const ts=fl.map((t,i)=>txt(svg,pad,H-pad-(fl.length-1-i)*ff*1.5,t,fo));
+     const mw=Math.max(...ts.map(t=>t.getComputedTextLength()));if(mw>avail)ts.forEach(t=>t.setAttribute('font-size',ff*avail/mw*0.98));}
+  }
+  draw(); let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+};
+window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'};
+})();
+</script>
+<script>
+// DATOS · índice de búsqueda en YouTube (Google Trends, Búsqueda en YouTube, México). La Casa de los Famosos México 2026 = 100
+const VERT={E:{n:'DEPORTES',ns:'DEPORTES',c:'#1F5BFF'},M:{n:'MÚSICA',ns:'MÚSICA',c:'#E8352C'},A:{n:'AUDIOVISUAL',ns:'AUDIOV.',c:'#7B3FE4'},G:{n:'GAMES',ns:'GAMES',c:'#C98A00'}};
+const EV=[
+{v:'E',n:'Liga MX (Clausura y Apertura)',w:'ene – dic',ns:'Liga MX',t:'08/01',e:'12/12',yt:19,web:750,span:1,x:'Torneo todo el año: liguilla y final del Clausura en mayo, del Apertura en diciembre. Muy buscada en Google (tablas y resultados).'},
+{v:'E',n:'Super Bowl LXI',w:'14 feb',ns:'Super Bowl',t:'14/02',yt:95,web:175,x:'Base 2025 = 95. En 2026 llegó a 270 con el medio tiempo de Bad Bunny. #superbowl: 97 mil M de vistas (global).'},
+{v:'E',n:'Final de la Champions',w:'5 jun',ns:'Champions',t:'05/06',yt:8.1,web:109,x:'Base: final de 2026.'},
+{v:'E',n:'Finales de la NBA',w:'junio',ns:'NBA',t:'03/06',e:'20/06',yt:5.4,web:83,x:'Interés constante en la temporada, sin pico fuerte en las finales.'},
+{v:'E',n:'Copa Oro (México sede)',w:'jun – jul',ns:'Copa Oro',t:'15/06',e:'15/07',yt:12,web:113,x:'Base: Copa Oro 2025 = 12. En 2027 vuelve a México después de 24 años. Ventana habitual de junio a julio.'},
+{v:'E',n:'Panamericanos de Lima',w:'23 jul – 8 ago',ns:'Panam.',t:'23/07',e:'08/08',yt:5.4,web:3.3,x:'Base: Santiago 2023.'},
+{v:'E',n:'Gran Premio de México F1',w:'29 – 31 oct',ns:'GP México',t:'29/10',e:'31/10',yt:9,web:71,x:'Autódromo Hermanos Rodríguez; primera vez con Fórmula 2. Base: GP 2025.'},
+{v:'E',n:'Peleas de Canelo',w:'mayo y sept.',ns:'Canelo',t:'08/05',yt:6,web:12,x:'Fechas tradicionales: fin de semana del 5 de mayo y del 16 de septiembre. Base: pelea de mayo de 2026.'},
+{v:'M',n:'Grammy',w:'7 feb',ns:'Grammy',t:'07/02',yt:12.2,web:25.6,x:'Base: Grammy 2026.'},
+{v:'M',n:'Premios Lo Nuestro',w:'febrero',ns:'Lo Nuestro',t:'18/02',yt:9.5,web:7.5,x:'Febrero. Base: edición 2026.'},
+{v:'M',n:'EDC México',w:'19 – 21 feb',ns:'EDC',t:'19/02',e:'21/02',yt:3.6,web:22.5,x:'Autódromo Hermanos Rodríguez, CDMX. #edcmexico: 2 mil M de vistas.'},
+{v:'M',n:'Vive Latino',w:'13 – 14 mar',ns:'Vive Latino',t:'13/03',e:'14/03',yt:11.4,web:15,x:'CDMX. Base: edición 2026.'},
+{v:'M',n:"Tecate Pa'l Norte",w:'mar – abr',ns:"Pa'l Norte",t:'27/03',yt:3.8,web:22.5,x:'Monterrey; fecha por anunciar (marzo o abril). Base: edición 2026.'},
+{v:'M',n:'Latin Grammy',w:'noviembre',ns:'L. Grammy',t:'11/11',yt:5.3,web:7.5,x:'Noviembre. Base: edición 2025.'},
+{v:'M',n:'Corona Capital',w:'noviembre',ns:'Corona Cap.',t:'19/11',yt:5.9,web:15,x:'CDMX; fecha por anunciar (noviembre). Base: edición 2025.'},
+{v:'A',n:'La Casa de los Famosos México',w:'jul – oct',ns:'LCDLF MX',t:'25/07',e:'15/10',yt:100,web:100,x:'Referencia de la escala. Estrena a finales de julio (2026: 26/07) en Canal 2 y ViX. #lcdlfmx: 42 mil M de vistas.'},
+{v:'A',n:'Oscar',w:'14 mar',ns:'Oscar',t:'14/03',yt:21.6,web:65,x:'Base: Oscar 2026.'},
+{v:'A',n:'The Legend of Zelda (película)',w:'29 abr',ns:'Zelda',t:'29/04',yt:16.7,web:30,x:'Puente entre games y cine.'},
+{v:'A',n:'CCXP México',w:'30 abr – 2 may',ns:'CCXP',t:'30/04',e:'02/05',yt:0.8,web:7.5,x:'30 de abril a 2 de mayo. Base: CCXP México 2026.'},
+{v:'A',n:'Star Wars: Starfighter',w:'27 may',ns:'Star Wars',t:'27/05',yt:5.7,web:22.5,x:'Base: término "star wars", 2025–26.'},
+{v:'A',n:'Spider-Man: Beyond the Spider-Verse',w:'17 jun',ns:'Spider-Verse',t:'17/06',yt:33,web:21,x:'Base: "spider-man" en 2026, año de Brand New Day.'},
+{v:'A',n:'Shrek 5',w:'1 jul',ns:'Shrek 5',t:'01/07',yt:36,web:12,x:'Estreno en vacaciones de verano. #shrek: 55 mil M de vistas (global).'},
+{v:'A',n:'Una Película de Minecraft 2',w:'22 jul',ns:'Minecraft 2',t:'22/07',yt:123,web:90,x:'Índice de la franquicia Minecraft (juego + película).'},
+{v:'A',n:'Frozen 3',w:'25 nov',ns:'Frozen 3',t:'25/11',yt:10,web:7,x:'Base: término "frozen", 2025–26.'},
+{v:'A',n:'Avengers: Secret Wars',w:'16 dic',ns:'Avengers',t:'16/12',yt:33,web:50,x:'Base: "avengers" en 2026, año de Doomsday.'},
+{v:'G',n:'Vacaciones de invierno: Roblox',w:'enero',ns:'Vac. invierno',t:'01/01',e:'07/01',yt:121,web:92,x:'Pico anual de Roblox en enero de 2026. #roblox: 1.6 billones de vistas (global).'},
+{v:'G',n:'GTA VI, primer trimestre',w:'ene – mar',ns:'GTA VI',t:'01/01',e:'31/03',yt:37,web:29,x:'Lanzamiento el 19/11/2026. Tráiler 1: 93 M de vistas en YouTube en 24 h.'},
+{v:'G',n:'Semana Santa: Free Fire',w:'22 mar – 2 abr',ns:'Semana Santa',t:'22/03',e:'02/04',yt:33,web:48,x:'Pico de Free Fire en la semana del 5 de abril de 2026.'},
+{v:'G',n:'Summer Game Fest',w:'inicio de jun',ns:'SGF',t:'04/06',e:'08/06',yt:4,web:null,x:'Showcases de junio. Base: 2026.'},
+{v:'G',n:'Vacaciones de verano: Minecraft',w:'jul – ago',ns:'Vac. verano',t:'15/07',e:'31/08',yt:123,web:90,x:'Pico anual de Minecraft en julio de 2026.'},
+{v:'G',n:'gamescom (Colonia)',w:'23 – 29 ago',ns:'gamescom',t:'23/08',e:'29/08',yt:2.1,web:null,x:'Base: gamescom 2026.'},
+{v:'G',n:'Worlds de LoL',w:'15 oct – 14 nov',ns:'Worlds',t:'15/10',e:'14/11',yt:3.6,web:7.5,x:'Corea del Sur; final prevista el 14/11.'},
+{v:'G',n:'The Game Awards',w:'diciembre',ns:'TGA',t:'09/12',yt:3,web:7.5,x:'Diciembre. Base: TGA 2025.'}
+];
+const tierOf=e=>e.yt==null?'P':e.yt>=50?'XL':e.yt>=20?'G':e.yt>=8?'M':'P';
+const fmt=x=>x==null?'n/m':(x<10?x.toLocaleString('es-MX',{maximumFractionDigits:1}):Math.round(x).toLocaleString('es-MX'));
+const d27=s=>{const [a,b]=s.split('/');return Date.UTC(2027,+b-1,+a)};
+const FOOT='FUENTE: EUPHORIA CREATIVE · Google Trends (Búsqueda en YouTube y en la Web, México), última edición de cada momento, consulta del 27/10/2026; fechas oficiales de los organizadores.';
+const FOOTS=['FUENTE: EUPHORIA · Google Trends (YouTube y Web, MX),','última edición de cada momento; consulta 27/10/2026.'];
+</script>
+
+<script>
+const SZ={E:[8,9,8,10,17,6,9,8,25,9,9,7],M:[1,6,3,1,1,1,1,1,1,1,2,1],A:[18,25,25,25,23,21,24,37,35,21,17,16],G:[68,66,70,94,85,77,88,83,67,62,61,69]};
+const NOTE={E:'Picos en mayo y septiembre: peleas de Canelo, liguilla y NFL',M:'Febrero y marzo: Grammy, Lo Nuestro, EDC y Vive Latino',A:'Agosto y septiembre: La Casa de los Famosos',G:'Nivel alto todo el año, con pico en Semana Santa'};
+const NOTES={E:'Picos: may y sep',M:'Feb y mar',A:'Ago y sep',G:'Pico: Semana Santa'};
+const MS=['E','F','M','A','M','J','J','A','S','O','N','D'];
+renderInfo({aria:'Estacionalidad mensual de la búsqueda en YouTube por vertical en México, 2025',
+ kicker:'MOMENTOS CULTURALES 2027 · YOUTUBE MÉXICO / ESTACIONALIDAD DE BÚSQUEDA POR VERTICAL / BASE 2025', kickerShort:'MÉXICO 2027 / ESTACIONALIDAD',
+ head:['Cuándo despierta cada vertical','en YouTube a lo largo del año.'], headShort:['Cuándo despierta','cada vertical.'],
+ deck:['Promedio mensual de la búsqueda en YouTube en 2025, año sin Mundial y por eso el más cercano al diseño de 2027. Cada vertical en su propia escala (pico = 100). Canastas: Liga MX, NFL, F1, Canelo y Champions; Vive Latino, Grammy, Lo Nuestro, Corona Capital y EDC; La Casa de los Famosos, Oscar y estrenos; GTA, Free Fire, Roblox, Minecraft y TGA.'],
+ deckShort:['Búsqueda en YouTube en 2025, por mes.','Cada vertical en su propia escala (pico = 100).'],
+ kpis:[{n:'FEB',l:'PICO DE LA MÚSICA',ls:'MÚSICA',c:'#E8352C'},{n:'AGO',l:'PICO DEL AUDIOVISUAL',ls:'AUDIOV.',c:'#7B3FE4'},{n:'SEP',l:'PICO DE LOS DEPORTES',ls:'DEPORTES',c:'#1F5BFF'},{n:'ABR',l:'PICO DE LOS GAMES',ls:'GAMES',c:'#C98A00'}],
+ legend:[{t:'▬ PROMEDIO MENSUAL (PICO = 100)',c:'#111111'},{t:'● MES DE PICO',c:'#8A867D'}],
+ axisNote:'', foot:'FUENTE: EUPHORIA CREATIVE · Google Trends, Búsqueda en YouTube, México, ene–dic 2025, canastas de términos por vertical; consulta del 27/10/2026.',
+ footShort:['FUENTE: EUPHORIA · Google Trends, Búsqueda en YouTube,','México, ene–dic 2025; consulta 27/10/2026.'],
+ chart(P){
+  const {svg,top,bottom,left,right,s,compact,C,MONO,BODY,DISP,el,txt,tip}=P;
+  const g=el('g',{},svg); const cols=compact?2:4, rows=compact?2:1, gx=compact?14:24*s, gy=18*s;
+  const cwid=(right-left-(cols-1)*gx)/cols, chgt=(bottom-top-(rows-1)*gy)/rows;
+  const af=Math.max(8,8.5*s), tf=Math.max(9.5,12*s);
+  ['M','A','E','G'].forEach((k,i)=>{const L=VERT[k], cx=left+(i%cols)*(cwid+gx), cy=top+Math.floor(i/cols)*(chgt+gy);
+    const a=SZ[k], m=Math.max(...a), v=a.map(x=>x/m*100);
+    el('rect',{x:cx,y:cy,width:cwid,height:3,fill:L.c},g);
+    txt(g,cx,cy+tf+8,L.n,{fill:L.c,'font-family':MONO,'font-size':tf,'font-weight':700});
+    const nt=txt(g,cx,cy+tf+8+af+8,compact?NOTES[k]:NOTE[k],{fill:C.ink,'font-family':BODY,'font-size':af*1.05});
+    if(nt.getComputedTextLength()>cwid)nt.textContent=NOTES[k];
+    const py0=cy+tf+af+30, py1=cy+chgt-af-10, px0=cx+2, px1=cx+cwid-4;
+    const X=j=>px0+(px1-px0)*j/11, Y=val=>py1-(py1-py0)*val/100;
+    [50,100].forEach(t=>{el('line',{x1:px0,x2:px1,y1:Y(t),y2:Y(t),stroke:C.rule,'stroke-width':0.6},g)});
+    el('line',{x1:px0,x2:px1,y1:py1,y2:py1,stroke:C.ink,'stroke-width':0.8},g);
+    el('polygon',{points:`${X(0)},${py1} `+v.map((q,j)=>`${X(j)},${Y(q)}`).join(' ')+` ${X(11)},${py1}`,fill:L.c,'fill-opacity':0.14},g);
+    el('polyline',{points:v.map((q,j)=>`${X(j)},${Y(q)}`).join(' '),fill:'none',stroke:L.c,'stroke-width':2.2},g);
+    const im=v.indexOf(100); el('circle',{cx:X(im),cy:Y(100),r:4,fill:L.c},g);
+    MS.forEach((mm,j)=>txt(g,X(j),py1+af+6,mm,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'}));
+    v.forEach((q,j)=>{const hit=el('rect',{x:X(j)-(px1-px0)/22,y:py0,width:(px1-px0)/11,height:py1-py0,fill:'transparent'},g);
+      const h=ev=>{const p=ev.touches?ev.touches[0]:ev;showTip(tip,`<b>${L.n} · ${['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][j]}/2025</b><br>${Math.round(q)} (pico del año = 100)`,p.clientX,p.clientY)};
+      hit.addEventListener('mousemove',h);hit.addEventListener('touchstart',h,{passive:true});hit.addEventListener('mouseleave',()=>tip.hidden=true)});
+  });
+ }});
+</script>
+</body></html>
