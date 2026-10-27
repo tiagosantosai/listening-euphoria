@@ -1,0 +1,104 @@
+<!doctype html><html lang="es-MX"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Canales YouTube México</title>
+<style>
+:root{--ink:#111;--grey:#8A867D;--rule:#E4E0D8;--paper:#fff;--soft:#F6F4F0}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif}
+#wrap{position:fixed;inset:0;display:flex;flex-direction:column;padding:var(--pad);gap:calc(var(--u)*1.2)}
+.kick{font:700 calc(var(--u)*1.05)/1 'IBM Plex Mono',monospace;letter-spacing:.04em;color:#E8352C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+h1{margin:0;font:900 calc(var(--u)*3.1)/1.02 'Inter Tight','Inter',sans-serif;letter-spacing:-.02em}
+h1 span{color:var(--grey)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:calc(var(--u)*1)}
+.kpi{border-top:3px solid var(--c);padding-top:calc(var(--u)*.5)}
+.kpi b{display:block;font:900 calc(var(--u)*2.1)/1 'Inter Tight',sans-serif;color:var(--c);letter-spacing:-.02em}
+.kpi small{display:block;margin-top:calc(var(--u)*.35);font:700 calc(var(--u)*.85)/1.2 'IBM Plex Mono',monospace}
+.grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(var(--cols),1fr);grid-auto-rows:1fr;gap:calc(var(--u)*1)}
+.card{min-height:0;display:flex;flex-direction:column;background:var(--soft);border-radius:calc(var(--u)*.6);overflow:hidden;position:relative}
+.card .hd{background:var(--c);color:#fff;padding:calc(var(--u)*.7) calc(var(--u)*1);display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card .hd b{font:900 calc(var(--u)*1.45)/1 'Inter Tight',sans-serif;letter-spacing:.01em}
+.card .hd span{font:700 calc(var(--u)*.8)/1 'IBM Plex Mono',monospace;opacity:.92;white-space:nowrap}
+.rows{flex:1;min-height:0;display:grid;grid-template-rows:repeat(var(--n),1fr);padding:calc(var(--u)*.35) calc(var(--u)*.9)}
+.row{display:grid;grid-template-columns:calc(var(--u)*.9) var(--av) 1fr auto;align-items:center;gap:calc(var(--u)*.6);border-bottom:1px solid var(--rule);min-height:0;position:relative;cursor:default}
+.row:last-child{border-bottom:0}
+.rk{font:700 calc(var(--u)*.8)/1 'IBM Plex Mono',monospace;color:var(--grey)}
+.av{width:var(--av);height:var(--av);border-radius:50%;object-fit:cover;background:#ddd;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--c)}
+.nm{min-width:0}
+.nm b{display:block;font:700 calc(var(--u)*1.0)/1.15 'Inter',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm i{display:block;font-style:normal;font:500 calc(var(--u)*.78)/1.25 'IBM Plex Mono',monospace;color:var(--grey);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.big{text-align:right}
+.big b{display:block;font:900 calc(var(--u)*1.75)/1 'Inter Tight',sans-serif;color:var(--c);letter-spacing:-.02em}
+.big small{display:block;font:700 calc(var(--u)*.68)/1.2 'IBM Plex Mono',monospace;color:var(--grey)}
+.bar{position:absolute;left:calc(var(--u)*1.5 + var(--av));bottom:3px;height:3px;border-radius:2px;background:var(--c);opacity:.35}
+.ft{padding:calc(var(--u)*.45) calc(var(--u)*1) calc(var(--u)*.6);font:600 calc(var(--u)*.82)/1.3 'Inter',sans-serif;color:#3d3a35;border-top:1px solid var(--rule)}
+.foot{font:500 calc(var(--u)*.78)/1.35 'IBM Plex Mono',monospace;color:var(--grey)}
+.compact .nm i,.compact .ft,.compact .big small{display:none}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#fff;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:240px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px}
+</style></head><body>
+<div id="wrap"></div><div id="tip" hidden></div>
+<script>
+const IMG=id=>'https://yt3.ggpht.com/'+id+'=s176-c-k-c0x00ffffff-no-rj';
+const CARDS=[
+ {k:'DEPORTES',c:'#1F5BFF',ft:'Medios deportivos (TUDN, Claro Sports) y creadores de fútbol (Cracks, Chuy Almada, La Gambeta) se reparten la audiencia.',ch:[
+  ['TUDN México','tudnmexico',6.17,4980,58960,'WFJZHIFCmK2Sgbw7wqvQMBRczMsTw7TXsozZes3vkhGHaTvGBVdrfmSCrx5mNWNQbENuznks'],
+  ['Cracks','cracks',6.07,4260,8740,'ytc/AIdro_nRDekRkrrHuDElHbC947wgA_IrdA0woRmgf0N2lwTjSqA'],
+  ['Claro Sports','clarosports',5.12,620,34770,'RVyMmo3WLr5WdJg5yXGU89MG9jVU24EMFugHi4EFtU-aZgBGIeXuYc5NW1_MirT2BCDh9Zl1'],
+  ['Chuy Almada','chuyalmada',4.81,755,863,'NIXZZr1c970D901O5wuXXV6gUIYWrGsW-wz5BKWTwd43bRbtZ-k2zbBo8tC7quQISXaNo3MGyw'],
+  ['Tiitanes Futbol','tiitanesfutbol',3.9,1100,3080,'ytc/AIdro_kN1AUrWT6k-iI7dtGh4bi1lqN5Nmzg0Bvtm2PPX_QmM3c'],
+  ['La Gambeta','lagambetasports',3.39,1300,7880,'n85izsPKvdMWgou12RIp4R3MxgbbQ1d4NqZ1y2_S5p_r_WMdgtGNnlvQfmYS0X4_ZDF1XGiBKw']]},
+ {k:'MÚSICA',c:'#E8352C',ft:'El regional mexicano domina: Christian Nodal, Los Ángeles Azules, Grupo Firme y Vicente Fernández.',ch:[
+  ['Christian Nodal','christiannodal',12.2,13060,22,'Z3U84Z8I94VbH9dQzdKlUEssPj1MAVNvs4ecvDOklNx-Jh7TxXR6xj0QOjcBNj6i2YTgrfDgmto'],
+  ['Los Ángeles Azules','angelesazulesoficial',10.3,17310,138,'CApO0CUIKX2wJ_fOFDaGjeIJbltRz1GsjoktPG5qVYfSJsqVikM7QUo2ydAhM2QyerByNQFJpg'],
+  ['Ha*Ash','haashoficial',10.2,10520,381,'eIaEquxuCtWL-zrYx6lTSkFrclBBiSBNJki2GTXb9IA6SLqJaRPM4S7nT5qBX--zaCsCzoyuWQ'],
+  ['Grupo Firme','grupofirmeoficial',9.75,12010,179,'W1TCaaSt6mYFewb0l3hEtGCtSuawy9_hhuVcT3V2ATnSz-0dqrJdYeAbB-XqHq9KMplMMfP9'],
+  ['Vicente Fernández','vicentefernandez',9.52,14720,176,'6wic42kN_2DcrHTVMEUbWI0_ZWd39rvWDB-Je1mBwLy9gQRLis_4SbhHv7mMMQ1l0jxgrVHqzg'],
+  ['Mon Laferte','monlaferte',7.72,7710,135,'xqI031rZwvbzp1xsFQ4wwKPMGWbhr23jIC9rRy5BY618As2zj23peBihLGM0AKZDvolKI5ZsCg']]},
+ {k:'AUDIOVISUAL',c:'#7B3FE4',ft:'La TV vive en YouTube: Tlnovelas, La Rosa de Guadalupe y Las Estrellas suman 65 M de suscriptores.',ch:[
+  ['Badabun','badabunoficial',47.6,20390,30440,'f3gHNyF4omCvi9dRThcWpRYNKNJuGoeyOAA2ucz7_1kue-6qPRZCsXJIsXeQjCClYrhvBFmUDA'],
+  ['Tlnovelas','tlnovelasoficial',27.6,25390,73710,'vSdFaqiU29F7hsmyfYnIGnJsjGJMWIknEwZhU_uRewDt4gANfmgO7tshMVnEUlPq2q4pcstZmUU'],
+  ['La Rosa de Guadalupe','larosadeguadalupeof',24.7,17650,18930,'ytc/AIdro_kLAkgVK17XRIbB71Xrw0YdG0XCBMJ3h76_jJe4aZjivgw'],
+  ['Netflix Latinoamérica','netflixlatam',14.4,4710,7560,'9xMmdXDWLydDaav2PRnmEu-XjC8g0WgBcf8Ir7ri5lXAlFYW_5hVVi6BQQfeDGBLLQZ9_f0j'],
+  ['Las Estrellas','canalestrellas',12.5,12530,88910,'cr37cBDBGVAw5abCmmqHTaZG-rQD8xXLhg9UvF6cJVQLAVEBWexvTunNNoTsg9UvUPXHCwmYUw'],
+  ['Prime Video México','primevideomx',3.24,1740,5070,'pQXVKnWu-WWaEqrdGhWQrKjLj9hdXhMEux5uPlA9-t-fmxecJjRUuNGKPe_uTYXBli97YeIxXw']]},
+ {k:'GAMES',c:'#C98A00',ft:'Creadores de Minecraft y Free Fire; Garena Free Fire LATAM es la única marca del top 6.',ch:[
+  ['ChuyMineVt','chuyminevt',25,5570,1650,'NZfiex6ed29my3GJNqWbkntOqSWg2vE9LoEBnBdGLpvz7D4D3BRBIBSw3i1HXv0FAlE8lrpsNgo'],
+  ['E-MasterSensei','e_mastersensei',20.4,5780,1660,'6RcXS3DULYsudmDHCf86Y44BxNfU4kWfZfhvxLEeNOXJXAIresjN1evF8cC6KZddbTPB0-yRUqw'],
+  ['EODRIOZOLA','eodriozola1',20,2200,2030,'KNBHPV0Qb8FA3NjNkdwXk4hSAWwMwXHsA4ZmMV1CIhqiwmkkBhJEnv8t7l_VBX-sZskCxLwO0A'],
+  ['Yair17','yair17',14.2,2060,1570,'-_mGXzVC2MhrcXJVbrCdNx7gl88j5xwow5nLwIPWeMMzA85_Ju8pTNKuBY-qAfqWvLtSSHrM6g'],
+  ['Garena Free Fire LATAM','garenafreefirelatam',13.2,2370,3780,'m-WNby7qI4ztwaQf1wVIIXKfWAymy7aRgS2vnLI1H-TKeWUYyH1Ldj1dYHuM6p3-THoM5JoK'],
+  ['TheHectorino','thehectorino',12.9,1790,2880,'ytc/AIdro_md4goRKHxlDxte1gz0NzX6eYOX9300ivKvcAQkeLYsPtY']]}];
+const nf=(x,d)=>x.toLocaleString('es-MX',{maximumFractionDigits:d});
+const subs=x=>nf(x,x<10?2:1)+' M';
+const views=m=>m>=1000?nf(m/1000,1)+' mil M':nf(m,0)+' M';
+const vids=v=>nf(v,0);
+const tip=document.getElementById('tip');
+function showTip(html,x,y){tip.innerHTML=html;tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+12,T=y-r.height-10;if(L+r.width>innerWidth-6)L=x-r.width-12;if(L<6)L=6;if(T<6)T=y+14;tip.style.left=L+'px';tip.style.top=T+'px'}
+function draw(){
+ const W=innerWidth,H=innerHeight,compact=W<620;
+ const u=Math.max(7.5,Math.min(W/78,H/52,15));
+ const cols=W>=1200?4:2, n=compact?4:6;
+ const wrap=document.getElementById('wrap');
+ wrap.className=compact?'compact':'';
+ wrap.style.setProperty('--u',u+'px');wrap.style.setProperty('--pad',Math.max(12,Math.min(W*0.03,36))+'px');
+ wrap.style.setProperty('--cols',cols);wrap.style.setProperty('--n',n);
+ const rowsH=(H*(cols===4?0.62:0.36))/(n+1.6);
+ wrap.style.setProperty('--av',Math.max(18,Math.min(rowsH*0.72,u*3.1))+'px');
+ const tot=CARDS.reduce((a,c)=>a+c.ch.reduce((b,x)=>b+x[2],0),0);
+ wrap.innerHTML=`<div class="kick">${compact?'MÉXICO 2027 / CANALES DE YOUTUBE':'MOMENTOS CULTURALES 2027 · YOUTUBE MÉXICO / PRINCIPALES CANALES POR VERTICAL'}</div>
+ <h1>${compact?'Los canales que mueven<br><span>cada vertical.</span>':'Los canales que mueven cada vertical: <span>la TV y los creadores al frente.</span>'}</h1>
+ <div class="kpis">
+  <div class="kpi" style="--c:#111"><b>24</b><small>${compact?'CANALES':'CANALES EN 4 VERTICALES'}</small></div>
+  <div class="kpi" style="--c:#E8352C"><b>${nf(tot,0)} M</b><small>${compact?'SUSCRIPTORES':'SUSCRIPTORES EN TOTAL'}</small></div>
+  <div class="kpi" style="--c:#7B3FE4"><b>47.6 M</b><small>${compact?'BADABUN':'BADABUN, EL MAYOR'}</small></div>
+  <div class="kpi" style="--c:#C98A00"><b>25 M</b><small>${compact?'CHUYMINEVT':'CHUYMINEVT, TOP GAMER'}</small></div>
+ </div>
+ <div class="grid">${CARDS.map(cd=>{const sum=cd.ch.reduce((a,x)=>a+x[2],0),mx=Math.max(...cd.ch.map(x=>x[2]));
+  return `<div class="card" style="--c:${cd.c}"><div class="hd"><b>${cd.k}</b><span>${nf(sum,1)} M SUSCR.</span></div><div class="rows">${cd.ch.slice(0,n).map((x,i)=>`<div class="row" data-t="${encodeURIComponent(`<b>${cd.k} · #${i+1}</b><br>${x[0]} (@${x[1]})<br>${subs(x[2])} de suscriptores<br>${views(x[3])} de vistas · ${vids(x[4])} videos`)}"><span class="rk">${i+1}</span><img class="av" src="${IMG(x[5])}" alt="" referrerpolicy="no-referrer"><div class="nm"><b>${x[0]}</b><i>${views(x[3])} vistas · ${vids(x[4])} videos</i></div><div class="big"><b>${subs(x[2])}</b><small>SUSCRIPTORES</small></div><span class="bar" style="width:calc((100% - var(--u)*7) * ${(x[2]/mx).toFixed(3)} * .55)"></span></div>`).join('')}</div><div class="ft">${cd.ft}</div></div>`}).join('')}</div>
+ <div class="foot">${compact?'FUENTE: EUPHORIA · Social Blade (canales registrados en México), 27/10/2026.':'FUENTE: EUPHORIA CREATIVE · Social Blade, top por suscriptores de canales registrados en México en cada categoría (sin canales infantiles ni recopilaciones), consulta del 27/10/2026.'}</div>`;
+ wrap.querySelectorAll('.row').forEach(r=>{const h=e=>{const p=e.touches?e.touches[0]:e;showTip(decodeURIComponent(r.dataset.t),p.clientX,p.clientY)};r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)});
+}
+draw();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,80)});if(document.fonts)document.fonts.ready.then(draw);
+</script></body></html>
