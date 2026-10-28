@@ -1,40 +1,40 @@
 <!doctype html><html lang="es-MX"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
 #info{position:fixed;inset:0}
 #info svg{display:block}
-#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:250px}
-#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#FFFFFF;color:#222222;font:400 13px/1.45 'Nunito Sans',system-ui,sans-serif;padding:10px 14px;border-radius:12px;max-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.18);border:1px solid #EBEBEB}
+#tip b{font-weight:800;color:#222222}
 </style>
 <title>Google · Airbnb México</title></head><body>
 <div id="info"></div><div id="tip" hidden></div>
-<script src="airbnb-render.js?v=1"></script>
+<script src="airbnb-render.js?v=2"></script>
 <script>
 
 const days=["ENE/25", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC", "ENE/26", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT/26"],dshort=["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D", "E", "F", "M", "A", "M", "J", "J", "A", "S", "O"];const A=[72, 67, 82, 82, 65, 66, 78, 69, 58, 59, 72, 74, 71, 64, 83, 74, 64, 58, 77, 65, 54, 61],B=[25, 23, 25, 28, 25, 26, 28, 26, 22, 23, 32, 30, 32, 31, 33, 30, 28, 32, 32, 27, 22, 22],TOPS=["hotel(100)", "airbnb mexico(79)", "airbnb cdmx(62)", "hoteles(60)", "airbnb guadalajara(29)", "booking(29)", "que es airbnb(29)", "airbnb monterrey(28)", "airbnb acapulco(26)", "airbnb veracruz(25)"],GEO=["Baja California Sur 100", "Quintana Roo 95", "Jalisco 77", "Nayarit 71", "Sonora 66", "Querétaro 64"];
 renderInfo({aria:"Interés de búsqueda en Google por Airbnb y Booking en México por mes",kicker:"LISTENING / AIRBNB MÉXICO / GOOGLE SEARCH / ENE 2025 – OCT 2026",kickerShort:"LISTENING / AIRBNB MÉXICO / GOOGLE",
- head:["En Google, Airbnb triplica", "a Booking y sube en vacaciones."],headShort:["Airbnb triplica", "a Booking en Google."],deck:["El interés por \"airbnb\" es, en promedio, 2.6 veces el de \"booking\", con picos en Semana Santa (mar–abr) y vacaciones de verano (jul). CDMX, Guadalajara y Monterrey lideran las búsquedas por ciudad; Baja California Sur y Quintana Roo, por estado.", "En alza: \"price travel\" y \"facturify airbnb\" (facturación)."],deckShort:["\"airbnb\" es 2.6× \"booking\".", "Picos: Semana Santa y julio."],kpis:[{"n": "69", "l": "ÍNDICE PROMEDIO \"AIRBNB\"", "ls": "AIRBNB", "c": "#E8352C"}, {"n": "27", "l": "ÍNDICE PROMEDIO \"BOOKING\"", "ls": "BOOKING", "c": "#1F5BFF"}, {"n": "Mar/26", "l": "MES PICO", "ls": "PICO", "c": "#111111"}, {"n": "2.6×", "l": "AIRBNB VS. BOOKING", "ls": "VS. BOOKING", "c": "#C98A00"}],legend:[{"t": "— AIRBNB", "c": "#E8352C"}, {"t": "— BOOKING", "c": "#1F5BFF"}],legendShort:[{"t": "— AIRBNB", "c": "#E8352C"}, {"t": "— BOOKING", "c": "#1F5BFF"}],axisNote:'',yLeft:true,yRight:false,noEv:true,foot:"FUENTE: EUPHORIA CREATIVE · Google Trends, México, búsqueda web, 01/01/2025 a 28/10/2026, promedio mensual del índice semanal (100 = pico del período entre ambos términos). Oct/26 parcial.",footShort:["FUENTE: EUPHORIA · Google Trends México, índice 0–100,", "promedio mensual. Oct/26 parcial."],
+ head:["En Google, Airbnb triplica", "a Booking y sube en vacaciones."],headShort:["Airbnb triplica", "a Booking en Google."],deck:["El interés por \"airbnb\" es, en promedio, 2.6 veces el de \"booking\", con picos en Semana Santa (mar–abr) y vacaciones de verano (jul). CDMX, Guadalajara y Monterrey lideran las búsquedas por ciudad; Baja California Sur y Quintana Roo, por estado.", "En alza: \"price travel\" y \"facturify airbnb\" (facturación)."],deckShort:["\"airbnb\" es 2.6× \"booking\".", "Picos: Semana Santa y julio."],kpis:[{"n": "69", "l": "ÍNDICE PROMEDIO \"AIRBNB\"", "ls": "AIRBNB", "c": "#FF385C"}, {"n": "27", "l": "ÍNDICE PROMEDIO \"BOOKING\"", "ls": "BOOKING", "c": "#00A699"}, {"n": "Mar/26", "l": "MES PICO", "ls": "PICO", "c": "#222222"}, {"n": "2.6×", "l": "AIRBNB VS. BOOKING", "ls": "VS. BOOKING", "c": "#FC642D"}],legend:[{"t": "— AIRBNB", "c": "#FF385C"}, {"t": "— BOOKING", "c": "#00A699"}],legendShort:[{"t": "— AIRBNB", "c": "#FF385C"}, {"t": "— BOOKING", "c": "#00A699"}],axisNote:'',yLeft:true,yRight:false,noEv:true,foot:"FUENTE: EUPHORIA CREATIVE · Google Trends, México, búsqueda web, 01/01/2025 a 28/10/2026, promedio mensual del índice semanal (100 = pico del período entre ambos términos). Oct/26 parcial.",footShort:["FUENTE: EUPHORIA · Google Trends México, índice 0–100,", "promedio mensual. Oct/26 parcial."],
  chart(P){
   const {svg,left,top,bottom,ch,s,compact,C,MONO,DISP,BODY,el,txt,tip,W}=P; let right=P.right;
   const g=el('g',{},svg); const af=Math.max(8,8.5*s);
   if(W>=760){const pw=Math.min(300,(right-left)*0.32); panel(right-pw+10,pw-10); right=right-pw-24}
   const cw=right-left,n=days.length,xs=i=>left+cw*i/(n-1),y=v=>bottom-ch*v/100;
   [0,25,50,75,100].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
-  el('polyline',{points:B.map((v,i)=>xs(i)+','+y(v)).join(' '),fill:'none',stroke:'#1F5BFF','stroke-width':Math.max(1.8,2.4*s)},g);
-  let d=`M${xs(0)},${bottom}`;A.forEach((v,i)=>d+=` L${xs(i)},${y(v)}`);d+=` L${xs(n-1)},${bottom} Z`;el('path',{d,fill:'#E8352C',opacity:0.10},g);
-  el('polyline',{points:A.map((v,i)=>xs(i)+','+y(v)).join(' '),fill:'none',stroke:'#E8352C','stroke-width':Math.max(2.2,3*s)},g);
-  el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
+  el('polyline',{points:B.map((v,i)=>xs(i)+','+y(v)).join(' '),fill:'none',stroke:'#00A699','stroke-width':Math.max(1.8,2.4*s)},g);
+  let d=`M${xs(0)},${bottom}`;A.forEach((v,i)=>d+=` L${xs(i)},${y(v)}`);d+=` L${xs(n-1)},${bottom} Z`;el('path',{d,fill:'#FF385C',opacity:0.10},g);
+  el('polyline',{points:A.map((v,i)=>xs(i)+','+y(v)).join(' '),fill:'none',stroke:'#FF385C','stroke-width':Math.max(2.2,3*s)},g);
+  el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:'#B0B0B0','stroke-width':1},g);
   days.forEach((dd,i)=>{txt(g,xs(i),bottom+af+6,(cw/(n-1))<44?dshort[i]:dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
     const w=cw/(n-1);const r=el('rect',{x:xs(i)-w/2,y:top,width:w,height:ch,fill:'transparent'},g);hover(r,tip,`<b>${dd}</b><br>airbnb ${A[i]} · booking ${B[i]}`)});
-  const mi=A.indexOf(Math.max(...A));txt(g,xs(mi)+(mi>n-4?-6:6),y(A[mi])-6,String(A[mi]),{fill:'#E8352C','font-family':DISP,'font-size':Math.max(11,13*s),'font-weight':900,'text-anchor':mi>n-4?'end':'start'});
+  const mi=A.indexOf(Math.max(...A));txt(g,xs(mi)+(mi>n-4?-6:6),y(A[mi])-6,String(A[mi]),{fill:'#FF385C','font-family':DISP,'font-size':Math.max(11,13*s),'font-weight':800,'text-anchor':mi>n-4?'end':'start'});
   function panel(x0,pw){const f=Math.max(8,8.5*s);let yy=top+2;el('line',{x1:x0-12,x2:x0-12,y1:top-4,y2:bottom,stroke:C.rule,'stroke-width':1},g);
     txt(g,x0,yy,"BÚSQUEDAS RELACIONADAS (TOP)",{fill:C.red,'font-family':MONO,'font-size':f,'font-weight':700});yy+=f*1.6;
     const lh=Math.min(f*1.75,(bottom-top)*0.6/TOPS.length);
     TOPS.forEach((q,k)=>{const m=q.match(/^(.*)\((\d+)\)$/);const nm=m?m[1].trim():q,v=m?+m[2]:0;
-      el('rect',{x:x0,y:yy-lh*0.62,width:pw*v/100,height:lh*0.78,fill:k<1?'#F6D7D5':'#F1EFEA'},g);
+      el('rect',{x:x0,y:yy-lh*0.62,width:pw*v/100,height:lh*0.78,rx:lh*0.2,fill:k<1?'#FFE5EA':'#F2F2F2'},g);
       txt(g,x0+4,yy,nm,{fill:C.ink,'font-family':BODY,'font-size':Math.max(8.5,lh*0.62),'font-weight':600});txt(g,x0+pw,yy,v,{fill:C.grey,'font-family':MONO,'font-size':f,'text-anchor':'end'});yy+=lh});
     yy+=f*1.2;txt(g,x0,yy,"ESTADOS CON MÁS INTERÉS",{fill:C.red,'font-family':MONO,'font-size':f,'font-weight':700});yy+=f*1.5;
     const gl=Math.max(f*1.3,(bottom-yy)/GEO.length);GEO.forEach(q=>{if(yy>bottom)return;txt(g,x0,yy,q,{fill:C.ink,'font-family':MONO,'font-size':f});yy+=gl})}
