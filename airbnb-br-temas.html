@@ -1,0 +1,36 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:250px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+<title>Temas · Airbnb Brasil</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script src="airbnb-render.js?v=1"></script>
+<script>
+
+const ROWS=[{"k": "tt", "n": "TIKTOK", "tot": 166, "v": [47, 18, 2, 28, 26, 45]}, {"k": "ig", "n": "INSTAGRAM", "tot": 184, "v": [73, 12, 6, 20, 17, 56]}, {"k": "x", "n": "X", "tot": 261, "v": [153, 35, 1, 15, 29, 28]}, {"k": "yt", "n": "YOUTUBE", "tot": 159, "v": [26, 7, 1, 36, 34, 55]}],TK=["VIAGEM", "EVENTOS", "MARCA", "ANFITRIAO", "PROBLEMAS", "MORADIA"],TC={"VIAGEM": "#C98A00", "EVENTOS": "#7B3FE4", "MARCA": "#1F5BFF", "ANFITRIAO": "#111111", "PROBLEMAS": "#8A867D", "MORADIA": "#E8352C"},TN={"VIAGEM": "VIAGEM E CASAS", "EVENTOS": "EVENTOS", "MARCA": "PUBLI/MARCA", "ANFITRIAO": "ANFITRIÃO E RENDA", "PROBLEMAS": "PROBLEMAS E GOLPES", "MORADIA": "MORADIA E REGRAS"};
+renderInfo({aria:"Temas da conversa sobre Airbnb no Brasil por rede social",kicker:"LISTENING / AIRBNB BRASIL / TEMAS DA CONVERSA NAS REDES / JAN 2025 – OUT 2026",kickerShort:"LISTENING / AIRBNB BRASIL / TEMAS",
+ head:["Fora da propaganda, a conversa", "é sobre morar, hospedar e se dar mal."],headShort:["A conversa é sobre", "morar, hospedar e golpes."],deck:["Moradia e regras (condomínio, STJ, impostos) somam 24% dos posts; anfitrião e renda, 13%; problemas e golpes, 14%. No X predominam humor e relatos de viagem; no YouTube, o debate de regras e renda.", "Classificação automática por palavras-chave nas legendas e títulos; toque nas barras para ver os números."],deckShort:["Moradia e regras: 24% dos posts.", "Anfitrião e renda: 13%."],kpis:[{"n": "24%", "l": "MORADIA E REGRAS", "ls": "MORADIA", "c": "#E8352C"}, {"n": "13%", "l": "ANFITRIÃO E RENDA", "ls": "ANFITRIÃO", "c": "#111111"}, {"n": "14%", "l": "PROBLEMAS E GOLPES", "ls": "PROBLEMAS", "c": "#8A867D"}, {"n": "39%", "l": "VIAGEM E CASAS", "ls": "VIAGEM", "c": "#C98A00"}],legend:[{"t": "■ VIAGEM E CASAS", "c": "#C98A00"}, {"t": "■ EVENTOS", "c": "#7B3FE4"}, {"t": "■ PUBLI/MARCA", "c": "#1F5BFF"}, {"t": "■ ANFITRIÃO E RENDA", "c": "#111111"}, {"t": "■ PROBLEMAS E GOLPES", "c": "#8A867D"}, {"t": "■ MORADIA E REGRAS", "c": "#E8352C"}],legendShort:[{"t": "■ VIAGEM", "c": "#C98A00"}, {"t": "■ EVENTOS", "c": "#7B3FE4"}, {"t": "■ PUBLI/MARCA", "c": "#1F5BFF"}, {"t": "■ ANFITRIÃO", "c": "#111111"}, {"t": "■ PROBLEMAS", "c": "#8A867D"}, {"t": "■ MORADIA", "c": "#E8352C"}],axisNote:'',yLeft:false,yRight:false,noEv:true,foot:"FONTE: EUPHORIA CREATIVE · 770 posts e vídeos sobre Airbnb no Brasil (jan/25–out/26), classificados por palavras-chave na legenda/título. Um tema por post, na ordem: publi, eventos, problemas, moradia, anfitrião, viagem.",footShort:["FONTE: EUPHORIA · 770 posts e vídeos, temas por palavras-chave;", "um tema por post. Jan/25–out/26."],
+ chart(P){
+  const {svg,left,right,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip}=P;
+  const g=el('g',{},svg); const f=Math.max(8.5,(compact?9:10.5)*s);
+  const lw=compact?Math.max(62,70*s):Math.max(110,130*s); const x0=left+lw, cw=right-x0-4;
+  const rh=ch/ROWS.length, bh=Math.min(rh*0.58,46*s);
+  ROWS.forEach((R,ri)=>{const yc=top+rh*ri+rh/2, y0=yc-bh/2;
+    txt(g,left,yc-2,R.n,{fill:C.ink,'font-family':DISP,'font-size':f*1.2,'font-weight':900});
+    txt(g,left,yc+f*1.1,R.tot+' posts',{fill:C.grey,'font-family':MONO,'font-size':f*0.85});
+    let x=x0; TK.forEach((k,j)=>{const v=R.v[j]; if(!v)return; const w=cw*v/R.tot;
+      const r=el('rect',{x,y:y0,width:Math.max(0,w-1.5),height:bh,fill:TC[k]},g);
+      const p=Math.round(100*v/R.tot); if(w>(compact?26:34)){txt(g,x+5,yc+f*0.35,p+'%',{fill:'#FFFFFF','font-family':DISP,'font-size':f*1.05,'font-weight':900})}
+      hover(r,tip,`<b>${R.n} · ${TN[k]}</b><br>${v} de ${R.tot} posts (${p}%)`); x+=w});
+  });
+ }});
+
+</script>
+</body></html>

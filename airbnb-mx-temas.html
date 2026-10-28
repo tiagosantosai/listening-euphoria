@@ -1,0 +1,36 @@
+<!doctype html><html lang="es-MX"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:250px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+<title>Temas · Airbnb México</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script src="airbnb-render.js?v=1"></script>
+<script>
+
+const ROWS=[{"k": "tt", "n": "TIKTOK", "tot": 102, "v": [59, 14, 4, 7, 6, 12]}, {"k": "ig", "n": "INSTAGRAM", "tot": 66, "v": [52, 6, 0, 3, 0, 5]}, {"k": "x", "n": "X", "tot": 198, "v": [94, 21, 4, 5, 14, 60]}, {"k": "yt", "n": "YOUTUBE", "tot": 145, "v": [26, 22, 5, 35, 13, 44]}],TK=["VIAGEM", "EVENTOS", "MARCA", "ANFITRIAO", "PROBLEMAS", "MORADIA"],TC={"VIAGEM": "#C98A00", "EVENTOS": "#7B3FE4", "MARCA": "#1F5BFF", "ANFITRIAO": "#111111", "PROBLEMAS": "#8A867D", "MORADIA": "#E8352C"},TN={"VIAGEM": "VIAJES Y CASAS", "EVENTOS": "EVENTOS", "MARCA": "MARCA/PUBLI", "ANFITRIAO": "ANFITRIÓN E INGRESOS", "PROBLEMAS": "PROBLEMAS Y ESTAFAS", "MORADIA": "VIVIENDA Y REGLAS"};
+renderInfo({aria:"Temas de la conversación sobre Airbnb en México por red social",kicker:"LISTENING / AIRBNB MÉXICO / TEMAS DE LA CONVERSACIÓN EN REDES / ENE 2025 – OCT 2026",kickerShort:"LISTENING / AIRBNB MÉXICO / TEMAS",
+ head:["En redes, Airbnb es destino,", "pero en X y YouTube es vivienda."],headShort:["Airbnb es destino,", "pero también vivienda."],deck:["Viajes y casas suman 45% de los posts (sobre todo en Instagram y TikTok); vivienda y reglas (gentrificación, CDMX, rentas), 24%, concentradas en X y YouTube; anfitrión e ingresos, 10%.", "Clasificación automática por palabras clave en descripciones y títulos; toca las barras para ver los números."],deckShort:["Viajes y casas: 45%.", "Vivienda y reglas: 24%."],kpis:[{"n": "45%", "l": "VIAJES Y CASAS", "ls": "VIAJES", "c": "#C98A00"}, {"n": "24%", "l": "VIVIENDA Y REGLAS", "ls": "VIVIENDA", "c": "#E8352C"}, {"n": "10%", "l": "ANFITRIÓN E INGRESOS", "ls": "ANFITRIÓN", "c": "#111111"}, {"n": "12%", "l": "EVENTOS (MUNDIAL)", "ls": "EVENTOS", "c": "#7B3FE4"}],legend:[{"t": "■ VIAJES Y CASAS", "c": "#C98A00"}, {"t": "■ EVENTOS", "c": "#7B3FE4"}, {"t": "■ MARCA/PUBLI", "c": "#1F5BFF"}, {"t": "■ ANFITRIÓN E INGRESOS", "c": "#111111"}, {"t": "■ PROBLEMAS Y ESTAFAS", "c": "#8A867D"}, {"t": "■ VIVIENDA Y REGLAS", "c": "#E8352C"}],legendShort:[{"t": "■ VIAJES", "c": "#C98A00"}, {"t": "■ EVENTOS", "c": "#7B3FE4"}, {"t": "■ MARCA/PUBLI", "c": "#1F5BFF"}, {"t": "■ ANFITRIÓN", "c": "#111111"}, {"t": "■ PROBLEMAS", "c": "#8A867D"}, {"t": "■ VIVIENDA", "c": "#E8352C"}],axisNote:'',yLeft:false,yRight:false,noEv:true,foot:"FUENTE: EUPHORIA CREATIVE · 511 posts y videos sobre Airbnb en México (ene/25–oct/26), clasificados por palabras clave en la descripción/título. Un tema por post, en orden: publi, eventos, problemas, vivienda, anfitrión, viajes.",footShort:["FUENTE: EUPHORIA · 511 posts y videos, temas por palabras clave;", "un tema por post. Ene/25–oct/26."],
+ chart(P){
+  const {svg,left,right,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip}=P;
+  const g=el('g',{},svg); const f=Math.max(8.5,(compact?9:10.5)*s);
+  const lw=compact?Math.max(62,70*s):Math.max(110,130*s); const x0=left+lw, cw=right-x0-4;
+  const rh=ch/ROWS.length, bh=Math.min(rh*0.58,46*s);
+  ROWS.forEach((R,ri)=>{const yc=top+rh*ri+rh/2, y0=yc-bh/2;
+    txt(g,left,yc-2,R.n,{fill:C.ink,'font-family':DISP,'font-size':f*1.2,'font-weight':900});
+    txt(g,left,yc+f*1.1,R.tot+' posts',{fill:C.grey,'font-family':MONO,'font-size':f*0.85});
+    let x=x0; TK.forEach((k,j)=>{const v=R.v[j]; if(!v)return; const w=cw*v/R.tot;
+      const r=el('rect',{x,y:y0,width:Math.max(0,w-1.5),height:bh,fill:TC[k]},g);
+      const p=Math.round(100*v/R.tot); if(w>(compact?26:34)){txt(g,x+5,yc+f*0.35,p+'%',{fill:'#FFFFFF','font-family':DISP,'font-size':f*1.05,'font-weight':900})}
+      hover(r,tip,`<b>${R.n} · ${TN[k]}</b><br>${v} de ${R.tot} posts (${p}%)`); x+=w});
+  });
+ }});
+
+</script>
+</body></html>

@@ -1,0 +1,45 @@
+<!doctype html><html lang="es-MX"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+#info{position:fixed;inset:0}
+#info svg{display:block}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:250px}
+#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+</style>
+<title>Volumen · Airbnb México</title></head><body>
+<div id="info"></div><div id="tip" hidden></div>
+<script src="airbnb-render.js?v=1"></script>
+<script>
+
+const days=["ENE/25", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC", "ENE/26", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT/26"],dshort=["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D", "E", "F", "M", "A", "M", "J", "J", "A", "S", "O"];const V={"press": [4, 1, 1, 0, 3, 4, 12, 5, 0, 4, 5, 3, 2, 6, 9, 4, 14, 10, 4, 4, 3, 5], "ig": [1, 1, 0, 2, 1, 1, 3, 1, 0, 6, 2, 1, 2, 3, 8, 3, 6, 7, 5, 3, 7, 3], "tt": [0, 1, 1, 0, 0, 2, 4, 3, 1, 10, 3, 4, 3, 2, 12, 7, 7, 9, 6, 5, 2, 20], "x": [5, 5, 2, 4, 1, 8, 43, 7, 5, 3, 4, 8, 13, 4, 9, 12, 17, 15, 4, 5, 10, 14], "yt": [1, 3, 1, 1, 6, 3, 6, 3, 4, 5, 7, 6, 13, 5, 10, 8, 19, 14, 10, 10, 4, 6]},K=["press", "ig", "tt", "x", "yt"],COL={"press": "#1F5BFF", "ig": "#C98A00", "tt": "#111111", "x": "#8A867D", "yt": "#E8352C"},NM={"press": "PRENSA", "ig": "INSTAGRAM", "tt": "TIKTOK", "x": "X", "yt": "YOUTUBE"};const tot=[11, 11, 5, 7, 11, 18, 68, 19, 10, 28, 21, 22, 33, 20, 48, 34, 63, 55, 29, 27, 26, 48];const YMAX=78.19999999999999,STEP=20;
+const panel=[["REGULACIÓN", 33, "#E8352C"], ["COMUNICACIÓN", 21, "#1F5BFF"], ["REPUTACIÓN", 20, "#7B3FE4"], ["NEGOCIOS", 18, "#111111"], ["EVENTOS", 11, "#C98A00"]];const ev=[{"i": 0, "long": "AMPARO", "short": "AMPARO"}, {"i": 4, "long": "EXPERIENCIAS", "short": "EXPER."}, {"i": 6, "long": "MARCHA ANTIGENTRIFICACIÓN", "short": "MARCHA"}, {"i": 9, "long": "BELINDA", "short": "BELINDA"}, {"i": 14, "long": "HUGO SÁNCHEZ", "short": "HUGO"}, {"i": 16, "long": "REGISTRO CDMX", "short": "REGISTRO"}, {"i": 17, "long": "MUNDIAL", "short": "MUNDIAL"}, {"i": 21, "long": "LEY DE RENTAS + LIMPIEZA", "short": "LIMPIEZA"}];
+renderInfo({aria:"Volumen de contenidos sobre Airbnb en México por mes y por red, de enero de 2025 a octubre de 2026",kicker:"LISTENING / AIRBNB MÉXICO / VOLUMEN DE CONVERSACIÓN / ENE 2025 – OCT 2026",kickerShort:"LISTENING / AIRBNB MÉXICO / VOLUMEN",
+ head:["La gentrificación y el Mundial", "marcan los picos."],headShort:["Gentrificación y Mundial", "marcan los picos."],deck:["614 contenidos mapeados: 103 notas de prensa, 66 posts en Instagram, 102 videos en TikTok, 198 posts en X y 145 videos en YouTube.", "Jul/25 (marcha antigentrificación en la Roma-Condesa) y may–jun/26 (registro en la CDMX y Mundial) concentran el volumen; la regulación es el frente que más cubre la prensa. Parte del alza reciente refleja el sesgo de las búsquedas hacia contenidos nuevos."],deckShort:["614 contenidos en 5 redes y prensa.", "Picos: jul/25 y may–jun/26."],kpis:[{"n": "614", "l": "CONTENIDOS MAPEADOS", "ls": "CONTENIDOS", "c": "#111111"}, {"n": "103", "l": "NOTAS DE PRENSA", "ls": "PRENSA", "c": "#1F5BFF"}, {"n": "168", "l": "POSTS Y VIDEOS (IG + TT)", "ls": "IG + TT", "c": "#C98A00"}, {"n": "343", "l": "X + YOUTUBE", "ls": "X + YT", "c": "#E8352C"}],legend:[{"t": "■ PRENSA", "c": "#1F5BFF"}, {"t": "■ INSTAGRAM", "c": "#C98A00"}, {"t": "■ TIKTOK", "c": "#111111"}, {"t": "■ X", "c": "#8A867D"}, {"t": "■ YOUTUBE", "c": "#E8352C"}],legendShort:[{"t": "■ PRENS", "c": "#1F5BFF"}, {"t": "■ INSTA", "c": "#C98A00"}, {"t": "■ TIKTO", "c": "#111111"}, {"t": "■ X", "c": "#8A867D"}, {"t": "■ YOUTU", "c": "#E8352C"}],axisNote:'',yLeft:true,yRight:false,foot:"FUENTE: EUPHORIA CREATIVE · contenidos mapeados por el monitoreo (notas, posts y videos) por mes de publicación; muestra de las búsquedas, no el total de internet. Oct/26 parcial.",footShort:["FUENTE: EUPHORIA · muestra del monitoreo, por mes.", "Oct/26 parcial (hasta 28/10)."],
+ chart(P){
+  const {svg,left,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip,W}=P; let right=P.right;
+  const g=el('g',{},svg); const af=Math.max(8,8.5*s);
+  if(W>=760){const pw=Math.min(280,(right-left)*0.28); drawPanel(right-pw+10,pw-10); right=right-pw-24}
+  const cw=right-left,n=days.length,bw=cw/n,gap=Math.max(2,bw*0.22),xs=i=>left+bw*i+bw/2,y=v=>bottom-ch*v/YMAX;
+  for(let v=0;v<YMAX;v+=STEP){el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})}
+  days.forEach((dd,i)=>{let b=0;K.forEach(k=>{const v=V[k][i];if(v){el('rect',{x:left+bw*i+gap/2,y:y(b+v),width:bw-gap,height:y(b)-y(b+v),fill:COL[k]},g)}b+=v});
+    txt(g,xs(i),y(tot[i])-5,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(9,11*s),'font-weight':900,'text-anchor':'middle'});
+    txt(g,xs(i),bottom+af+6,bw<44?dshort[i]:dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
+    const r=el('rect',{x:left+bw*i,y:top,width:bw,height:ch,fill:'transparent'},g);
+    hover(r,tip,`<b>${dd}</b><br>${tot[i]} contenidos<br>`+K.map(k=>NM[k]+' '+V[k][i]).join('<br>'))});
+  el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
+  placeEvents(g,ev,xs,top-4,P,i=>y(tot[i])-14);
+  function drawPanel(x0,pw){const f=Math.max(8,8.5*s);let yy=top-4;
+    txt(g,x0,yy,"NOTAS DE PRENSA POR FRENTE",{fill:C.red,'font-family':MONO,'font-size':f,'font-weight':700});
+    el('line',{x1:x0-12,x2:x0-12,y1:top-14,y2:bottom,stroke:C.rule,'stroke-width':1},g);
+    const T=panel.reduce((a,p)=>a+p[1],0), mx=Math.max(...panel.map(p=>p[1]));const rowH=(bottom-yy-8)/panel.length;
+    panel.forEach((p,k)=>{const ry=yy+10+k*rowH;const nf=Math.min(rowH*0.3,18*s);
+      txt(g,x0,ry+nf,p[0],{fill:p[2]=='#CFCAC0'?C.grey:p[2],'font-family':MONO,'font-size':Math.max(8,nf*0.62),'font-weight':700});
+      txt(g,x0+pw,ry+nf,p[1]+' · '+Math.round(100*p[1]/T)+'%',{fill:C.ink,'font-family':DISP,'font-size':nf*0.85,'font-weight':900,'text-anchor':'end'});
+      const by=ry+nf+6,bh=Math.max(5,rowH*0.16);el('rect',{x:x0,y:by,width:pw,height:bh,fill:'#F1EFEA'},g);el('rect',{x:x0,y:by,width:pw*p[1]/mx,height:bh,fill:p[2]},g)})}
+ }});
+
+</script>
+</body></html>
