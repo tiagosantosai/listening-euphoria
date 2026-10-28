@@ -1,13 +1,13 @@
 <!doctype html><html lang="es-MX"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter+Tight:wght@800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#FFFFFF}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#F3F3F3}
 #info{position:fixed;inset:0}
 #info svg{display:block}
-#tip{position:fixed;z-index:5;pointer-events:none;background:#111;color:#FFFFFF;font:600 12px/1.45 'Inter',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:260px}
-#tip b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
+#tip{position:fixed;z-index:5;pointer-events:none;background:#141414;color:#FFFFFF;font:600 12px/1.45 'DM Sans',system-ui,sans-serif;padding:8px 10px;border-radius:2px;max-width:260px}
+#tip b{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.04em;color:#FFFFFF}
 </style>
 
 <title>Línea de tiempo · México 2027</title></head><body>
@@ -15,8 +15,8 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 <script>
 // Infografías Euphoria — SVG responsivo que sempre cabe na janela (sem rolagem)
 (function(){
-const C={paper:'#FFFFFF',ink:'#111111',red:'#E8352C',blue:'#1F5BFF',grey:'#8A867D',rule:'#CFCAC0'};
-const DISP="'Inter Tight','Inter',system-ui,sans-serif", MONO="'IBM Plex Mono','DejaVu Sans Mono',monospace", BODY="'Inter',system-ui,sans-serif";
+const C={paper:'#F3F3F3',ink:'#141414',red:'#FF0033',blue:'#141414',grey:'#6B6B6B',rule:'#DCDCDC'};
+const DISP="'Anton',Impact,sans-serif", MONO="'DM Sans',system-ui,sans-serif", BODY="'DM Sans',system-ui,sans-serif";
 const NS='http://www.w3.org/2000/svg';
 function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
 function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y},o),p);t.textContent=s;return t}
@@ -42,11 +42,11 @@ window.renderInfo=function(D){
     y+=kf+8*s;
     let hf=Math.max(19,Math.min(44*s,W*(compact?0.075:0.045)));
     const hl=compact?D.headShort:D.head;
-    {const probe=hl.map(t=>txt(svg,0,-100,t,{'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'}));
+    {const probe=hl.map(t=>txt(svg,0,-100,t,{'font-family':DISP,'font-size':hf,'font-weight':400,'letter-spacing':'0.005em'}));
      const mw=Math.max(...probe.map(t=>t.getComputedTextLength())); probe.forEach(t=>t.remove()); if(mw>avail)hf=hf*avail/mw*0.98;}
-    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});
+    txt(svg,pad,y+hf*0.9,hl[0],{fill:C.ink,'font-family':DISP,'font-size':hf,'font-weight':400,'letter-spacing':'0.005em'});
     y+=hf*1.08;
-    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.grey,'font-family':DISP,'font-size':hf,'font-weight':900,'letter-spacing':'-0.02em'});y+=hf*1.08}
+    if(hl[1]){txt(svg,pad,y+hf*0.9,hl[1],{fill:C.red,'font-family':DISP,'font-size':hf,'font-weight':400,'letter-spacing':'0.005em'});y+=hf*1.08}
     const showDeck=!tiny&&H>460;
     if(showDeck){const df=Math.max(11,13*s);y+=6*s;
       const src=compact?D.deckShort:D.deck, o={fill:C.ink,'font-family':BODY,'font-size':df}, out=[];
@@ -58,7 +58,7 @@ window.renderInfo=function(D){
     const kN=D.kpis.length, kw=(W-2*pad)/kN, nf=Math.max(18,Math.min(30*s,kw*0.28)), lf=Math.max(8.5,9.5*s);
     D.kpis.forEach((k,i)=>{const x=pad+i*kw;
       el('rect',{x,y,width:kw-10*s,height:3,fill:k.c},svg);
-      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':900,'letter-spacing':'-0.02em'});
+      txt(svg,x,y+8+nf,k.n,{fill:k.c,'font-family':DISP,'font-size':nf,'font-weight':400,'letter-spacing':'0.005em'});
       txt(svg,x,y+8+nf+lf+5,(W<1000)?k.ls:k.l,{fill:C.ink,'font-family':MONO,'font-size':lf,'font-weight':700});});
     y+=8+nf+lf+5+14*s;
     const gf=Math.max(8.5,9.5*s); let gx=pad;
@@ -85,7 +85,7 @@ window.showTip=function(tip,html,x,y){tip.innerHTML=html;tip.hidden=false;const 
 </script>
 <script>
 // DATOS · índice de búsqueda en YouTube (Google Trends, Búsqueda en YouTube, México). La Casa de los Famosos México 2026 = 100
-const VERT={E:{n:'DEPORTES',ns:'DEPORTES',c:'#1F5BFF'},M:{n:'MÚSICA',ns:'MÚSICA',c:'#E8352C'},A:{n:'AUDIOVISUAL',ns:'AUDIOV.',c:'#7B3FE4'},G:{n:'GAMES',ns:'GAMES',c:'#C98A00'}};
+const VERT={E:{n:'DEPORTES',ns:'DEPORTES',c:'#141414'},M:{n:'MÚSICA',ns:'MÚSICA',c:'#FF0033'},A:{n:'AUDIOVISUAL',ns:'AUDIOV.',c:'#FF8099'},G:{n:'GAMES',ns:'GAMES',c:'#9A9A9A'}};
 const EV=[
 {v:'E',n:'Liga MX (Clausura y Apertura)',w:'ene – dic',ns:'Liga MX',t:'08/01',e:'12/12',yt:19,web:750,span:1,x:'Torneo todo el año: liguilla y final del Clausura en mayo, del Apertura en diciembre. Muy buscada en Google (tablas y resultados).'},
 {v:'E',n:'Super Bowl LXI',w:'14 feb',ns:'Super Bowl',t:'14/02',yt:95,web:175,x:'Base 2025 = 95. En 2026 llegó a 270 con el medio tiempo de Bad Bunny. #superbowl: 97 mil M de vistas (global).'},
@@ -136,9 +136,9 @@ renderInfo({aria:'Línea de tiempo de los momentos culturales de 2027 en México
  head:['33 momentos en 2027:','las vacaciones mandan en YouTube.'], headShort:['33 momentos','en 2027.'],
  deck:['Tamaño del círculo = índice de búsqueda en YouTube en la última edición de cada momento (La Casa de los Famosos México 2026 = 100). Círculo lleno = tamaño G o XL; barra = duración.','Franjas grises = vacaciones escolares. Toca o pasa el mouse por los puntos para ver los números.'],
  deckShort:['Círculo = búsqueda en YouTube (LCDLF = 100).','Toca los puntos para ver los números.'],
- kpis:[{n:'33',l:'MOMENTOS MAPEADOS',ls:'MOMENTOS',c:'#111111'},{n:'11',l:'DE TAMAÑO G O XL',ls:'G O XL',c:'#E8352C'},{n:'100',l:'LA CASA DE LOS FAMOSOS',ls:'LCDLF MX',c:'#1F5BFF'},{n:'JUL',l:'MES MÁS DENSO',ls:'MES + DENSO',c:'#C98A00'}],
- legend:[{t:'● DEPORTES',c:'#1F5BFF'},{t:'● MÚSICA',c:'#E8352C'},{t:'● AUDIOVISUAL',c:'#7B3FE4'},{t:'● GAMES',c:'#C98A00'},{t:'○ TAMAÑO M O P',c:'#8A867D'},{t:'▬ DURACIÓN',c:'#8A867D'}],
- legendShort:[{t:'● DEP',c:'#1F5BFF'},{t:'● MÚS',c:'#E8352C'},{t:'● AUDIOV',c:'#7B3FE4'},{t:'● GAMES',c:'#C98A00'}],
+ kpis:[{n:'33',l:'MOMENTOS MAPEADOS',ls:'MOMENTOS',c:'#141414'},{n:'11',l:'DE TAMAÑO G O XL',ls:'G O XL',c:'#FF0033'},{n:'100',l:'LA CASA DE LOS FAMOSOS',ls:'LCDLF MX',c:'#141414'},{n:'JUL',l:'MES MÁS DENSO',ls:'MES + DENSO',c:'#9A9A9A'}],
+ legend:[{t:'● DEPORTES',c:'#141414'},{t:'● MÚSICA',c:'#FF0033'},{t:'● AUDIOVISUAL',c:'#FF8099'},{t:'● GAMES',c:'#9A9A9A'},{t:'○ TAMAÑO M O P',c:'#6B6B6B'},{t:'▬ DURACIÓN',c:'#6B6B6B'}],
+ legendShort:[{t:'● DEP',c:'#141414'},{t:'● MÚS',c:'#FF0033'},{t:'● AUDIOV',c:'#FF8099'},{t:'● GAMES',c:'#9A9A9A'}],
  axisNote:'', foot:FOOT, footShort:FOOTS,
  chart(P){
   const {svg,top,bottom,s,compact,C,MONO,BODY,el,txt,tip}=P;
@@ -148,7 +148,7 @@ renderInfo({aria:'Línea de tiempo de los momentos culturales de 2027 en México
   const X=t=>left+cw*Math.min(1,Math.max(0,(t-T0)/(T1-T0)));
   const axisH=af+10, ly0=top, ly1=bottom-axisH;
   const LN=['E','M','A','G']; const lh=(ly1-ly0)/LN.length;
-  [['01/01','07/01'],['22/03','02/04'],['15/07','31/08'],['18/12','31/12']].forEach(([a,b])=>el('rect',{x:X(d27(a)),y:ly0,width:X(d27(b))-X(d27(a)),height:ly1-ly0,fill:'#EFECE6'},g));
+  [['01/01','07/01'],['22/03','02/04'],['15/07','31/08'],['18/12','31/12']].forEach(([a,b])=>el('rect',{x:X(d27(a)),y:ly0,width:X(d27(b))-X(d27(a)),height:ly1-ly0,fill:'#E6E6E6'},g));
   for(let i=0;i<=12;i++){const x=i==12?right:X(Date.UTC(2027,i,1));
     el('line',{x1:x,x2:x,y1:ly0,y2:ly1,stroke:C.rule,'stroke-width':0.6},g);
     if(i<12){const mid=(x+(i==11?right:X(Date.UTC(2027,i+1,1))))/2;
@@ -178,7 +178,7 @@ renderInfo({aria:'Línea de tiempo de los momentos culturales de 2027 en México
       let tx=x-Math.min(r,6); if(tx+w>right)tx=right-w; if(tx<left)tx=left;
       const near=slots.slice().sort((a,b)=>Math.abs(a.y-yc)-Math.abs(b.y-yc));
       const sl=near.find(q=>!(q.ivs||[]).some(([a,b])=>tx<b+6&&tx+w>a-6));
-      if(sl){const tt=txt(g,tx,sl.y,(compact?e.ns:e.n)+' ',{fill:key||e.proj?C.ink:'#55524C','font-family':BODY,'font-size':fs,'font-weight':key||e.proj?700:600});
+      if(sl){const tt=txt(g,tx,sl.y,(compact?e.ns:e.n)+' ',{fill:key||e.proj?C.ink:'#4A4A4A','font-family':BODY,'font-size':fs,'font-weight':key||e.proj?700:600});
         const ts=el('tspan',{fill:L.c,'font-family':MONO,'font-weight':700},tt);ts.textContent=fmt(e.yt)+(e.proj?'→G':'');
         (sl.ivs=sl.ivs||[]).push([tx,tx+w+(e.proj?14:0)]);
         if(Math.abs(sl.y-yc)>r+lineH*0.9)el('line',{x1:x,x2:x,y1:sl.y<yc?sl.y+3:sl.y-f,y2:sl.y<yc?yc-r:yc+r,stroke:L.c,'stroke-width':0.6,'stroke-dasharray':'1 2'},g)}
