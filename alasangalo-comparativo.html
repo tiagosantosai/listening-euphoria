@@ -80,34 +80,34 @@ window.placeEvents=function(g,ev,xs,yTop,P,valY){
 })();
 </script>
 <script>
-const lab=["D+0","D+1","D+2","D+3"];
-const A={n:'Show adiado',d:["28/10","29/10","30/10","31/10*"],p:[10,6,29,10],i:[6,19,31,15],t:[0,1,18,10]};
-const B={n:'Daniela × Ivete',d:["07/10","08/10","09/10","10/10"],p:[42,11,2,12],i:[25,3,1,16],t:[4,1,2,10]};
-[A,B].forEach(o=>o.tot=o.p.map((v,k)=>v+o.i[k]+o.t[k]));
-const ev=[{i:0,long:'NOTA DA IESSI / DANIELA COBRA IVETE',short:'GATILHO'},{i:2,long:'FÃ-CLUBES SAEM',short:'FÃ-CLUBES'},{i:3,long:'IVETE PEDE "LUCIDEZ"',short:'"LUCIDEZ"'}];
+const lab=["D+0","D+1","D+2","D+3","D+4","D+5","D+6"];
+const A={n:'Show adiado',d:["28/10","29/10","30/10","31/10","01/11","02/11","03/11*"],p:[10,7,29,14,15,5,0],i:[6,19,31,19,6,4,0],t:[0,1,18,10,9,7,2],x:[68,76,132,106,60,59,5],y:[0,3,9,7,7,7,1]};
+const B={n:'Daniela × Ivete',d:["07/10","08/10","09/10","10/10","11/10","12/10","13/10"],p:[42,11,2,12,18,0,19],i:[25,3,1,16,10,1,8],t:[4,1,2,10,9,2,6],x:[50,15,29,77,42,24,28],y:[7,3,1,14,19,6,5]};
+[A,B].forEach(o=>o.tot=o.p.map((v,k)=>v+o.i[k]+o.t[k]+o.x[k]+o.y[k]));
+const ev=[{i:0,long:'GATILHO',short:'GATILHO'},{i:2,long:'FÃ-CLUBES SAEM',short:'FÃ-CLUBES'},{i:3,long:'"LUCIDEZ" (DANIELA)',short:'LUCIDEZ'},{i:4,long:'IVETE NO RTM',short:'RTM'}];
 renderInfo({aria:'Comparativo do volume de conversa nos quatro primeiros dias: adiamento do show A La Sangalo versus a polêmica com Daniela Mercury',
- kicker:'LISTENING / IVETE SANGALO / COMPARATIVO COM O CASO DANIELA MERCURY (OUT 2026)', kickerShort:'COMPARATIVO / SHOW × DANIELA',
- head:['O adiamento rendeu 20% mais conversa','que a polêmica com Daniela.'], headShort:['+20% de conversa','que o caso Daniela.'],
- deck:['Nos 4 primeiros dias, o show adiado somou 155 conteúdos contra 129 do caso Daniela (mesmo método: imprensa + Instagram + TikTok).','A forma é outra: o caso Daniela explodiu no 1º dia e caiu; o show cresceu até o 3º dia, com o 4º ainda parcial.'],
- deckShort:['155 × 129 conteúdos em 4 dias.','O show cresceu até o 3º dia.'],
- kpis:[{n:'155',l:'SHOW ADIADO · 4 DIAS',ls:'SHOW',c:'#B3202A'},{n:'129',l:'CASO DANIELA · 4 DIAS',ls:'DANIELA',c:'#7E9C97'},{n:'+20%',l:'DIFERENÇA',ls:'DIFERENÇA',c:'#0F3B37'},{n:'32%',l:'DA SÉRIE DANIELA INTEIRA (487 EM 22 DIAS)',ls:'DA SÉRIE DANIELA',c:'#B8892E'}],
- legend:[{t:'■ SHOW ADIADO (28–31/10)',c:'#B3202A'},{t:'■ CASO DANIELA (07–10/10)',c:'#7E9C97'}],
+ kicker:'LISTENING / IVETE SANGALO / COMPARATIVO COM O CASO DANIELA MERCURY · 5 REDES', kickerShort:'COMPARATIVO / SHOW × DANIELA',
+ head:['O adiamento rendeu 63% mais conversa','que a polêmica com Daniela.'], headShort:['+63% de conversa','que o caso Daniela.'],
+ deck:['Nos 6 primeiros dias completos, o show adiado somou 744 conteúdos contra 456 do caso Daniela, nas mesmas 5 redes.','O caso Daniela teve dois picos (D+0 e D+3); o show subiu até o D+2 (219 itens) e desceu devagar.'],
+ deckShort:['744 × 456 conteúdos (D+0 a D+5).','Pico do show no D+2: 219.'],
+ kpis:[{n:'744',l:'SHOW ADIADO · D+0 A D+5',ls:'SHOW',c:'#B3202A'},{n:'456',l:'CASO DANIELA · D+0 A D+5',ls:'DANIELA',c:'#7E9C97'},{n:'+63%',l:'DIFERENÇA',ls:'DIFERENÇA',c:'#0F3B37'},{n:'61%',l:'DA SÉRIE DANIELA INTEIRA (1.233 EM 22 DIAS)',ls:'DA SÉRIE DANIELA',c:'#B8892E'}],
+ legend:[{t:'■ SHOW ADIADO (28/10–03/11)',c:'#B3202A'},{t:'■ CASO DANIELA (07–13/10)',c:'#7E9C97'}],
  axisNote:'DIAS A PARTIR DO GATILHO DE CADA CASO', yLeft:true, yRight:false,
- foot:'FONTE: EUPHORIA CREATIVE · imprensa + Instagram + TikTok, mesmo método nos dois listenings (X e YouTube fora da conta). D+0 = nota da IESSI (28/10) e cobrança de Daniela (07/10). *31/10 parcial, até 17h40.',
- footShort:['FONTE: EUPHORIA · imprensa + IG + TikTok nos dois casos.','D+0 = nota da IESSI (28/10) / cobrança de Daniela (07/10). *Parcial.'],
+ foot:'FONTE: EUPHORIA CREATIVE · imprensa + Instagram + TikTok + X + YouTube, mesmo método nos dois listenings. D+0 = nota da IESSI (28/10) e cobrança de Daniela (07/10). *03/11 parcial, até 9h.',
+ footShort:['FONTE: EUPHORIA · imprensa + IG + TikTok + X + YouTube nos dois casos.','D+0 = nota da IESSI (28/10) / cobrança de Daniela (07/10). *Parcial.'],
  chart(P){
   const {svg,left,right,top,bottom,cw,ch,s,compact,C,MONO,DISP,el,txt,tip}=P;
-  const g=el('g',{},svg); const af=Math.max(8,8.5*s); const n=4, bw=cw/n, gw=bw*0.62, b1=gw/2-2;
-  const y=v=>bottom-ch*v/90, xs=i=>left+bw*i+bw/2; const CB='#7E9C97';
-  [0,20,40,60,80].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
+  const g=el('g',{},svg); const af=Math.max(8,8.5*s); const n=7, bw=cw/n, gw=bw*0.62, b1=gw/2-2;
+  const y=v=>bottom-ch*v/240, xs=i=>left+bw*i+bw/2; const CB='#7E9C97';
+  [0,60,120,180,240].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
   for(let i=0;i<n;i++){const x0=xs(i)-gw/2;
-    [[A,C.red,x0],[B,CB,x0+gw/2+2]].forEach(([o,c,x])=>{const v=o.tot[i];el('rect',{x,y:y(v),width:b1,height:bottom-y(v),fill:c,opacity:(o===A&&i===3)?0.75:1},g);
-      if(o===A&&i===3)el('rect',{x,y:y(v),width:b1,height:bottom-y(v),fill:'none',stroke:C.ink,'stroke-dasharray':'3 3'},g);
-      txt(g,x+b1/2,y(v)-5,v,{fill:o===A?C.red:C.ink,'font-family':DISP,'font-size':Math.max(11,(v>=70?20:14)*s),'font-weight':900,'text-anchor':'middle'})});
+    [[A,C.red,x0],[B,CB,x0+gw/2+2]].forEach(([o,c,x])=>{const v=o.tot[i];el('rect',{x,y:y(v),width:b1,height:bottom-y(v),fill:c,opacity:(o===A&&i===6)?0.75:1},g);
+      if(o===A&&i===6)el('rect',{x,y:y(v),width:b1,height:bottom-y(v),fill:'none',stroke:C.ink,'stroke-dasharray':'3 3'},g);
+      txt(g,x+b1/2,y(v)-5,v,{fill:o===A?C.red:C.ink,'font-family':DISP,'font-size':Math.max(11,(v>=150?16:12)*s),'font-weight':900,'text-anchor':'middle'})});
     txt(g,xs(i),bottom+af+6,lab[i],{fill:C.ink,'font-family':MONO,'font-size':af,'font-weight':700,'text-anchor':'middle'});
-    if(!compact)txt(g,xs(i),bottom+af*2+10,A.d[i]+' · '+B.d[i],{fill:C.grey,'font-family':MONO,'font-size':af*0.9,'text-anchor':'middle'});
+    if(!compact&&bw>110)txt(g,xs(i),bottom+af*2+10,A.d[i]+' · '+B.d[i],{fill:C.grey,'font-family':MONO,'font-size':af*0.9,'text-anchor':'middle'});
     const r=el('rect',{x:left+bw*i,y:top,width:bw,height:ch,fill:'transparent'},g);
-    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${lab[i]}</b><br><b>Show adiado · ${A.d[i]}</b><br>${A.tot[i]} conteúdos: ${A.p[i]} matérias · ${A.i[i]} IG · ${A.t[i]} TikTok<br><b>Caso Daniela · ${B.d[i]}</b><br>${B.tot[i]} conteúdos: ${B.p[i]} matérias · ${B.i[i]} IG · ${B.t[i]} TikTok`,p.clientX,p.clientY)};
+    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${lab[i]}</b><br><b>Show adiado · ${A.d[i]}</b><br>${A.tot[i]} conteúdos: ${A.p[i]} matérias · ${A.i[i]} IG · ${A.t[i]} TikTok · ${A.x[i]} X · ${A.y[i]} YouTube<br><b>Caso Daniela · ${B.d[i]}</b><br>${B.tot[i]} conteúdos: ${B.p[i]} matérias · ${B.i[i]} IG · ${B.t[i]} TikTok · ${B.x[i]} X · ${B.y[i]} YouTube`,p.clientX,p.clientY)};
     r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)}
   el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
   placeEvents(g,ev,xs,top-4,P,i=>y(Math.max(A.tot[i],B.tot[i]))-22*s);
