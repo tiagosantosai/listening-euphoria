@@ -80,23 +80,23 @@ window.placeEvents=function(g,ev,xs,yTop,P,valY){
 })();
 </script>
 <script>
-const days=["28/10","29/10","30/10","31/10*"];
-const imp=[0,0.33,4.75,0.28];
-const inter=[16.0,14.8,416.4,22.1];
-const press=[5.26,1.74,9.91,5.40];
-const nmat=[10,6,29,10];
-const conv=[3.55,2.07,54.29,4.85];
-const ev=[{i:0,long:'IESSI ADIA O SHOW',short:'ADIAMENTO'},{i:1,long:'IVETE NOS STORIES',short:'STORIES'},{i:2,long:'"FAZ O L" + FÃ-CLUBES',short:'"FAZ O L"'},{i:3,long:'DESCONTO NO CLAREOU',short:'DESCONTO'}];
-renderInfo({aria:'Impactos, interações e conversas nas redes por dia, de 28 a 31 de outubro de 2026, sobre o adiamento do show A La Sangalo',
- kicker:'LISTENING / IVETE SANGALO / SHOW "A LA SANGALO" ADIADO / 28–31 OUT 2026', kickerShort:'A LA SANGALO ADIADO / 28–31 OUT',
- head:['5,4 milhões de views em 4 dias.'], headShort:['5,4 mi de views','em 4 dias.'],
- deck:['30/10 concentrou 4,8 mi de views e 416 mil interações, puxados por perfis que leram o adiamento','como "fracasso de vendas" e "castigo" pelo voto em Lula. Na imprensa, 22,3 mi de alcance potencial.'],
- deckShort:['30/10 concentra 89% dos views.','Imprensa: 22,3 mi de alcance potencial.'],
- kpis:[{n:'5,4 mi',l:'VIEWS NAS REDES',ls:'VIEWS',c:'#0F3B37'},{n:'22,3 mi',l:'ALCANCE POTENCIAL · IMPRENSA*',ls:'IMPRENSA*',c:'#B8892E'},{n:'469 mil',l:'INTERAÇÕES',ls:'INTERAÇÕES',c:'#B3202A'},{n:'65 mil',l:'CONVERSAS · COMENTÁRIOS',ls:'COMENTÁRIOS',c:'#E0566B'}],
+const days=["28/10","29/10","30/10","31/10","01/11","02/11","03/11*"];
+const imp=[0.29,0.95,6.44,1.14,0.54,1.07,0.00];
+const inter=[18.3,39.2,451.7,62.9,39.7,75.8,0.0];
+const press=[5.26,1.97,9.91,6.85,5.26,0.84,0];
+const nmat=[10,7,29,14,15,5,0];
+const conv=[3.78,2.73,58.79,10.15,4.37,7.97,0.0];
+const ev=[{i:0,long:'IESSI ADIA',short:'ADIA'},{i:2,long:'"FAZ O L" + FÃ-CLUBES',short:'"FAZ O L"'},{i:4,long:'IVETE NO RTM',short:'RTM'},{i:5,long:'"BOICOTE" NO IG',short:'BOICOTE'}];
+renderInfo({aria:'Impactos, interações e conversas nas redes por dia, de 28 de outubro a 3 de novembro de 2026, sobre o adiamento do show A La Sangalo',
+ kicker:'LISTENING / IVETE SANGALO / SHOW "A LA SANGALO" ADIADO / 28 OUT–3 NOV 2026', kickerShort:'A LA SANGALO ADIADO / 28/10–3/11',
+ head:['10,4 milhões de views em 7 dias.'], headShort:['10,4 mi de views','em 7 dias.'],
+ deck:['30/10 segue como o grande pico (6,4 mi de views e 452 mil interações). Com X e YouTube, a série soma 688 mil interações','e 88 mil comentários. Em 02/11, reels sobre "boicote" a artistas reacenderam o tema (1,1 mi de views).'],
+ deckShort:['30/10 concentra 62% dos views.','02/11: "boicote" volta ao IG.'],
+ kpis:[{n:'10,4 mi',l:'VIEWS NAS REDES',ls:'VIEWS',c:'#0F3B37'},{n:'30,1 mi',l:'ALCANCE POTENCIAL · IMPRENSA*',ls:'IMPRENSA*',c:'#B8892E'},{n:'688 mil',l:'INTERAÇÕES',ls:'INTERAÇÕES',c:'#B3202A'},{n:'88 mil',l:'CONVERSAS · COMENTÁRIOS',ls:'COMENTÁRIOS',c:'#E0566B'}],
  legend:[{t:'■ VIEWS',c:'#0F3B37'},{t:'— INTERAÇÕES',c:'#B3202A'},{t:'··· COMENTÁRIOS',c:'#E0566B'},{t:'■ IMPRENSA*',c:'#B8892E'}],
  axisNote:'EIXO DIREITO, EM VERMELHO: INTERAÇÕES E COMENTÁRIOS · ESCALA 25× MAIOR', yLeft:true, yRight:true,
- foot:'FONTE: EUPHORIA CREATIVE · Views = reels do Instagram + TikTok. *Imprensa: audiência média diária dos veículos que publicaram no dia (Comscore ago/26, visitantes únicos ÷ 30) — teto potencial, não leitura da matéria. *31/10 parcial.',
- footShort:['FONTE: EUPHORIA · reels do IG + TikTok. *Imprensa = audiência diária','dos veículos (Comscore ago/26): teto, não leitura. 31/10 parcial.'],
+ foot:'FONTE: EUPHORIA CREATIVE · Views = reels do Instagram + TikTok + X + YouTube. *Imprensa: audiência média diária dos veículos que publicaram no dia (Comscore ago/26, visitantes únicos ÷ 30) — teto potencial, não leitura da matéria. *03/11 parcial (9h).',
+ footShort:['FONTE: EUPHORIA · IG + TikTok + X + YouTube. *Imprensa = audiência','diária dos veículos (Comscore ago/26): teto, não leitura. 03/11 parcial.'],
  chart(P){
   const {svg,left,right,top,bottom,cw,ch,s,compact,C,MONO,DISP,el,txt,tip}=P;
   const n=days.length, pad=cw*0.08, xs=i=>left+pad+(cw-2*pad)*(i/(n-1)), yL=v=>bottom-ch*v/12, yR=v=>bottom-ch*v/480;
@@ -114,13 +114,13 @@ renderInfo({aria:'Impactos, interações e conversas nas redes por dia, de 28 a 
   el('polyline',{points:conv.map((v,i)=>xs(i)+','+yR(v)).join(' '),fill:'none',stroke:C.pink,'stroke-width':Math.max(1.8,2.4*s),'stroke-dasharray':'2 3','stroke-linecap':'round'},g);
   inter.forEach((v,i)=>el('circle',{cx:xs(i),cy:yR(v),r:Math.max(2.5,3.5*s),fill:C.red},g));
   el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
-  days.forEach((dd,i)=>txt(g,xs(i),bottom+af+6,dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'}));
+  days.forEach((dd,i)=>txt(g,xs(i),bottom+af+6,compact?dd.slice(0,2):dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'}));
   const vf=Math.max(10,13*s);
-  txt(g,xs(2)-12,yL(4.75)-6,compact?'4,8 mi':'4,8 mi views',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
-  txt(g,xs(2)-12,yR(416.4)+4,compact?'416 mil':'416 mil interações',{fill:C.red,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
+  txt(g,xs(2)-12,yL(6.44)-6,compact?'6,4 mi':'6,4 mi views',{fill:C.ink,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
+  txt(g,xs(2)-12,yR(451.7)+4,compact?'452 mil':'452 mil interações',{fill:C.red,'font-family':DISP,'font-size':vf,'font-weight':900,'text-anchor':'end'});
   placeEvents(g,ev,xs,top-4,P,i=>Math.min(yL(Math.max(imp[i],press[i]))-14,yR(inter[i])-6));
   days.forEach((dd,i)=>{const w=(cw-2*pad)/(n-1);const r=el('rect',{x:xs(i)-w/2,y:top,width:w,height:ch,fill:'transparent'},g);
-    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}${i===3?' (parcial)':''}</b><br>${fmt(imp[i])} mi views<br>${fmt(inter[i])} mil interações<br>${fmt(conv[i])} mil comentários<br>${nmat[i]} matérias · ${fmt(press[i])} mi de audiência potencial`,p.clientX,p.clientY)};
+    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}${i===n-1?' (parcial)':''}</b><br>${fmt(imp[i])} mi views<br>${fmt(inter[i])} mil interações<br>${fmt(conv[i])} mil comentários<br>${nmat[i]} matérias · ${fmt(press[i])} mi de audiência potencial`,p.clientX,p.clientY)};
     r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)});
  }});
 </script></body></html>
