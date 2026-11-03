@@ -80,33 +80,34 @@ window.placeEvents=function(g,ev,xs,yTop,P,valY){
 })();
 </script>
 <script>
-const days=["28/10","29/10","30/10","31/10*"];
-const press=[10,6,29,10], ig=[6,19,31,15], tt=[0,1,18,10];
-const tot=days.map((_,i)=>press[i]+ig[i]+tt[i]);
-const ev=[{i:0,long:'IESSI ADIA O SHOW',short:'ADIAMENTO'},{i:1,long:'IVETE NOS STORIES',short:'STORIES'},{i:2,long:'FÃ-CLUBES SAEM',short:'FÃ-CLUBES'},{i:3,long:'DESCONTO + "SOBRINHO"',short:'DESCONTO'}];
-const tiers=[{l:'GRANDE',d:'≥ 20 mi visitantes/mês',n:15,p:27,c:'#0F3B37'},{l:'MÉDIO',d:'1 a 20 mi',n:19,p:35,c:'#B3202A'},{l:'PEQUENO',d:'< 1 mi',n:10,p:18,c:'#B8892E'},{l:'FORA DO RANKING',d:'sem dado Comscore',n:11,p:20,c:'#DCD4C4'}];
-renderInfo({aria:'Volume de conversa por dia, por rede, de 28 a 31 de outubro de 2026, sobre o adiamento do show A La Sangalo',
- kicker:'LISTENING / IVETE SANGALO / SHOW "A LA SANGALO" ADIADO / 28–31 OUT 2026', kickerShort:'A LA SANGALO ADIADO / 28–31 OUT',
- head:['155 conteúdos em 4 dias.'], headShort:['155 conteúdos','em 4 dias.'],
- deck:['O volume cresceu depois do anúncio: o pico foi 30/10 (78 itens), quando os fã-clubes suspenderam as páginas e Ivete explicou a decisão em vídeo.','O Instagram concentra quase metade da amostra (71 posts); a imprensa somou 55 matérias e o TikTok, 29 vídeos.'],
- deckShort:['Pico em 30/10: fã-clubes saem','e Ivete explica o adiamento.'],
- kpis:[{n:'155',l:'CONTEÚDOS',ls:'TOTAL',c:'#0F3B37'},{n:'55',l:'MATÉRIAS',ls:'IMPRENSA',c:'#B8892E'},{n:'71',l:'POSTS NO INSTAGRAM',ls:'IG',c:'#B3202A'},{n:'29',l:'VÍDEOS NO TIKTOK',ls:'TT',c:'#E0566B'}],
- legend:[{t:'■ IMPRENSA',c:'#B8892E'},{t:'■ INSTAGRAM',c:'#B3202A'},{t:'■ TIKTOK',c:'#E0566B'}],
+const days=["28/10","29/10","30/10","31/10","01/11","02/11","03/11*"];
+const press=[10,7,29,14,15,5,0], ig=[6,19,31,19,6,4,0], tt=[0,1,18,10,9,7,2], xx=[68,76,132,106,60,59,5], yt=[0,3,9,7,7,7,1];
+const tot=days.map((_,i)=>press[i]+ig[i]+tt[i]+xx[i]+yt[i]);
+const LAST=days.length-1;
+const ev=[{i:0,long:'IESSI ADIA',short:'ADIA'},{i:2,long:'FÃ-CLUBES SAEM',short:'FÃ-CLUBES'},{i:3,long:'DIA DO SHOW',short:'31/10'},{i:4,long:'IVETE NO RTM',short:'RTM'}];
+const tiers=[{l:'GRANDE',d:'≥ 20 mi visitantes/mês',n:19,p:24,c:'#0F3B37'},{l:'MÉDIO',d:'1 a 20 mi',n:30,p:38,c:'#B3202A'},{l:'PEQUENO',d:'< 1 mi',n:10,p:12,c:'#B8892E'},{l:'FORA DO RANKING',d:'sem dado Comscore',n:21,p:26,c:'#DCD4C4'}];
+renderInfo({aria:'Volume de conversa por dia, por rede, de 28 de outubro a 3 de novembro de 2026, sobre o adiamento do show A La Sangalo',
+ kicker:'LISTENING / IVETE SANGALO / SHOW "A LA SANGALO" ADIADO / 28 OUT–3 NOV 2026', kickerShort:'A LA SANGALO ADIADO / 28/10–3/11',
+ head:['752 conteúdos em 7 dias.'], headShort:['752 conteúdos','em 7 dias.'],
+ deck:['Com X e YouTube, o pico segue em 30/10 (219 itens). O X responde por dois terços da amostra e é onde os fãs cobram a equipe.','Depois do show no Rock The Mountain (01/11), o volume caiu, mas o tema do sobrinho e dos fã-clubes manteve a conversa.'],
+ deckShort:['Pico em 30/10 (219 itens).','O X é 2/3 da amostra.'],
+ kpis:[{n:'752',l:'CONTEÚDOS',ls:'TOTAL',c:'#0F3B37'},{n:'80',l:'MATÉRIAS',ls:'IMPRENSA',c:'#B8892E'},{n:'85',l:'INSTAGRAM',ls:'IG',c:'#B3202A'},{n:'47',l:'TIKTOK',ls:'TT',c:'#E0566B'},{n:'506',l:'POSTS NO X',ls:'X',c:'#0F3B37'},{n:'34',l:'YOUTUBE',ls:'YT',c:'#6E9A6A'}],
+ legend:[{t:'■ IMPRENSA',c:'#B8892E'},{t:'■ INSTAGRAM',c:'#B3202A'},{t:'■ TIKTOK',c:'#E0566B'},{t:'■ X',c:'#0F3B37'},{t:'■ YOUTUBE',c:'#6E9A6A'}],
  axisNote:'', yLeft:true, yRight:false,
- foot:'FONTE: EUPHORIA CREATIVE · itens mapeados pela data de publicação, desde a nota da IESSI (28/10, 17h32). Porte: Comscore MMX, Brasil, ago/26. *31/10 parcial, até 17h40.',
- footShort:['FONTE: EUPHORIA CREATIVE · itens por data de publicação.','Porte: Comscore MMX, ago/26. *31/10 parcial (17h40).'],
+ foot:'FONTE: EUPHORIA CREATIVE · itens mapeados pela data de publicação, desde a nota da IESSI (28/10, 17h32), nas 5 redes. Porte: Comscore MMX, Brasil, ago/26. *03/11 parcial, até 9h.',
+ footShort:['FONTE: EUPHORIA CREATIVE · itens por data de publicação.','Porte: Comscore MMX, ago/26. *03/11 parcial (9h).'],
  chart(P){
   const {svg,left,top,bottom,ch,s,compact,C,MONO,DISP,el,txt,tip,W}=P; let right=P.right;
   const g=el('g',{},svg); const af=Math.max(8,8.5*s);
   const panel=W>=760; if(panel){const pw=Math.min(300,(right-left)*0.32); drawTiers(right-pw+10,pw-10); right=right-pw-24}
-  const cw=right-left, n=days.length, bw=cw/n, gap=Math.max(6,bw*0.34), xs=i=>left+bw*i+bw/2, y=v=>bottom-ch*v/90;
-  [0,20,40,60,80].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
-  days.forEach((dd,i)=>{let b=0;[[press,C.gold],[ig,C.red],[tt,C.pink]].forEach(([a,c])=>{const v=a[i];if(v){el('rect',{x:left+bw*i+gap/2,y:y(b+v),width:bw-gap,height:y(b)-y(b+v),fill:c},g);if(v>=4&&bw>40)txt(g,xs(i),y(b+v/2)+3.5,v,{fill:'#FFFFFF','font-family':MONO,'font-size':af,'text-anchor':'middle','font-weight':700})}b+=v});
-    if(i===3)el('rect',{x:left+bw*i+gap/2,y:y(tot[i]),width:bw-gap,height:bottom-y(tot[i]),fill:'none',stroke:C.ink,'stroke-dasharray':'3 3','stroke-width':1});
-    txt(g,xs(i),y(tot[i])-6,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(12,(tot[i]>=70?22:15)*s),'font-weight':900,'text-anchor':'middle'});
-    txt(g,xs(i),bottom+af+6,dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
+  const cw=right-left, n=days.length, bw=cw/n, gap=Math.max(6,bw*0.34), xs=i=>left+bw*i+bw/2, y=v=>bottom-ch*v/240;
+  [0,60,120,180,240].forEach(v=>{el('line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:C.rule,'stroke-width':v?0.6:0},g);txt(g,left-6,y(v)+3,v,{fill:C.grey,'font-family':MONO,'font-size':af,'text-anchor':'end'})});
+  days.forEach((dd,i)=>{let b=0;[[press,C.gold],[ig,C.red],[tt,C.pink],[xx,C.ink],[yt,'#6E9A6A']].forEach(([a,c])=>{const v=a[i];if(v){el('rect',{x:left+bw*i+gap/2,y:y(b+v),width:bw-gap,height:y(b)-y(b+v),fill:c},g);if(v>=9&&bw>34)txt(g,xs(i),y(b+v/2)+3.5,v,{fill:'#FFFFFF','font-family':MONO,'font-size':af,'text-anchor':'middle','font-weight':700})}b+=v});
+    if(i===LAST)el('rect',{x:left+bw*i+gap/2,y:y(tot[i]),width:bw-gap,height:bottom-y(tot[i]),fill:'none',stroke:C.ink,'stroke-dasharray':'3 3','stroke-width':1});
+    txt(g,xs(i),y(tot[i])-6,tot[i],{fill:C.ink,'font-family':DISP,'font-size':Math.max(12,(tot[i]>=150?20:14)*s),'font-weight':900,'text-anchor':'middle'});
+    txt(g,xs(i),bottom+af+6,compact?dd.slice(0,2):dd,{fill:C.ink,'font-family':MONO,'font-size':af,'text-anchor':'middle'});
     const r=el('rect',{x:left+bw*i,y:top,width:bw,height:ch,fill:'transparent'},g);
-    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}${i===3?' (parcial)':''}</b><br>${tot[i]} conteúdos<br>${press[i]} matérias · ${ig[i]} posts no IG · ${tt[i]} TikToks`,p.clientX,p.clientY)};
+    const h=e=>{const p=e.touches?e.touches[0]:e;showTip(tip,`<b>${dd}${i===LAST?' (parcial)':''}</b><br>${tot[i]} conteúdos<br>${press[i]} matérias · ${ig[i]} posts no IG · ${tt[i]} TikToks<br>${xx[i]} posts no X · ${yt[i]} vídeos no YouTube`,p.clientX,p.clientY)};
     r.addEventListener('mousemove',h);r.addEventListener('touchstart',h,{passive:true});r.addEventListener('mouseleave',()=>tip.hidden=true)});
   el('line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:C.ink,'stroke-width':1.2},g);
   placeEvents(g,ev,xs,top-4,P,i=>y(tot[i])-24*s);
