@@ -1,0 +1,116 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linha do tempo · Scooby-Doo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#12160E;--paper2:#1B2115;--ink:#EEF2E4;--ink2:#C3CBB4;--muted:#8E9881;--rule:#3A4430;--gold:#B9E07A;
+--s1:#3A7FD8;--s2:#D9722A;--s3:#9B6AD6;--s4:#1E9E8C;--s5:#B08F22;--grid:#283020;--tipbg:#EEF2E4;--tipfg:#12160E;--glow:rgba(238,242,228,.55);--q1:#232B1B;--q2:#34431F;--q3:#4F6A25;--q4:#86A83A;--q5:#C2E27D}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+background:radial-gradient(120% 90% at 50% 0%,#232B1A 0%,#161B11 55%,#0E110B 100%) var(--paper)}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:1px solid var(--rule);border-radius:14px;pointer-events:none;box-shadow:inset 0 0 40px rgba(185,224,122,.05)}
+.kick{font:700 clamp(9px,1.05vw,11.5px)/1.2 'Rubik',sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.6em}
+.kick:before{content:"";width:22px;height:2px;border-radius:2px;background:var(--gold)}
+.kick .dia{font-size:1em;letter-spacing:0}
+h1{font:800 clamp(20px,3.3vw,40px)/1.05 'Rubik',sans-serif;margin:.25em 0 .14em;letter-spacing:-.01em;text-shadow:0 0 18px var(--glow)}
+h1 em{font-style:normal;color:var(--gold);text-shadow:0 0 16px rgba(185,224,122,.5)}
+.deck{font:400 clamp(11.5px,1.25vw,14px)/1.45 'Inter',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:980px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi{min-width:0}
+.kpi b{display:block;font:800 clamp(18px,2.6vw,30px)/1 'Rubik',sans-serif;letter-spacing:-.01em}
+.kpi span{display:block;font:600 clamp(8.5px,.9vw,10px)/1.3 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:3px;border-radius:3px;margin-bottom:6px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:600 clamp(9px,.95vw,11px)/1.3 'Inter',sans-serif;color:var(--ink2);margin:.1em 0 .3em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend i.ln{height:2px;border-radius:0;width:16px}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:400 clamp(8.5px,.85vw,10px)/1.4 'Inter',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font-weight:700;letter-spacing:.14em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Inter',sans-serif;padding:8px 11px;border-radius:8px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.45),0 0 18px rgba(238,242,228,.25);pointer-events:none}
+#tip b{font:800 13px/1.2 'Rubik',sans-serif;display:block;margin-bottom:2px}
+#tip a{color:inherit}
+#tip.pin{pointer-events:auto}
+@media (max-height:460px){.deck{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+@media (max-height:380px){.kpis{display:none}}
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick">Listening Scooby-Doo · 2002 a 2027<span class="dia">🔍</span></div>
+<h1>Do filme de 2002 ao <em>cão de verdade</em> da Netflix</h1>
+<p class="deck">Os marcos da franquia no Brasil e da série Scooby-Doo: Origins, em três frentes: a Netflix, o mercado (filmes, streamings e licenciados) e a conversa dos fãs, que no Brasil passa pela dublagem.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--s1)"></i><b>8</b><span>episódios na 1ª temporada</span></div><div class="kpi"><i style="background:var(--s5)"></i><b>57 anos</b><span>da franquia em set/26</span></div><div class="kpi"><i style="background:var(--s2)"></i><b>2027</b><span>estreia prevista</span></div></div>
+<div class="legend"><span><i class="" style="background:var(--s1)"></i>Netflix e a série</span><span><i class="" style="background:var(--s5)"></i>Franquia e mercado</span><span><i class="" style="background:var(--s2)"></i>Conversa, fãs e dublagem</span></div>
+<div id="chart"></div>
+<div class="foot"><b>VISCERAL</b> · Fontes: Netflix (Tudum e Top 10), Warner Bros. Television, Box Office Mojo, imprensa brasileira e internacional, Google Trends e redes sociais. Toque em um marco para ver o detalhe.</div>
+</div>
+<div id="tip" hidden></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+function hit(node,html,link){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+function diamond(p,x,y,r,fill){const g=el('g',{},p);el('circle',{cx:x,cy:y,r:r*1.9,fill,opacity:.22},g);el('circle',{cx:x,cy:y,r:r*.95,fill},g);return g}
+function rbar(p,x,y,w,h,r,fill,horiz){ // rounded data-end only
+ r=Math.min(r,horiz?h/2:w/2,horiz?w:h); if(w<=0||h<=0)return el('rect',{x,y,width:Math.max(w,0),height:Math.max(h,0),fill},p);
+ const d=horiz?`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`
+ :`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;
+ return el('path',{d,fill},p)}
+function nice(mx,k){k=k||4;const raw=mx/k,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;return {step:st,max:Math.ceil(mx/st)*st}}
+function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fill(-1e9);const lh=12;
+ evs.sort((a,b)=>a.x-b.x).forEach(e=>{const t=tx(g,0,0,e.lab,{'font-size':9.5,'font-weight':700,fill:css('--ink'),'font-family':'Inter','letter-spacing':'.05em'});const w=t.getComputedTextLength();
+  let ax=e.x-w/2;if(ax<L)ax=L;if(ax+w>R)ax=R-w;let r=0;while(r<rows-1&&ax<ends[r]+8)r++;ends[r]=ax+w;
+  const ty=top-4-(rows-1-r)*lh;t.setAttribute('x',ax);t.setAttribute('y',ty);
+  el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':.8,'stroke-dasharray':'1.5 2.5'},g)})}
+function monthAxis(g,days,x,bw,y){const M={'01':'JAN','02':'FEV','03':'MAR','04':'ABR','05':'MAI','06':'JUN','07':'JUL','08':'AGO','09':'SET','10':'OUT','11':'NOV','12':'DEZ'};
+ days.forEach((d,i)=>{const [dd,mm]=d.split('/');if(dd==='01')tx(g,x(i)+bw/2,y,M[mm],{'font-size':10,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})})}
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';document.body.classList.toggle('sm',innerWidth<620);
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>
+const E=[{"e": "Franquia · 2002–2023", "ev": [["2002", "b", "Scooby-Doo, o filme", "9ª maior bilheteria do Brasil em 2002 (US$ 3,2 mi no ano)"], ["abr/04", "b", "Monstros à Solta", "recorde histórico de buscas no Brasil (índice 100)"], ["2020", "b", "SCOOB! na pandemia", "recorde de buscas no YouTube (out/20)"], ["27/07/21", "c", "Morre Orlando Drummond", "voz brasileira do Scooby por décadas, aos 101 anos"], ["jan/23", "b", "Velma (HBO Max)", "série adulta lembrada nos comentários como referência negativa"]]}, {"e": "Netflix · 2023–jan/26", "ev": [["nov/23", "s", "Mistério S.A. no Top 10", "9º lugar entre as séries no Brasil"], ["26/03/25", "s", "Netflix anuncia a série live-action", "8 episódios, de Josh Appelbaum e Scott Rosenberg"], ["dez/25", "s", "Filme de 2002 no Top 10", "9º lugar entre os filmes no Brasil (semana de 21/12)"], ["04/01/26", "c", "Reel da Netflix com a Daphne de 2002", "12 mi de views e 154 mil curtidas"]]}, {"e": "Elenco · fev–abr/26", "ev": [["17/02/26", "s", "Mckenna Grace será Daphne", "\"escalação perfeita\", comentou Guilherme Briggs"], ["18/03/26", "s", "Elenco principal", "Tanner Hagen, Abby Ryder Fortson e Maxwell Jenkins"], ["24/04/26", "s", "Título e primeira imagem", "\"Scooby-Doo: A Origem\"; gravações em Atlanta"]]}, {"e": "Produção · mai–set/26", "ev": [["19/05/26", "b", "Anime Yokoso Scooby-Doo!", "projeto paralelo da Warner no Japão"], ["08/06/26", "s", "Scooby é um cão de verdade", "maior semana: 27 matérias e 54 posts virais no X"], ["10/06/26", "s", "Elenco completo", "Paul Walter Hauser, Sara Gilbert, Sherilyn Fenn e outros"], ["13/09/26", "s", "Fim das gravações", "no aniversário de 57 anos da franquia"]]}, {"e": "Conversa · out–nov/26", "ev": [["10/10/26", "c", "Morre Edson Silva", "ator e dublador, também voz do Scooby; pico no YouTube"], ["31/10/26", "c", "Halloween da Mistério S.A.", "fantasias da turma: 104 mil curtidas no post de Fefe"], ["02/11/26", "s", "Abby Ryder Fortson fala da série", "\"Velma\" de Origins promete uma versão diferente"]]}, {"e": "2027", "ev": [["2027", "s", "Estreia de Scooby-Doo: A Origem", "data ainda não anunciada"]]}];const K={s:['Netflix e a série','--s1'],b:['Franquia e mercado','--s5'],c:['Conversa, fãs e dublagem','--s2']};
+boot((svg,W,H,sm)=>{
+ const n=E.length;
+ if(!sm){const cw=W/n, top=26;
+  E.forEach((era,j)=>{const x0=j*cw, g=el('g',{},svg), last=j==n-1;
+   el('rect',{x:x0+3,y:0,width:cw-6,height:20,fill:last?'none':css('--paper2'),stroke:last?css('--gold'):'none','stroke-dasharray':'3 3',rx:6},g);
+   tx(g,x0+cw/2,14,era.e,{'text-anchor':'middle','font-size':cw<150?9:10.5,'font-weight':700,'letter-spacing':'.06em',fill:css('--ink'),'font-family':'Inter'});
+   if(j)el('line',{x1:x0,x2:x0,y1:top,y2:H,stroke:css('--rule')},g);
+   const ch=(H-top-4)/Math.max(...E.map(e=>e.ev.length));
+   era.ev.forEach((v,i)=>{const y=top+6+i*Math.min(ch,96), c=css(K[v[1]][1]);
+    const card=el('g',{},g);diamond(card,x0+10,y+6,4,c);
+    tx(card,x0+19,y+10,v[0],{'font-size':9.5,'font-weight':700,fill:c,'font-family':'Inter','letter-spacing':'.04em'});
+    const words=v[2].split(' ');let ls=[''];const maxc=Math.max(10,Math.floor((cw-26)/6.3));words.forEach(w=>{if((ls[ls.length-1]+' '+w).trim().length>maxc)ls.push(w);else ls[ls.length-1]=(ls[ls.length-1]+' '+w).trim()});
+    ls.slice(0,3).forEach((l,k)=>tx(card,x0+10,y+25+k*13,l,{'font-size':11,'font-weight':600,fill:css('--ink'),'font-family':'Inter'}));
+    const hz=el('rect',{x:x0+3,y:y-2,width:cw-6,height:Math.min(ch,96)-4,fill:'transparent'},card);
+    hit(hz,`<b>${v[2]}</b>${v[0]} · ${K[v[1]][0]}<br>${v[3]}`)});
+  });
+ } else {
+  const all=[];E.forEach(e=>{all.push({h:e.e});e.ev.forEach(v=>all.push({v}))});
+  const rh=H/all.length;all.forEach((a,i)=>{const y=i*rh+rh*0.7, g=el('g',{},svg);
+   if(a.h){tx(g,0,y,a.h.toUpperCase(),{'font-size':9.5,'font-weight':700,'letter-spacing':'.1em',fill:css('--gold'),'font-family':'Inter'});return}
+   const c=css(K[a.v[1]][1]);diamond(g,6,y-4,4,c);tx(g,16,y,a.v[0]+' · '+a.v[2],{'font-size':Math.min(11,rh*0.62),'font-weight':600,fill:css('--ink'),'font-family':'Inter'});
+   const hz=el('rect',{x:0,y:y-rh*0.7,width:W,height:rh,fill:'transparent'},g);hit(hz,`<b>${a.v[2]}</b>${a.v[0]} · ${K[a.v[1]][0]}<br>${a.v[3]}`)});
+ }
+});
+</script>
+</body></html>

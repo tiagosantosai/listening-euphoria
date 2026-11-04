@@ -1,0 +1,109 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Do que se fala · Scooby-Doo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#12160E;--paper2:#1B2115;--ink:#EEF2E4;--ink2:#C3CBB4;--muted:#8E9881;--rule:#3A4430;--gold:#B9E07A;
+--s1:#3A7FD8;--s2:#D9722A;--s3:#9B6AD6;--s4:#1E9E8C;--s5:#B08F22;--grid:#283020;--tipbg:#EEF2E4;--tipfg:#12160E;--glow:rgba(238,242,228,.55);--q1:#232B1B;--q2:#34431F;--q3:#4F6A25;--q4:#86A83A;--q5:#C2E27D}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+background:radial-gradient(120% 90% at 50% 0%,#232B1A 0%,#161B11 55%,#0E110B 100%) var(--paper)}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:1px solid var(--rule);border-radius:14px;pointer-events:none;box-shadow:inset 0 0 40px rgba(185,224,122,.05)}
+.kick{font:700 clamp(9px,1.05vw,11.5px)/1.2 'Rubik',sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.6em}
+.kick:before{content:"";width:22px;height:2px;border-radius:2px;background:var(--gold)}
+.kick .dia{font-size:1em;letter-spacing:0}
+h1{font:800 clamp(20px,3.3vw,40px)/1.05 'Rubik',sans-serif;margin:.25em 0 .14em;letter-spacing:-.01em;text-shadow:0 0 18px var(--glow)}
+h1 em{font-style:normal;color:var(--gold);text-shadow:0 0 16px rgba(185,224,122,.5)}
+.deck{font:400 clamp(11.5px,1.25vw,14px)/1.45 'Inter',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:980px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi{min-width:0}
+.kpi b{display:block;font:800 clamp(18px,2.6vw,30px)/1 'Rubik',sans-serif;letter-spacing:-.01em}
+.kpi span{display:block;font:600 clamp(8.5px,.9vw,10px)/1.3 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:3px;border-radius:3px;margin-bottom:6px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:600 clamp(9px,.95vw,11px)/1.3 'Inter',sans-serif;color:var(--ink2);margin:.1em 0 .3em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend i.ln{height:2px;border-radius:0;width:16px}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:400 clamp(8.5px,.85vw,10px)/1.4 'Inter',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font-weight:700;letter-spacing:.14em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Inter',sans-serif;padding:8px 11px;border-radius:8px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.45),0 0 18px rgba(238,242,228,.25);pointer-events:none}
+#tip b{font:800 13px/1.2 'Rubik',sans-serif;display:block;margin-bottom:2px}
+#tip a{color:inherit}
+#tip.pin{pointer-events:auto}
+@media (max-height:460px){.deck{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+@media (max-height:380px){.kpis{display:none}}
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick">Listening Scooby-Doo · conversa sobre a série<span class="dia">🔍</span></div>
+<h1>O filhote <em>conquistou</em> mais do que estranhou</h1>
+<p class="deck">Temas dos comentários mais curtidos (Instagram e TikTok) e dos posts virais sobre a série no X, classificados por palavras-chave (um item pode ter mais de um tema). No Instagram e no TikTok, os comentários de encanto com o cão real superam os de estranhamento, e parte do público sai em defesa do filhote. No X, a conversa sobre a série é sobre o elenco, comparado com o dos filmes de 2002 e 2004.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--gold)"></i><b>15,6%</b><span>TikTok: encanto</span></div><div class="kpi"><i style="background:var(--ink)"></i><b>13,5%</b><span>TikTok: estranhamento</span></div><div class="kpi"><i style="background:var(--gold)"></i><b>51%</b><span>X: elenco</span></div></div>
+<div class="legend"><span><i class="" style="background:var(--q1)"></i>menos de 3%</span><span><i class="" style="background:var(--q2)"></i>3–6%</span><span><i class="" style="background:var(--q3)"></i>6–10%</span><span><i class="" style="background:var(--q4)"></i>10–15%</span><span><i class="" style="background:var(--q5)"></i>15% ou mais</span></div>
+<div id="chart"></div>
+<div class="foot"><b>VISCERAL</b> · Base: comentários mais curtidos dos 10 posts e 10 vídeos em português de maior engajamento sobre a série e 335 posts do X com 1 mil curtidas ou mais sobre Scooby-Doo: Origins (26/03/2025 a 04/11/2026). Percentual sobre o total lido em cada rede. Toque nas células para ver os números.</div>
+</div>
+<div id="tip" hidden></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+function hit(node,html,link){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+function diamond(p,x,y,r,fill){const g=el('g',{},p);el('circle',{cx:x,cy:y,r:r*1.9,fill,opacity:.22},g);el('circle',{cx:x,cy:y,r:r*.95,fill},g);return g}
+function rbar(p,x,y,w,h,r,fill,horiz){ // rounded data-end only
+ r=Math.min(r,horiz?h/2:w/2,horiz?w:h); if(w<=0||h<=0)return el('rect',{x,y,width:Math.max(w,0),height:Math.max(h,0),fill},p);
+ const d=horiz?`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`
+ :`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;
+ return el('path',{d,fill},p)}
+function nice(mx,k){k=k||4;const raw=mx/k,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;return {step:st,max:Math.ceil(mx/st)*st}}
+function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fill(-1e9);const lh=12;
+ evs.sort((a,b)=>a.x-b.x).forEach(e=>{const t=tx(g,0,0,e.lab,{'font-size':9.5,'font-weight':700,fill:css('--ink'),'font-family':'Inter','letter-spacing':'.05em'});const w=t.getComputedTextLength();
+  let ax=e.x-w/2;if(ax<L)ax=L;if(ax+w>R)ax=R-w;let r=0;while(r<rows-1&&ax<ends[r]+8)r++;ends[r]=ax+w;
+  const ty=top-4-(rows-1-r)*lh;t.setAttribute('x',ax);t.setAttribute('y',ty);
+  el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':.8,'stroke-dasharray':'1.5 2.5'},g)})}
+function monthAxis(g,days,x,bw,y){const M={'01':'JAN','02':'FEV','03':'MAR','04':'ABR','05':'MAI','06':'JUN','07':'JUL','08':'AGO','09':'SET','10':'OUT','11':'NOV','12':'DEZ'};
+ days.forEach((d,i)=>{const [dd,mm]=d.split('/');if(dd==='01')tx(g,x(i)+bw/2,y,M[mm],{'font-size':10,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})})}
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';document.body.classList.toggle('sm',innerWidth<620);
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>
+const TH=["Cão real: encanto (fofura, sem CGI)", "Cão real: estranhamento (não fala, não parece)", "Defesa contra as críticas", "Elenco e Mckenna Grace", "Comparação com os filmes de 2002 e 2004", "Dublagem brasileira", "Nostalgia da infância", "Humor e memes"], NET=[{"n": "Instagram", "s": "555 comentários em 10 posts", "v": [71, 59, 20, 54, 9, 5, 6, 48], "b": 555, "u": " coment."}, {"n": "TikTok", "s": "786 comentários em 10 vídeos", "v": [123, 106, 23, 118, 4, 9, 20, 59], "b": 786, "u": " coment."}, {"n": "X", "s": "335 posts virais sobre a série", "v": [21, 11, 3, 170, 37, 10, 5, 7], "b": 335, "u": " posts"}];
+boot((svg,W,H,sm)=>{
+ const lw=sm?118:Math.min(290,W*0.32), top=40, cw=(W-lw)/NET.length, rh=(H-top)/TH.length;
+ const steps=['--q1','--q2','--q3','--q4','--q5'], br=[0,3,6,10,15];
+ const g=el('g',{},svg);
+ NET.forEach((n,j)=>{tx(g,lw+j*cw+cw/2,14,n.n,{'text-anchor':'middle','font-size':13,'font-weight':700,fill:css('--ink'),'font-family':'Inter'});
+  if(!sm)tx(g,lw+j*cw+cw/2,29,n.s,{'text-anchor':'middle','font-size':9.5,fill:css('--muted'),'font-family':'Inter'})});
+ TH.forEach((t,i)=>{const y=top+i*rh;
+  const words=t.split(' ');let lines=[''];words.forEach(w=>{if((lines[lines.length-1]+' '+w).length>(sm?16:36))lines.push(w);else lines[lines.length-1]=(lines[lines.length-1]+' '+w).trim()});
+  lines.slice(0,3).forEach((l,k)=>tx(g,0,y+rh/2+4-(Math.min(lines.length,3)-1)*6+k*12,l,{'font-size':sm?10:12,'font-weight':600,fill:css('--ink'),'font-family':'Inter'}));
+  NET.forEach((n,j)=>{const v=n.v[i];const x=lw+j*cw;
+   const p=100*v/n.b;let s=0;br.forEach((b,k)=>{if(p>=b)s=k});
+   const r=el('rect',{x:x+2,y:y+2,width:cw-4,height:rh-4,fill:css(steps[s]),rx:6},g);
+   tx(g,x+cw/2,y+rh/2+(sm||rh<=40?5:2),fmt(p,1)+'%',{'text-anchor':'middle','font-family':'Rubik','font-weight':800,'font-size':sm?13:16,fill:s>=3?css('--paper'):css('--ink')});
+   if(!sm&&rh>40)tx(g,x+cw/2,y+rh/2+15,v+n.u,{'text-anchor':'middle','font-size':9.5,fill:s>=3?css('--paper'):css('--ink2'),'font-family':'Inter'});
+   hit(r,`<b>${t}</b>${n.n}: ${v} de ${n.b} (${fmt(p,1)}%)`)});
+ });
+});
+</script>
+</body></html>

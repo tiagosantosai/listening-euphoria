@@ -1,0 +1,114 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A franquia no tempo · Scooby-Doo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#12160E;--paper2:#1B2115;--ink:#EEF2E4;--ink2:#C3CBB4;--muted:#8E9881;--rule:#3A4430;--gold:#B9E07A;
+--s1:#3A7FD8;--s2:#D9722A;--s3:#9B6AD6;--s4:#1E9E8C;--s5:#B08F22;--grid:#283020;--tipbg:#EEF2E4;--tipfg:#12160E;--glow:rgba(238,242,228,.55);--q1:#232B1B;--q2:#34431F;--q3:#4F6A25;--q4:#86A83A;--q5:#C2E27D}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+background:radial-gradient(120% 90% at 50% 0%,#232B1A 0%,#161B11 55%,#0E110B 100%) var(--paper)}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:1px solid var(--rule);border-radius:14px;pointer-events:none;box-shadow:inset 0 0 40px rgba(185,224,122,.05)}
+.kick{font:700 clamp(9px,1.05vw,11.5px)/1.2 'Rubik',sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.6em}
+.kick:before{content:"";width:22px;height:2px;border-radius:2px;background:var(--gold)}
+.kick .dia{font-size:1em;letter-spacing:0}
+h1{font:800 clamp(20px,3.3vw,40px)/1.05 'Rubik',sans-serif;margin:.25em 0 .14em;letter-spacing:-.01em;text-shadow:0 0 18px var(--glow)}
+h1 em{font-style:normal;color:var(--gold);text-shadow:0 0 16px rgba(185,224,122,.5)}
+.deck{font:400 clamp(11.5px,1.25vw,14px)/1.45 'Inter',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:980px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi{min-width:0}
+.kpi b{display:block;font:800 clamp(18px,2.6vw,30px)/1 'Rubik',sans-serif;letter-spacing:-.01em}
+.kpi span{display:block;font:600 clamp(8.5px,.9vw,10px)/1.3 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:3px;border-radius:3px;margin-bottom:6px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:600 clamp(9px,.95vw,11px)/1.3 'Inter',sans-serif;color:var(--ink2);margin:.1em 0 .3em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend i.ln{height:2px;border-radius:0;width:16px}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:400 clamp(8.5px,.85vw,10px)/1.4 'Inter',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font-weight:700;letter-spacing:.14em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Inter',sans-serif;padding:8px 11px;border-radius:8px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.45),0 0 18px rgba(238,242,228,.25);pointer-events:none}
+#tip b{font:800 13px/1.2 'Rubik',sans-serif;display:block;margin-bottom:2px}
+#tip a{color:inherit}
+#tip.pin{pointer-events:auto}
+@media (max-height:460px){.deck{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+@media (max-height:380px){.kpis{display:none}}
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick">Listening Scooby-Doo · 2004 a 2026<span class="dia">🔍</span></div>
+<h1>Um clássico <em>perene</em>: a busca não depende de lançamento</h1>
+<p class="deck">Buscas mensais por "Scooby-Doo" no Brasil desde 2004, na web e no YouTube. O pico da web é o filme Monstros à Solta (abr/04). O do YouTube é 2020, com SCOOB! e a pandemia. Desde 2022, a busca na web oscila entre 22 e 43, sem depender de estreia. O anúncio da série da Netflix não mudou esse patamar.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--s4)"></i><b>100</b><span>web · abr/04 (Monstros à Solta)</span></div><div class="kpi"><i style="background:var(--s2)"></i><b>100</b><span>YouTube · out/20</span></div><div class="kpi"><i style="background:var(--ink)"></i><b>27</b><span>média web 2025–26</span></div><div class="kpi"><i style="background:var(--ink)"></i><b>43</b><span>maior mês na web desde 2022</span></div></div>
+<div class="legend"><span><i class="ln" style="background:var(--s4)"></i>Google · web</span><span><i class="ln" style="background:var(--s2)"></i>YouTube</span></div>
+<div id="chart"></div>
+<div class="foot"><b>VISCERAL</b> · Fonte: Google Trends, Brasil, termo "Scooby-Doo", mensal, extraído em 03/11/2026. Cada painel é um índice próprio (100 = mês de maior busca). A série do YouTube começa em 2008, e o Google mudou a coleta em 2016 e 2017, o que eleva o patamar a partir daí. Passe o mouse ou toque para ver o mês.</div>
+</div>
+<div id="tip" hidden></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+function hit(node,html,link){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+function diamond(p,x,y,r,fill){const g=el('g',{},p);el('circle',{cx:x,cy:y,r:r*1.9,fill,opacity:.22},g);el('circle',{cx:x,cy:y,r:r*.95,fill},g);return g}
+function rbar(p,x,y,w,h,r,fill,horiz){ // rounded data-end only
+ r=Math.min(r,horiz?h/2:w/2,horiz?w:h); if(w<=0||h<=0)return el('rect',{x,y,width:Math.max(w,0),height:Math.max(h,0),fill},p);
+ const d=horiz?`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`
+ :`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;
+ return el('path',{d,fill},p)}
+function nice(mx,k){k=k||4;const raw=mx/k,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;return {step:st,max:Math.ceil(mx/st)*st}}
+function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fill(-1e9);const lh=12;
+ evs.sort((a,b)=>a.x-b.x).forEach(e=>{const t=tx(g,0,0,e.lab,{'font-size':9.5,'font-weight':700,fill:css('--ink'),'font-family':'Inter','letter-spacing':'.05em'});const w=t.getComputedTextLength();
+  let ax=e.x-w/2;if(ax<L)ax=L;if(ax+w>R)ax=R-w;let r=0;while(r<rows-1&&ax<ends[r]+8)r++;ends[r]=ax+w;
+  const ty=top-4-(rows-1-r)*lh;t.setAttribute('x',ax);t.setAttribute('y',ty);
+  el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':.8,'stroke-dasharray':'1.5 2.5'},g)})}
+function monthAxis(g,days,x,bw,y){const M={'01':'JAN','02':'FEV','03':'MAR','04':'ABR','05':'MAI','06':'JUN','07':'JUL','08':'AGO','09':'SET','10':'OUT','11':'NOV','12':'DEZ'};
+ days.forEach((d,i)=>{const [dd,mm]=d.split('/');if(dd==='01')tx(g,x(i)+bw/2,y,M[mm],{'font-size':10,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})})}
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';document.body.classList.toggle('sm',innerWidth<620);
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>
+const M=["jan/04", "fev/04", "mar/04", "abr/04", "mai/04", "jun/04", "jul/04", "ago/04", "set/04", "out/04", "nov/04", "dez/04", "jan/05", "fev/05", "mar/05", "abr/05", "mai/05", "jun/05", "jul/05", "ago/05", "set/05", "out/05", "nov/05", "dez/05", "jan/06", "fev/06", "mar/06", "abr/06", "mai/06", "jun/06", "jul/06", "ago/06", "set/06", "out/06", "nov/06", "dez/06", "jan/07", "fev/07", "mar/07", "abr/07", "mai/07", "jun/07", "jul/07", "ago/07", "set/07", "out/07", "nov/07", "dez/07", "jan/08", "fev/08", "mar/08", "abr/08", "mai/08", "jun/08", "jul/08", "ago/08", "set/08", "out/08", "nov/08", "dez/08", "jan/09", "fev/09", "mar/09", "abr/09", "mai/09", "jun/09", "jul/09", "ago/09", "set/09", "out/09", "nov/09", "dez/09", "jan/10", "fev/10", "mar/10", "abr/10", "mai/10", "jun/10", "jul/10", "ago/10", "set/10", "out/10", "nov/10", "dez/10", "jan/11", "fev/11", "mar/11", "abr/11", "mai/11", "jun/11", "jul/11", "ago/11", "set/11", "out/11", "nov/11", "dez/11", "jan/12", "fev/12", "mar/12", "abr/12", "mai/12", "jun/12", "jul/12", "ago/12", "set/12", "out/12", "nov/12", "dez/12", "jan/13", "fev/13", "mar/13", "abr/13", "mai/13", "jun/13", "jul/13", "ago/13", "set/13", "out/13", "nov/13", "dez/13", "jan/14", "fev/14", "mar/14", "abr/14", "mai/14", "jun/14", "jul/14", "ago/14", "set/14", "out/14", "nov/14", "dez/14", "jan/15", "fev/15", "mar/15", "abr/15", "mai/15", "jun/15", "jul/15", "ago/15", "set/15", "out/15", "nov/15", "dez/15", "jan/16", "fev/16", "mar/16", "abr/16", "mai/16", "jun/16", "jul/16", "ago/16", "set/16", "out/16", "nov/16", "dez/16", "jan/17", "fev/17", "mar/17", "abr/17", "mai/17", "jun/17", "jul/17", "ago/17", "set/17", "out/17", "nov/17", "dez/17", "jan/18", "fev/18", "mar/18", "abr/18", "mai/18", "jun/18", "jul/18", "ago/18", "set/18", "out/18", "nov/18", "dez/18", "jan/19", "fev/19", "mar/19", "abr/19", "mai/19", "jun/19", "jul/19", "ago/19", "set/19", "out/19", "nov/19", "dez/19", "jan/20", "fev/20", "mar/20", "abr/20", "mai/20", "jun/20", "jul/20", "ago/20", "set/20", "out/20", "nov/20", "dez/20", "jan/21", "fev/21", "mar/21", "abr/21", "mai/21", "jun/21", "jul/21", "ago/21", "set/21", "out/21", "nov/21", "dez/21", "jan/22", "fev/22", "mar/22", "abr/22", "mai/22", "jun/22", "jul/22", "ago/22", "set/22", "out/22", "nov/22", "dez/22", "jan/23", "fev/23", "mar/23", "abr/23", "mai/23", "jun/23", "jul/23", "ago/23", "set/23", "out/23", "nov/23", "dez/23", "jan/24", "fev/24", "mar/24", "abr/24", "mai/24", "jun/24", "jul/24", "ago/24", "set/24", "out/24", "nov/24", "dez/24", "jan/25", "fev/25", "mar/25", "abr/25", "mai/25", "jun/25", "jul/25", "ago/25", "set/25", "out/25", "nov/25", "dez/25", "jan/26", "fev/26", "mar/26", "abr/26", "mai/26", "jun/26", "jul/26", "ago/26", "set/26", "out/26", "nov/26"], SER=[['Google · web','--s4',[34, 0, 34, 100, 50, 44, 54, 30, 39, 31, 31, 44, 30, 24, 28, 37, 22, 24, 44, 32, 29, 32, 27, 27, 40, 29, 19, 39, 34, 41, 38, 32, 31, 32, 33, 39, 48, 51, 33, 35, 34, 33, 65, 49, 49, 46, 47, 59, 60, 52, 48, 46, 51, 54, 63, 60, 50, 52, 46, 39, 38, 27, 24, 22, 22, 19, 26, 25, 17, 22, 19, 18, 18, 17, 13, 14, 15, 19, 20, 18, 15, 20, 14, 16, 25, 17, 22, 18, 18, 18, 23, 15, 16, 24, 18, 20, 18, 12, 9, 12, 11, 18, 19, 15, 14, 13, 14, 13, 13, 10, 10, 11, 9, 10, 14, 9, 7, 12, 9, 10, 10, 7, 8, 8, 9, 11, 10, 8, 6, 7, 5, 7, 6, 6, 5, 5, 6, 5, 6, 6, 5, 10, 11, 14, 15, 16, 30, 33, 27, 28, 32, 28, 25, 21, 22, 24, 33, 30, 26, 28, 27, 23, 32, 25, 26, 25, 25, 30, 33, 33, 31, 25, 25, 26, 24, 22, 26, 22, 21, 26, 26, 25, 24, 21, 19, 24, 24, 19, 19, 20, 28, 24, 24, 23, 27, 30, 37, 35, 37, 51, 45, 74, 49, 39, 36, 35, 34, 33, 29, 33, 35, 35, 33, 38, 31, 29, 40, 39, 38, 42, 39, 38, 39, 31, 33, 43, 29, 27, 32, 31, 28, 30, 26, 25, 30, 23, 25, 28, 30, 31, 29, 26, 27, 25, 29, 28, 28, 27, 28, 30, 26, 28, 27, 24, 30, 28, 27, 27, 32, 26, 25, 30, 27, 32, 34, 30, 25, 28, 26, 23, 23, 23, 23, 24, 26]],['YouTube','--s2',[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 3, 3, 3, 4, 3, 3, 2, 3, 2, 4, 1, 2, 2, 2, 0, 2, 2, 0, 0, 1, 0, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 0, 0, 0, 0, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2, 2, 1, 2, 2, 3, 3, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 3, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 2, 2, 11, 24, 25, 24, 25, 27, 30, 28, 25, 22, 23, 21, 19, 18, 22, 19, 18, 20, 21, 21, 21, 20, 19, 19, 15, 17, 17, 15, 17, 13, 16, 17, 17, 20, 58, 61, 64, 88, 93, 100, 80, 68, 69, 65, 64, 63, 65, 65, 60, 55, 49, 55, 51, 46, 50, 47, 49, 49, 33, 29, 29, 27, 28, 32, 29, 27, 31, 35, 32, 29, 28, 32, 39, 40, 37, 40, 36, 34, 37, 30, 29, 27, 33, 28, 33, 30, 30, 31, 28, 27, 27, 24, 27, 26, 26, 28, 28, 24, 26, 28, 26, 27, 27, 26, 25, 28, 28, 28, 29, 26, 27, 28, 24]]], REL=[{"i": 3, "l": "MONSTROS À SOLTA", "s": "2004"}, {"i": 78, "l": "MISTÉRIO S.A.", "s": "S.A."}, {"i": 196, "l": "SCOOB! E PANDEMIA", "s": "SCOOB!"}, {"i": 228, "l": "VELMA (MAX)", "s": "VELMA"}, {"i": 254, "l": "ANÚNCIO DE ORIGINS", "s": "ORIGINS"}];
+boot((svg,W,H,sm)=>{
+ const L=30,R=W-8,top=40,bot=H-22,n=M.length,gapP=16,ph=(bot-top-gapP)/2,x=i=>L+(R-L)*i/(n-1);const g=el('g',{},svg);
+ REL.forEach((r,k)=>{tx(g,x(r.i),top-10-(k%2)*11,sm?r.s:r.l,{'font-size':9.5,'font-weight':700,'letter-spacing':'.06em',fill:css('--gold'),'font-family':'Inter','text-anchor':r.i<10?'start':r.i>n-30?'end':'middle'});
+  el('line',{x1:x(r.i),x2:x(r.i),y1:top-6,y2:bot,stroke:css('--gold'),'stroke-width':.8,'stroke-dasharray':'1.5 2.5',opacity:.8},g)});
+ SER.forEach(([lab,c,v],k)=>{const y0=top+k*(ph+gapP),yb=y0+ph,y=a=>yb-(ph-14)*a/100;
+  tx(g,L,y0+10,lab.toUpperCase()+' · ÍNDICE 0–100',{'font-size':9.5,'font-weight':700,'letter-spacing':'.12em',fill:css('--ink2'),'font-family':'Inter'});
+  [0,50,100].forEach(a=>{el('line',{x1:L,x2:R,y1:y(a),y2:y(a),stroke:css('--grid')},g);tx(g,L-6,y(a)+3.5,a,{'text-anchor':'end','font-size':10,fill:css('--muted'),'font-family':'Inter'})});
+  const st=v.findIndex(a=>a>0), pts=v.map((a,i)=>[x(i),y(a)]).slice(st);
+  el('path',{d:'M'+pts[0][0]+','+yb+' L'+pts.map(p=>p.join(',')).join(' L')+' L'+pts[pts.length-1][0]+','+yb+'Z',fill:css(c),opacity:.18},g);
+  el('polyline',{points:pts.map(p=>p.join(',')).join(' '),fill:'none',stroke:css(c),'stroke-width':2,'stroke-linejoin':'round'},g);
+  const im=v.indexOf(Math.max(...v));diamond(g,x(im),y(v[im]),3.5,css('--ink'));tx(g,x(im)+(im>n-40?-8:8),y(v[im])+12,M[im]+': '+v[im],{'font-family':'Rubik','font-weight':800,'font-size':12,fill:css('--ink'),'text-anchor':im>n-40?'end':'start'});
+  el('line',{x1:L,x2:R,y1:yb,y2:yb,stroke:css('--ink'),'stroke-width':.8},g);
+ });
+ for(let yy=2004;yy<=2026;yy+=sm?4:2){const i=M.indexOf('jan/'+String(yy).slice(2));tx(g,x(i),bot+14,yy,{'font-size':10,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})}
+ const cross=el('line',{x1:0,x2:0,y1:top,y2:bot,stroke:css('--ink'),'stroke-width':.8,opacity:0},g);
+ const hz=el('rect',{x:L,y:top,width:R-L,height:bot-top,fill:'transparent'},g);hz.setAttribute('data-hit','1');
+ const mv=(cx,cy,pin)=>{const r=svg.getBoundingClientRect();const i=Math.max(0,Math.min(n-1,Math.round((cx-r.left-L)/(R-L)*(n-1))));
+  cross.setAttribute('x1',x(i));cross.setAttribute('x2',x(i));cross.setAttribute('opacity',.5);
+  showTip(`<b>${M[i]}</b>${SER.map(s=>s[0]+': '+(s[2][i]||'—')).join('<br>')}`,cx,cy,pin)};
+ hz.addEventListener('mousemove',e=>{if(!pinned)mv(e.clientX,e.clientY)});hz.addEventListener('mouseleave',()=>{hideTip();cross.setAttribute('opacity',0)});
+ hz.addEventListener('touchstart',e=>{const p=e.touches[0];mv(p.clientX,p.clientY,true)},{passive:true});hz.addEventListener('click',e=>{mv(e.clientX,e.clientY,true);e.stopPropagation()});
+});
+</script>
+</body></html>

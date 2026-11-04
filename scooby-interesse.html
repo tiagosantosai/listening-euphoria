@@ -1,0 +1,114 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interesse de busca · Scooby-Doo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#12160E;--paper2:#1B2115;--ink:#EEF2E4;--ink2:#C3CBB4;--muted:#8E9881;--rule:#3A4430;--gold:#B9E07A;
+--s1:#3A7FD8;--s2:#D9722A;--s3:#9B6AD6;--s4:#1E9E8C;--s5:#B08F22;--grid:#283020;--tipbg:#EEF2E4;--tipfg:#12160E;--glow:rgba(238,242,228,.55);--q1:#232B1B;--q2:#34431F;--q3:#4F6A25;--q4:#86A83A;--q5:#C2E27D}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+background:radial-gradient(120% 90% at 50% 0%,#232B1A 0%,#161B11 55%,#0E110B 100%) var(--paper)}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:1px solid var(--rule);border-radius:14px;pointer-events:none;box-shadow:inset 0 0 40px rgba(185,224,122,.05)}
+.kick{font:700 clamp(9px,1.05vw,11.5px)/1.2 'Rubik',sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.6em}
+.kick:before{content:"";width:22px;height:2px;border-radius:2px;background:var(--gold)}
+.kick .dia{font-size:1em;letter-spacing:0}
+h1{font:800 clamp(20px,3.3vw,40px)/1.05 'Rubik',sans-serif;margin:.25em 0 .14em;letter-spacing:-.01em;text-shadow:0 0 18px var(--glow)}
+h1 em{font-style:normal;color:var(--gold);text-shadow:0 0 16px rgba(185,224,122,.5)}
+.deck{font:400 clamp(11.5px,1.25vw,14px)/1.45 'Inter',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:980px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi{min-width:0}
+.kpi b{display:block;font:800 clamp(18px,2.6vw,30px)/1 'Rubik',sans-serif;letter-spacing:-.01em}
+.kpi span{display:block;font:600 clamp(8.5px,.9vw,10px)/1.3 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:3px;border-radius:3px;margin-bottom:6px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:600 clamp(9px,.95vw,11px)/1.3 'Inter',sans-serif;color:var(--ink2);margin:.1em 0 .3em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend i.ln{height:2px;border-radius:0;width:16px}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:400 clamp(8.5px,.85vw,10px)/1.4 'Inter',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font-weight:700;letter-spacing:.14em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Inter',sans-serif;padding:8px 11px;border-radius:8px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.45),0 0 18px rgba(238,242,228,.25);pointer-events:none}
+#tip b{font:800 13px/1.2 'Rubik',sans-serif;display:block;margin-bottom:2px}
+#tip a{color:inherit}
+#tip.pin{pointer-events:auto}
+@media (max-height:460px){.deck{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+@media (max-height:380px){.kpis{display:none}}
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick">Listening Scooby-Doo · Google Trends Brasil<span class="dia">🔍</span></div>
+<h1>Quem move a busca são as <em>férias</em>, não a série</h1>
+<p class="deck">Buscas semanais por "Scooby-Doo" no Brasil desde fev/25. Os maiores picos na web caem nas férias escolares (julho, dezembro e janeiro), quando o público infantil assiste aos filmes e desenhos. Os marcos de Scooby-Doo: Origins mexem pouco na web e um pouco mais no YouTube. A busca é proporcionalmente maior no Nordeste e no Norte.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--s4)"></i><b>100</b><span>web · semana de 18/01/26 (férias)</span></div><div class="kpi"><i style="background:var(--s4)"></i><b>72</b><span>web · semana do cão real</span></div><div class="kpi"><i style="background:var(--s2)"></i><b>100</b><span>YouTube · mai e set/26</span></div><div class="kpi"><i style="background:var(--ink)"></i><b>Alagoas</b><span>estado que mais busca</span></div></div>
+<div class="legend"><span><i class="ln" style="background:var(--s4)"></i>Google · web</span><span><i class="ln" style="background:var(--s2)"></i>YouTube</span></div>
+<div id="chart"></div>
+<div class="foot"><b>VISCERAL</b> · Fonte: Google Trends, Brasil, termo "Scooby-Doo", semanal (23/02/2025 a 07/11/2026) e por estado (2004–2026), extraído em 03/11/2026. Cada linha é um índice próprio (100 = semana de maior busca). Nenhuma busca por "Netflix" ou "Origins" aparece entre as relacionadas. Passe o mouse ou toque para ver a semana.</div>
+</div>
+<div id="tip" hidden></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+function hit(node,html,link){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+function diamond(p,x,y,r,fill){const g=el('g',{},p);el('circle',{cx:x,cy:y,r:r*1.9,fill,opacity:.22},g);el('circle',{cx:x,cy:y,r:r*.95,fill},g);return g}
+function rbar(p,x,y,w,h,r,fill,horiz){ // rounded data-end only
+ r=Math.min(r,horiz?h/2:w/2,horiz?w:h); if(w<=0||h<=0)return el('rect',{x,y,width:Math.max(w,0),height:Math.max(h,0),fill},p);
+ const d=horiz?`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`
+ :`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;
+ return el('path',{d,fill},p)}
+function nice(mx,k){k=k||4;const raw=mx/k,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;return {step:st,max:Math.ceil(mx/st)*st}}
+function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fill(-1e9);const lh=12;
+ evs.sort((a,b)=>a.x-b.x).forEach(e=>{const t=tx(g,0,0,e.lab,{'font-size':9.5,'font-weight':700,fill:css('--ink'),'font-family':'Inter','letter-spacing':'.05em'});const w=t.getComputedTextLength();
+  let ax=e.x-w/2;if(ax<L)ax=L;if(ax+w>R)ax=R-w;let r=0;while(r<rows-1&&ax<ends[r]+8)r++;ends[r]=ax+w;
+  const ty=top-4-(rows-1-r)*lh;t.setAttribute('x',ax);t.setAttribute('y',ty);
+  el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':.8,'stroke-dasharray':'1.5 2.5'},g)})}
+function monthAxis(g,days,x,bw,y){const M={'01':'JAN','02':'FEV','03':'MAR','04':'ABR','05':'MAI','06':'JUN','07':'JUL','08':'AGO','09':'SET','10':'OUT','11':'NOV','12':'DEZ'};
+ days.forEach((d,i)=>{const [dd,mm]=d.split('/');if(dd==='01')tx(g,x(i)+bw/2,y,M[mm],{'font-size':10,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})})}
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';document.body.classList.toggle('sm',innerWidth<620);
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>
+const M=["23/02/25", "02/03/25", "09/03/25", "16/03/25", "23/03/25", "30/03/25", "06/04/25", "13/04/25", "20/04/25", "27/04/25", "04/05/25", "11/05/25", "18/05/25", "25/05/25", "01/06/25", "08/06/25", "15/06/25", "22/06/25", "29/06/25", "06/07/25", "13/07/25", "20/07/25", "27/07/25", "03/08/25", "10/08/25", "17/08/25", "24/08/25", "31/08/25", "07/09/25", "14/09/25", "21/09/25", "28/09/25", "05/10/25", "12/10/25", "19/10/25", "26/10/25", "02/11/25", "09/11/25", "16/11/25", "23/11/25", "30/11/25", "07/12/25", "14/12/25", "21/12/25", "28/12/25", "04/01/26", "11/01/26", "18/01/26", "25/01/26", "01/02/26", "08/02/26", "15/02/26", "22/02/26", "01/03/26", "08/03/26", "15/03/26", "22/03/26", "29/03/26", "05/04/26", "12/04/26", "19/04/26", "26/04/26", "03/05/26", "10/05/26", "17/05/26", "24/05/26", "31/05/26", "07/06/26", "14/06/26", "21/06/26", "28/06/26", "05/07/26", "12/07/26", "19/07/26", "26/07/26", "02/08/26", "09/08/26", "16/08/26", "23/08/26", "30/08/26", "06/09/26", "13/09/26", "20/09/26", "27/09/26", "04/10/26", "11/10/26", "18/10/26", "25/10/26", "01/11/26"], SER=[['Google · web','--s4',[70, 79, 64, 91, 76, 76, 73, 75, 73, 72, 61, 69, 73, 74, 68, 76, 76, 69, 79, 86, 91, 90, 76, 70, 71, 70, 65, 70, 65, 61, 77, 67, 79, 87, 79, 85, 66, 72, 81, 62, 78, 72, 92, 96, 83, 86, 93, 100, 75, 68, 79, 92, 74, 64, 63, 63, 70, 81, 68, 65, 80, 70, 64, 67, 73, 63, 65, 72, 51, 55, 59, 57, 62, 64, 70, 54, 60, 51, 55, 70, 68, 57, 67, 62, 65, 71, 57, 52, 68]],['YouTube','--s2',[79, 90, 80, 89, 83, 80, 86, 79, 81, 84, 79, 85, 78, 84, 84, 90, 84, 88, 87, 89, 81, 88, 92, 78, 80, 78, 76, 79, 76, 78, 87, 93, 89, 91, 87, 87, 86, 83, 82, 78, 82, 82, 87, 86, 83, 85, 84, 86, 85, 77, 83, 84, 80, 82, 82, 80, 79, 87, 90, 86, 84, 96, 90, 85, 91, 100, 83, 92, 85, 90, 88, 94, 91, 86, 83, 83, 85, 81, 80, 86, 92, 83, 94, 100, 83, 96, 82, 88, 80]]], EV=[{"i": 4, "l": "ANÚNCIO", "s": "ANÚNCIO"}, {"i": 43, "l": "FÉRIAS · FILME NO TOP 10", "s": "FÉRIAS"}, {"i": 51, "l": "DAPHNE", "s": "DAPHNE"}, {"i": 55, "l": "ELENCO", "s": "ELENCO"}, {"i": 60, "l": "1ª IMAGEM", "s": "IMAGEM"}, {"i": 67, "l": "CÃO REAL", "s": "CÃO"}, {"i": 84, "l": "EDSON SILVA", "s": "EDSON"}], ST=[["Alagoas", 100], ["Paraíba", 75], ["Maranhão", 75], ["Pernambuco", 74], ["Rio Grande do Norte", 72], ["Piauí", 70], ["Ceará", 68], ["Pará", 68], ["…", null], ["São Paulo", 40], ["Rio de Janeiro", 36], ["Distrito Federal", 28]];
+boot((svg,W,H,sm)=>{
+ const side=W>=760?Math.min(230,W*.24):0, gap=side?30:0;
+ const L=30,R=W-side-gap,top=46,bot=H-22,n=M.length,x=i=>L+(R-L)*i/(n-1),y=v=>bot-(bot-top)*v/100;const g=el('g',{},svg);
+ [0,25,50,75,100].forEach(v=>{el('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:css('--grid')},g);tx(g,L-6,y(v)+3.5,v,{'text-anchor':'end','font-size':10,fill:css('--muted'),'font-family':'Inter'})});
+ placeEv(g,EV.map(e=>({x:x(e.i),lab:sm?e.s:e.l,i:e.i})),top,L,R,e=>bot,3);
+ SER.forEach(([lab,c,v],k)=>{el('polyline',{points:v.map((a,i)=>x(i)+','+y(a)).join(' '),fill:'none',stroke:css(c),'stroke-width':k?1.8:2.4,'stroke-linejoin':'round'},g)});
+ let lm='';M.forEach((d,i)=>{const [dd,mm,yy]=d.split('/');if(mm!==lm&&+dd<=7){lm=mm;if((+mm)%2||i<3)tx(g,x(i),bot+14,['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'][+mm-1]+(mm==='01'||i<3?' '+yy:''),{'font-size':9.5,'font-weight':600,fill:css('--ink2'),'font-family':'Inter','text-anchor':'middle'})}});
+ el('line',{x1:L,x2:R,y1:bot,y2:bot,stroke:css('--ink')},g);
+ const cross=el('line',{x1:0,x2:0,y1:top,y2:bot,stroke:css('--ink'),'stroke-width':.8,opacity:0},g);
+ const dots=SER.map(([l,c])=>el('circle',{r:4,fill:css(c),stroke:css('--paper'),'stroke-width':2,opacity:0},g));
+ const hz=el('rect',{x:L,y:top,width:R-L,height:bot-top,fill:'transparent'},g);hz.setAttribute('data-hit','1');
+ const mv=(cx,cy,pin)=>{const r=svg.getBoundingClientRect();const i=Math.max(0,Math.min(n-1,Math.round((cx-r.left-L)/(R-L)*(n-1))));
+  cross.setAttribute('x1',x(i));cross.setAttribute('x2',x(i));cross.setAttribute('opacity',.5);dots.forEach((d,k)=>{d.setAttribute('cx',x(i));d.setAttribute('cy',y(SER[k][2][i]));d.setAttribute('opacity',1)});
+  showTip(`<b>Semana de ${M[i]}</b>${SER.map(s=>s[0]+': '+s[2][i]).join('<br>')}`,cx,cy,pin)};
+ hz.addEventListener('mousemove',e=>{if(!pinned)mv(e.clientX,e.clientY)});hz.addEventListener('mouseleave',()=>{hideTip();cross.setAttribute('opacity',0);dots.forEach(d=>d.setAttribute('opacity',0))});
+ hz.addEventListener('touchstart',e=>{const p=e.touches[0];mv(p.clientX,p.clientY,true)},{passive:true});hz.addEventListener('click',e=>{mv(e.clientX,e.clientY,true);e.stopPropagation()});
+ if(side){const sx=R+gap,sg=el('g',{},svg);tx(sg,sx,top-4,'ONDE SE BUSCA MAIS',{'font-size':10,'font-weight':700,'letter-spacing':'.14em',fill:css('--gold'),'font-family':'Inter'});
+  tx(sg,sx,top+11,'índice por estado, 2004–2026',{'font-size':10,fill:css('--muted'),'font-family':'Inter'});
+  const rh=(bot-top-26)/ST.length;ST.forEach(([s,v],k)=>{const yy=top+28+k*rh;if(v==null){tx(sg,sx,yy+4,'…',{'font-size':12,fill:css('--muted')});return}
+   tx(sg,sx,yy+4,s,{'font-size':11,'font-weight':600,fill:css('--ink'),'font-family':'Inter'});const bw=(side-130)*v/100;rbar(sg,sx+118,yy-5,bw,10,3,css('--s4'),true);
+   tx(sg,sx+118+bw+5,yy+4,v,{'font-size':11,'font-weight':700,fill:css('--ink'),'font-family':'Inter'})})}
+});
+</script>
+</body></html>
