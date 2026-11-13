@@ -1,0 +1,113 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calendário · NBA × Hellmann's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#123296;--ink:#FFFFFF;--ink2:#D6E1FF;--muted:#9DB2EC;--rule:rgba(255,255,255,.2);--gold:#FFC629;--navy:#0A1F66;
+--s1:#FFC629;--s2:#FF9A2E;--s3:#FF5A6E;--s4:#FFFFFF;--s5:#79C6FF;--grid:rgba(255,255,255,.12);--tipbg:#FFFFFF;--tipfg:#0A1F66;
+--q1:#1C3FA8;--q2:#2E57C9;--q3:#5C82E6;--q4:#A9C2FF;--q5:#FFC629}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Barlow',system-ui,sans-serif;
+background:radial-gradient(120% 95% at 50% 8%,#2457D6 0%,#1638A8 42%,#0E2A86 72%,#0A1F66 100%) var(--paper)}
+body:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px);pointer-events:none}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:2px solid rgba(255,198,41,.55);border-radius:16px;pointer-events:none}
+.kick{align-self:flex-start;font:700 clamp(10px,1.1vw,12.5px)/1 'Barlow Condensed',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:.42em .9em .38em;transform:skew(-10deg);box-shadow:3px 3px 0 rgba(10,31,102,.55);display:flex;align-items:center;gap:.5em}
+.kick span{display:inline-block;transform:skew(10deg)}
+h1{font:400 clamp(21px,3.5vw,44px)/1.02 'Anton',Impact,sans-serif;margin:.32em 0 .14em;letter-spacing:.01em;text-transform:uppercase;text-shadow:3px 3px 0 rgba(10,31,102,.6)}
+h1 em{font-style:normal;color:var(--gold)}
+.deck{font:500 clamp(11.5px,1.25vw,14px)/1.42 'Barlow',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:1000px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi{min-width:0}
+.kpi b{display:block;font:400 clamp(19px,2.7vw,32px)/1 'Anton',Impact,sans-serif;letter-spacing:.01em}
+.kpi span{display:block;font:700 clamp(9px,.95vw,11px)/1.25 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:4px;margin-bottom:6px;transform:skew(-20deg)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:700 clamp(9.5px,1vw,11.5px)/1.3 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:.1em 0 .3em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.legend i.ln{height:3px;border-radius:0;width:16px}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:500 clamp(8.5px,.85vw,10px)/1.4 'Barlow',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font:700 1.05em 'Barlow Condensed',sans-serif;letter-spacing:.16em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Barlow',sans-serif;padding:8px 11px;border-radius:6px;max-width:270px;box-shadow:0 6px 24px rgba(5,15,60,.55);pointer-events:none;border-left:4px solid var(--gold)}
+#tip b{font:400 14px/1.15 'Anton',sans-serif;display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.02em}
+#tip a{color:#123296;font-weight:700}
+#tip.pin{pointer-events:auto}
+@media (max-height:460px){.deck{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+@media (max-height:380px){.kpis{display:none}}
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick"><span>Listening Hellmann's NBA · calendário</span></div>
+<h1>A marca joga <em>meia temporada</em></h1>
+<p class="deck">A conversa sobre NBA no Brasil tem dois picos por ano: os playoffs (abril a junho) e a volta da temporada (outubro a dezembro). A Hellmann's concentra posts, promoções, Boteco e NBA House entre fevereiro e junho e quase some de julho a janeiro. É justamente quando a temporada começa, chegam o Natal da NBA e a NBA Cup, e o interesse volta ao patamar de fevereiro e março.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--gold)"></i><b>250</b><span>posts NBA da marca em 24 meses</span></div><div class="kpi"><i style="background:var(--gold)"></i><b>0</b><span>posts NBA de jul/25 a jan/26</span></div><div class="kpi"><i style="background:var(--s4)"></i><b>35</b><span>matérias Hellmann's + NBA</span></div><div class="kpi"><i style="background:var(--s5)"></i><b>32</b><span>interesse médio out–dez/25</span></div></div>
+<div class="legend"><span><i class="" style="background:var(--s4)"></i>Interesse de busca (Google)</span><span><i class="" style="background:var(--gold)"></i>Posts NBA da Hellmann's</span><span><i class="" style="background:var(--s3)"></i>Matérias Hellmann's + NBA</span></div>
+<div id="chart"></div>
+<div class="foot"><b>EUPHORIA CREATIVE</b> · Fontes: Google Trends Brasil ("NBA", média mensal das semanas, 100 = maior semana de nov/24 a nov/26); grade do perfil @hellmannsbr no Instagram (posts com NBA, basquete, Draft, Boteco, Funko ou NBA House na legenda, inclui collabs); imprensa pelo Google Notícias. Nov/26 parcial.</div>
+</div>
+<div id="tip" hidden></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+tip.addEventListener('mouseenter',()=>{pinned=true;tip.classList.add('pin')});tip.addEventListener('mouseleave',()=>{pinned=false;tip.hidden=true});
+function hit(node,html){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+function rbar(p,x,y,w,h,r,fill,horiz){r=Math.min(r,horiz?h/2:w/2,horiz?w:h);if(w<=0||h<=0)return el('rect',{x,y,width:Math.max(w,0),height:Math.max(h,0),fill},p);
+ const d=horiz?`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`:`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;return el('path',{d,fill},p)}
+function nice(mx,k){k=k||4;if(mx<=0)return{step:1,max:k};const raw=mx/k,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;return {step:st,max:Math.ceil(mx/st)*st}}
+const F="'Barlow Condensed','Arial Narrow',Arial,sans-serif",FA="Anton,Impact,'Arial Narrow',sans-serif";
+function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fill(-1e9);const lh=12;
+ evs.sort((a,b)=>a.x-b.x).forEach(e=>{const t=tx(g,0,0,e.lab,{'font-size':10.5,'font-weight':700,fill:css('--ink'),'font-family':F,'letter-spacing':'.05em'});const w=t.getComputedTextLength();
+  let ax=e.x-w/2;if(ax<L)ax=L;if(ax+w>R)ax=R-w;let r=0;while(r<rows-1&&ax<ends[r]+8)r++;ends[r]=ax+w;
+  const ty=top-4-(rows-1-r)*lh;t.setAttribute('x',ax);t.setAttribute('y',ty);
+  el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':1,'stroke-dasharray':'2 3'},g)})}
+function weekAxis(g,wk,x,bw,y){const M=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];let lastM=-1,lastX=-1e9;const step=bw*wk.length<500?3:2;
+ wk.forEach((d,i)=>{const [dd,mm,yy]=d.split('/').map(Number);const m=mm-1;if(m!==lastM&&dd<=7){lastM=m;const lab=m===0?M[m]+' '+yy:M[m];const xx=x(i)+bw/2;
+  if((m%step===0||m===0)&&xx-lastX>(m===0?44:30)){tx(g,xx,y,lab,{'font-size':10.5,'font-weight':700,fill:css('--ink2'),'font-family':F,'text-anchor':'middle'});lastX=xx}
+  el('line',{x1:x(i),x2:x(i),y1:y-11,y2:y-7,stroke:css('--muted')},g)}})}
+function wkLab(d,i,n){const [dd,mm,yy]=d.split('/');return 'Semana de '+dd+'/'+mm+'/20'+yy+(i==n-1?' (parcial)':'')}
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';document.body.classList.toggle('sm',innerWidth<620);
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>
+const D={"m": ["2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11"], "lab": ["NOV 24", "DEZ", "JAN 25", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ", "JAN 26", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV"], "tr": [39.0, 38.2, 34.0, 37.0, 40.0, 73.8, 75.0, 38.2, 7.2, 6.0, 7.0, 25.5, 33.2, 36.2, 29.2, 25.2, 30.4, 50.2, 56.2, 30.2, 7.5, 6.4, 6.5, 18.5, 30.0], "ig": [0, 0, 0, 21, 5, 14, 70, 20, 0, 0, 0, 0, 0, 0, 0, 21, 8, 41, 28, 30, 1, 0, 0, 0, 0], "pr": [0, 0, 0, 1, 0, 1, 2, 1, 0, 2, 1, 0, 2, 0, 0, 3, 9, 4, 6, 2, 0, 0, 0, 1, 0], "ph": ["rs", "rs", "rs", "rs", "rs", "po", "po", "po", "off", "off", "off", "rs", "rs", "rs", "rs", "rs", "rs", "po", "po", "po", "off", "off", "off", "rs", "rs"]};
+const PH={rs:'Temporada regular',po:'Playoffs e Finais',off:'Férias da liga'};
+boot((svg,W,H,sm)=>{const n=D.m.length,L=36,R=W-8,top=34,bot=H-40,gap=18,h1=(bot-top-gap)*0.55,h2=(bot-top-gap)-h1,bw=(R-L)/n,x=i=>L+i*bw;const g=el('g',{},svg);
+ // phase strip
+ D.ph.forEach((p,i)=>{el('rect',{x:x(i)+1,y:top-22,width:bw-2,height:8,fill:p==='po'?css('--gold'):p==='off'?'rgba(255,255,255,.15)':css('--s5'),rx:2},g)});
+ tx(g,L,top-26,sm?'FASE DA LIGA':'FASE DA LIGA · AZUL = TEMPORADA REGULAR · AMARELO = PLAYOFFS E FINAIS · CINZA = FÉRIAS',{'font-size':10,'font-weight':700,'letter-spacing':'.1em',fill:css('--ink2'),'font-family':F});
+ // panel 1: interest
+ const y1=v=>top+h1-(h1-22)*v/80;tx(g,L,top+10,sm?'INTERESSE NO GOOGLE (MÉDIA)':'INTERESSE DE BUSCA POR "NBA" (MÉDIA DO MÊS, 100 = PICO)',{'font-size':10,'font-weight':800,'letter-spacing':'.1em',fill:css('--gold'),'font-family':F});
+ D.tr.forEach((v,i)=>{const yy=y1(v);rbar(g,x(i)+bw*.16,yy,bw*.68,top+h1-yy,2,'rgba(255,255,255,.85)');if(!sm||i%2==0)tx(g,x(i)+bw/2,yy-4,fmt(v,0),{'font-size':10,'text-anchor':'middle',fill:css('--ink2'),'font-family':F,'font-weight':700})});
+ el('line',{x1:L,x2:R,y1:top+h1,y2:top+h1,stroke:css('--rule')},g);
+ // panel 2: Hellmann's activity
+ const t2=top+h1+gap,mx=Math.max(...D.ig),y2=v=>t2+h2-(h2-18)*v/mx;
+ tx(g,L,t2+10,sm?'HELLMANN\'S: POSTS NBA E MATÉRIAS':'HELLMANN\'S NA NBA · POSTS NBA NO INSTAGRAM (BARRAS) E MATÉRIAS NA IMPRENSA (PONTOS)',{'font-size':10,'font-weight':800,'letter-spacing':'.1em',fill:css('--gold'),'font-family':F});
+ D.ig.forEach((v,i)=>{if(v){const yy=y2(v);rbar(g,x(i)+bw*.1,yy,bw*.58,t2+h2-yy,2,css('--gold'));tx(g,x(i)+bw*.39,yy-4,v,{'font-size':10,'text-anchor':'middle',fill:css('--ink'),'font-family':F,'font-weight':800})}
+  if(D.pr[i]){for(let k=0;k<D.pr[i];k++){el('circle',{cx:x(i)+bw*.82,cy:t2+h2-5-k*6.5,r:2.5,fill:css('--s3')},g)}}});
+ el('line',{x1:L,x2:R,y1:t2+h2,y2:t2+h2,stroke:css('--ink')},g);
+ // gap highlight
+ const gaps=[[0,2],[8,14],[20,24]];gaps.forEach(([a,b])=>{const gx=x(a),gw=(b-a+1)*bw;el('rect',{x:gx,y:t2+18,width:gw,height:h2-20,fill:'none',stroke:css('--s3'),'stroke-dasharray':'4 4','stroke-width':1.4,rx:6},g);tx(g,gx+gw/2,t2+h2/2+4,(sm||gw<150)?'SILÊNCIO':'SILÊNCIO DA MARCA',{'text-anchor':'middle','font-size':sm?10:12,'font-family':FA,fill:css('--s3'),'letter-spacing':'.04em'})});
+ D.lab.forEach((l,i)=>{if(!sm||i%4==0)tx(g,x(i)+bw/2,bot+14,l,{'font-size':10,'text-anchor':'middle',fill:css('--ink2'),'font-family':F,'font-weight':700})});
+ D.m.forEach((m,i)=>{const hz=el('rect',{x:x(i),y:top-22,width:bw,height:bot-top+22,fill:'transparent'},g);hit(hz,`<b>${D.lab[i].length<5?D.lab[i]+' '+m.slice(0,4):D.lab[i]}</b>${PH[D.ph[i]]}<br>Interesse de busca: ${fmt(D.tr[i],0)}<br>Posts NBA da Hellmann's no Instagram: ${D.ig[i]}<br>Matérias sobre Hellmann's e NBA: ${D.pr[i]}`)});
+});
+</script>
+</body></html>

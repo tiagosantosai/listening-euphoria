@@ -1,0 +1,114 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Impactos nas redes · NBA no Brasil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#123296;--ink:#FFFFFF;--ink2:#D6E1FF;--muted:#9DB2EC;--rule:rgba(255,255,255,.2);--gold:#FFC629;--navy:#0A1F66;
+--s1:#FFC629;--s2:#FF9A2E;--s3:#FF5A6E;--s4:#FFFFFF;--s5:#79C6FF;--grid:rgba(255,255,255,.12);--tipbg:#FFFFFF;--tipfg:#0A1F66;
+--q1:#1C3FA8;--q2:#2E57C9;--q3:#5C82E6;--q4:#A9C2FF;--q5:#FFC629}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Barlow',system-ui,sans-serif;
+background:radial-gradient(120% 95% at 50% 8%,#2457D6 0%,#1638A8 42%,#0E2A86 72%,#0A1F66 100%) var(--paper)}
+body:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px);pointer-events:none}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:2px solid rgba(255,198,41,.55);border-radius:16px;pointer-events:none}
+.kick{align-self:flex-start;font:700 clamp(10px,1.1vw,12.5px)/1 'Barlow Condensed',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:.42em .9em .38em;transform:skew(-10deg);box-shadow:3px 3px 0 rgba(10,31,102,.55);display:flex;align-items:center;gap:.5em}
+.kick span{display:inline-block;transform:skew(10deg)}
+h1{font:400 clamp(21px,3.5vw,44px)/1.02 'Anton',Impact,sans-serif;margin:.32em 0 .14em;letter-spacing:.01em;text-transform:uppercase;text-shadow:3px 3px 0 rgba(10,31,102,.6)}
+h1 em{font-style:normal;color:var(--gold)}
+.deck{font:500 clamp(11.5px,1.25vw,14px)/1.42 'Barlow',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:1000px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi{min-width:0}
+.kpi b{display:block;font:400 clamp(19px,2.7vw,32px)/1 'Anton',Impact,sans-serif;letter-spacing:.01em}
+.kpi span{display:block;font:700 clamp(9px,.95vw,11px)/1.25 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:4px;margin-bottom:6px;transform:skew(-20deg)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:700 clamp(9.5px,1vw,11.5px)/1.3 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:.1em 0 .3em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.legend i.ln{height:3px;border-radius:0;width:16px}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:500 clamp(8.5px,.85vw,10px)/1.4 'Barlow',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font:700 1.05em 'Barlow Condensed',sans-serif;letter-spacing:.16em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Barlow',sans-serif;padding:8px 11px;border-radius:6px;max-width:270px;box-shadow:0 6px 24px rgba(5,15,60,.55);pointer-events:none;border-left:4px solid var(--gold)}
+#tip b{font:400 14px/1.15 'Anton',sans-serif;display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.02em}
+#tip a{color:#123296;font-weight:700}
+#tip.pin{pointer-events:auto}
+@media (max-height:460px){.deck{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+@media (max-height:380px){.kpis{display:none}}
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick"><span>Listening Hellmann's NBA · impactos por semana</span></div>
+<h1>Os <em>vídeos da Hellmann's</em> puxam os maiores picos de views</h1>
+<p class="deck">Views, interações e alcance potencial da imprensa dos conteúdos mapeados, por semana de publicação. Os maiores picos de views são campanhas da Hellmann's (anúncios no YouTube e no TikTok, Draft, Funkos e Boteco), concentrados entre fevereiro e junho. A conversa orgânica (interações) é mais constante e sobe com Luka nos Lakers, os playoffs e a volta da temporada.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--s4)"></i><b>568 mi</b><span>views em vídeo</span></div><div class="kpi"><i style="background:var(--gold)"></i><b>82%</b><span>dos views são conteúdos Hellmann's</span></div><div class="kpi"><i style="background:var(--s2)"></i><b>32,7 mi</b><span>interações</span></div><div class="kpi"><i style="background:var(--ink)"></i><b>404,4 mil</b><span>comentários e respostas</span></div><div class="kpi"><i style="background:var(--s5)"></i><b>1.056 mi</b><span>alcance potencial imprensa*</span></div></div>
+<div class="legend"><span><i class="" style="background:var(--s4)"></i>Views de outros perfis</span><span><i class="" style="background:var(--gold)"></i>Views de conteúdos Hellmann's</span><span><i class="" style="background:var(--s2)"></i>Interações</span><span><i class="" style="background:var(--s5)"></i>Alcance da imprensa</span></div>
+<div id="chart"></div>
+<div class="foot"><b>EUPHORIA CREATIVE</b> · *Alcance potencial: soma da audiência média diária (Comscore ago/26, visitantes únicos ÷ 30) dos veículos que publicaram, cada veículo uma vez por dia; é um teto, não leitura, e não se compara um a um com os views. Views só de TikTok e YouTube (o Instagram não informa views dos reels na grade). A amostra inclui a busca por Hellmann's + NBA. Semana de 08/11/2026 parcial.</div>
+</div>
+<div id="tip" hidden></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+tip.addEventListener('mouseenter',()=>{pinned=true;tip.classList.add('pin')});tip.addEventListener('mouseleave',()=>{pinned=false;tip.hidden=true});
+function hit(node,html){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+function rbar(p,x,y,w,h,r,fill,horiz){r=Math.min(r,horiz?h/2:w/2,horiz?w:h);if(w<=0||h<=0)return el('rect',{x,y,width:Math.max(w,0),height:Math.max(h,0),fill},p);
+ const d=horiz?`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`:`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`;return el('path',{d,fill},p)}
+function nice(mx,k){k=k||4;if(mx<=0)return{step:1,max:k};const raw=mx/k,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;return {step:st,max:Math.ceil(mx/st)*st}}
+const F="'Barlow Condensed','Arial Narrow',Arial,sans-serif",FA="Anton,Impact,'Arial Narrow',sans-serif";
+function placeEv(g,evs,top,L,R,yOf,rows){rows=rows||3;const ends=Array(rows).fill(-1e9);const lh=12;
+ evs.sort((a,b)=>a.x-b.x).forEach(e=>{const t=tx(g,0,0,e.lab,{'font-size':10.5,'font-weight':700,fill:css('--ink'),'font-family':F,'letter-spacing':'.05em'});const w=t.getComputedTextLength();
+  let ax=e.x-w/2;if(ax<L)ax=L;if(ax+w>R)ax=R-w;let r=0;while(r<rows-1&&ax<ends[r]+8)r++;ends[r]=ax+w;
+  const ty=top-4-(rows-1-r)*lh;t.setAttribute('x',ax);t.setAttribute('y',ty);
+  el('line',{x1:e.x,x2:e.x,y1:ty+3,y2:yOf(e),stroke:css('--gold'),'stroke-width':1,'stroke-dasharray':'2 3'},g)})}
+function weekAxis(g,wk,x,bw,y){const M=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];let lastM=-1,lastX=-1e9;const step=bw*wk.length<500?3:2;
+ wk.forEach((d,i)=>{const [dd,mm,yy]=d.split('/').map(Number);const m=mm-1;if(m!==lastM&&dd<=7){lastM=m;const lab=m===0?M[m]+' '+yy:M[m];const xx=x(i)+bw/2;
+  if((m%step===0||m===0)&&xx-lastX>(m===0?44:30)){tx(g,xx,y,lab,{'font-size':10.5,'font-weight':700,fill:css('--ink2'),'font-family':F,'text-anchor':'middle'});lastX=xx}
+  el('line',{x1:x(i),x2:x(i),y1:y-11,y2:y-7,stroke:css('--muted')},g)}})}
+function wkLab(d,i,n){const [dd,mm,yy]=d.split('/');return 'Semana de '+dd+'/'+mm+'/20'+yy+(i==n-1?' (parcial)':'')}
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';document.body.classList.toggle('sm',innerWidth<620);
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>
+const D={"weeks": ["10/11/24", "17/11/24", "24/11/24", "01/12/24", "08/12/24", "15/12/24", "22/12/24", "29/12/24", "05/01/25", "12/01/25", "19/01/25", "26/01/25", "02/02/25", "09/02/25", "16/02/25", "23/02/25", "02/03/25", "09/03/25", "16/03/25", "23/03/25", "30/03/25", "06/04/25", "13/04/25", "20/04/25", "27/04/25", "04/05/25", "11/05/25", "18/05/25", "25/05/25", "01/06/25", "08/06/25", "15/06/25", "22/06/25", "29/06/25", "06/07/25", "13/07/25", "20/07/25", "27/07/25", "03/08/25", "10/08/25", "17/08/25", "24/08/25", "31/08/25", "07/09/25", "14/09/25", "21/09/25", "28/09/25", "05/10/25", "12/10/25", "19/10/25", "26/10/25", "02/11/25", "09/11/25", "16/11/25", "23/11/25", "30/11/25", "07/12/25", "14/12/25", "21/12/25", "28/12/25", "04/01/26", "11/01/26", "18/01/26", "25/01/26", "01/02/26", "08/02/26", "15/02/26", "22/02/26", "01/03/26", "08/03/26", "15/03/26", "22/03/26", "29/03/26", "05/04/26", "12/04/26", "19/04/26", "26/04/26", "03/05/26", "10/05/26", "17/05/26", "24/05/26", "31/05/26", "07/06/26", "14/06/26", "21/06/26", "28/06/26", "05/07/26", "12/07/26", "19/07/26", "26/07/26", "02/08/26", "09/08/26", "16/08/26", "23/08/26", "30/08/26", "06/09/26", "13/09/26", "20/09/26", "27/09/26", "04/10/26", "11/10/26", "18/10/26", "25/10/26", "01/11/26", "08/11/26"], "org": [0.277, 3.102, 0.028, 0.506, 0.097, 0.069, 0.511, 0, 0.193, 0.194, 0, 0.02, 1.859, 0.111, 0.371, 0.051, 0.044, 1.595, 0.012, 0.564, 0.461, 0.084, 0.064, 0.061, 0.38, 2.85, 0.542, 0.019, 0.286, 0.462, 4.212, 0.019, 0.183, 0.412, 2.12, 0.086, 0.052, 0.233, 0.266, 0.366, 0.084, 0.234, 0.242, 2.046, 0.073, 0.048, 0.142, 0.344, 0.82, 0.349, 0.001, 2.278, 0.001, 1.026, 1.613, 0.155, 0.085, 0.111, 0.002, 0.035, 0, 0.07, 0.014, 14.912, 0.101, 0.192, 0.1, 0.355, 0.042, 1.816, 2.128, 1.132, 4.112, 2.709, 0.775, 0.494, 0.069, 1.456, 0.543, 0.676, 1.546, 2.737, 2.618, 2.584, 0.172, 0.274, 0.202, 0.082, 0.252, 1.02, 0.322, 1.874, 0.172, 0.291, 0.212, 0.831, 0.156, 1.615, 0.595, 2.797, 0.534, 10.221, 2.193, 2.189, 4.744], "hel": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21.47, 0, 0, 0, 8.35, 0, 0, 26.0, 0, 2.28, 0, 8.8, 40.0, 28.7, 42.42, 14.3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48.17, 51.72, 0, 101.32, 0.33, 0, 0, 10.11, 12.0, 7.2, 0.05, 4.41, 12.71, 0, 0, 0, 4.7, 18.3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "inter": [234.7, 406.1, 263.6, 125.8, 213.9, 196.7, 543.7, 348.4, 204.7, 507.8, 439.8, 627.8, 872.9, 686.2, 482.6, 322.1, 179.6, 292.8, 100.1, 205.9, 565.9, 388.4, 339.5, 268.8, 249.9, 465.8, 376.5, 420.3, 266.9, 325.0, 292.8, 116.7, 361.0, 301.6, 431.5, 250.9, 134.5, 230.5, 144.1, 211.0, 194.9, 114.7, 79.3, 317.9, 100.5, 60.3, 146.5, 144.2, 148.3, 361.1, 396.2, 545.9, 227.6, 473.5, 284.3, 173.9, 156.7, 127.1, 99.3, 121.4, 136.9, 112.9, 82.6, 1458.8, 234.5, 386.9, 373.3, 175.9, 293.9, 146.4, 381.2, 162.9, 658.8, 896.3, 521.5, 262.3, 801.8, 499.5, 323.5, 277.4, 452.0, 698.1, 826.9, 354.7, 102.0, 327.5, 161.4, 155.5, 243.9, 182.8, 151.6, 320.2, 149.7, 100.0, 94.8, 128.3, 77.4, 286.9, 166.1, 227.8, 149.3, 381.3, 367.2, 348.4, 367.0], "com": [1.96, 3.39, 1.97, 1.41, 1.93, 2.58, 3.84, 3.05, 2.05, 1.6, 3.83, 2.48, 9.39, 14.0, 2.76, 4.34, 2.08, 3.02, 3.26, 3.09, 2.59, 4.31, 12.52, 2.88, 3.78, 6.81, 8.34, 4.66, 4.85, 3.63, 2.89, 1.54, 3.17, 3.07, 1.68, 2.02, 2.23, 5.54, 6.08, 3.32, 3.05, 1.23, 1.06, 2.26, 3.17, 1.68, 1.2, 1.97, 4.61, 6.19, 5.64, 10.6, 4.02, 5.51, 2.06, 3.36, 1.68, 1.72, 1.74, 0.96, 2.49, 1.5, 1.5, 12.48, 2.98, 3.35, 3.8, 5.13, 3.11, 3.63, 4.12, 2.15, 4.37, 5.97, 4.95, 4.6, 5.51, 5.4, 1.97, 3.65, 6.67, 6.1, 9.95, 3.7, 1.12, 4.92, 2.05, 1.88, 3.77, 6.28, 2.84, 4.33, 4.09, 2.01, 1.68, 1.64, 2.43, 3.59, 5.35, 2.04, 3.67, 5.95, 3.89, 5.4, 4.79], "reach": [11.48, 3.13, 6.96, 0.95, 2.44, 13, 10.89, 3.79, 4.95, 10.91, 10.68, 5.86, 14.86, 8.33, 9.75, 5.79, 7.98, 7.1, 5.85, 6.15, 13.81, 6.84, 8.78, 13.24, 9.01, 4.87, 3.69, 8.63, 9.18, 15.33, 14.03, 10.23, 10.54, 2.53, 7.92, 3.39, 5.04, 11.5, 2.58, 5.56, 3.26, 2.71, 9.63, 2.44, 1.5, 6.65, 8.5, 5.45, 4.45, 19.45, 11.88, 12.02, 13.65, 4.67, 14.71, 7.08, 9.73, 15.46, 15.23, 11.47, 9.58, 8.12, 14.82, 20.5, 13.96, 14.49, 5.64, 20.93, 10.28, 23.33, 12.08, 16.79, 14.02, 7.69, 27.83, 18.57, 11.48, 21.73, 10.05, 7.19, 14.34, 18.86, 18.3, 11.63, 4.68, 6.27, 9.81, 7.74, 4.98, 10.72, 6.62, 10.11, 10.13, 3.67, 6.65, 0.68, 0.97, 5, 8.12, 13.51, 8.18, 24.9, 16.28, 25.75, 21.91], "nmat": [16, 6, 6, 2, 5, 19, 13, 7, 6, 11, 25, 8, 30, 21, 14, 7, 10, 12, 10, 8, 25, 8, 14, 17, 11, 16, 12, 17, 19, 45, 20, 14, 20, 7, 12, 8, 10, 15, 12, 21, 6, 13, 11, 6, 8, 8, 15, 10, 13, 44, 14, 15, 20, 14, 17, 16, 13, 20, 20, 16, 12, 15, 24, 22, 16, 24, 11, 31, 25, 36, 23, 31, 26, 25, 63, 29, 28, 29, 23, 24, 33, 58, 47, 28, 11, 22, 17, 22, 15, 19, 16, 35, 28, 20, 17, 10, 7, 15, 26, 39, 29, 93, 52, 107, 134]},EV=[{"i": 12, "l": "LUKA VAI AOS LAKERS", "s": "LUKA"}, {"i": 14, "l": "ALL-STAR 2025", "s": "ALL-STAR"}, {"i": 22, "l": "PLAYOFFS 2025", "s": "PLAYOFFS"}, {"i": 32, "l": "THUNDER CAMPEÃO", "s": "OKC"}, {"i": 49, "l": "TEMPORADA 25-26", "s": "25-26"}, {"i": 66, "l": "ALL-STAR · DRAFT HELLMANN'S", "s": "ALL-STAR"}, {"i": 74, "l": "PLAYOFFS 2026", "s": "PLAYOFFS"}, {"i": 82, "l": "KNICKS CAMPEÃO", "s": "KNICKS"}, {"i": 88, "l": "LEBRON NOS SIXERS", "s": "LEBRON"}, {"i": 101, "l": "TEMPORADA 26-27", "s": "26-27"}];
+boot((svg,W,H,sm)=>{
+ const n=D.weeks.length, L=sm?40:48, R=W-6, top=62, bot=H-20, gapP=sm?14:18;
+ const panels=[{k:['org','hel'],c:['--s4','--gold'],t:'VIEWS EM VÍDEO (MILHÕES/SEMANA) · TIKTOK + YOUTUBE',ts:'VIEWS (MI/SEM.)',u:' mi',d:1,cap:50},
+   {k:['inter'],c:['--s2'],t:'INTERAÇÕES (MIL/SEMANA) · CURTIDAS + COMENTÁRIOS + COMPARTILHAMENTOS (IG, TIKTOK, X)',ts:'INTERAÇÕES (MIL/SEM.)',u:' mil',d:0},
+   {k:['reach'],c:['--s5'],t:'ALCANCE POTENCIAL DA IMPRENSA (MILHÕES/SEMANA)*',ts:'IMPRENSA* (MI/SEM.)',u:' mi',d:1}];
+ const ph=(bot-top-gapP*2)/3, bw=(R-L)/n, x=i=>L+i*bw;
+ panels.forEach((p,k)=>{const y0=top+k*(ph+gapP), yb=y0+ph, g=el('g',{},svg);
+  const sum=D.weeks.map((_,i)=>p.k.reduce((s,kk)=>s+D[kk][i],0));const mx=Math.max(...sum);const cap=p.cap?Math.min(nice(mx,2).max,p.cap):nice(mx,2).max;
+  const y=v=>yb-(ph-14)*Math.min(v,cap)/cap;
+  tx(g,L,y0+8,sm?p.ts:p.t,{'font-size':10.5,'font-weight':800,'letter-spacing':'.1em',fill:css('--gold'),'font-family':F});
+  [0,cap/2,cap].forEach(v=>{el('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:css('--grid')},g);tx(g,L-5,y(v)+3.5,fmt(v,v<10&&v>0&&v%1?1:0),{'text-anchor':'end','font-size':10,fill:css('--muted'),'font-family':F})});
+  sum.forEach((_,i)=>{let acc=0;p.k.forEach((kk,j)=>{const v=D[kk][i];if(!v)return;const ya=y(acc),yb2=y(acc+v);if(ya-yb2>0.3)rbar(g,x(i)+bw*.14,yb2,Math.max(1.2,bw*.72),ya-yb2,j==p.k.length-1?2:0,css(p.c[j]));acc+=v});
+   if(sum[i]>cap){tx(g,x(i)+bw/2,y(cap)-3,'▲'+fmt(sum[i],0),{'font-size':9.5,'font-weight':800,'text-anchor':'middle',fill:css('--ink'),'font-family':F})}});
+  const im=sum.indexOf(mx);if(mx<=cap){const lx=x(im)+bw+4>R-70?x(im)-4:x(im)+bw+4;tx(g,lx,y(mx)+9,fmt(mx,p.d)+p.u,{'font-family':FA,'font-size':13,fill:css('--ink'),'text-anchor':x(im)+bw+4>R-70?'end':'start'})}
+  el('line',{x1:L,x2:R,y1:yb,y2:yb,stroke:css('--ink'),'stroke-width':.8},g);
+ });
+ const g=el('g',{},svg);weekAxis(g,D.weeks,x,bw,bot+13);
+ D.weeks.forEach((d,i)=>{const hz=el('rect',{x:x(i),y:top,width:bw,height:bot-top,fill:'transparent'},g);
+  hit(hz,`<b>${wkLab(d,i,n)}</b>${fmt(D.org[i]+D.hel[i],2)} mi views (Hellmann's: ${fmt(D.hel[i],2)} mi)<br>${fmt(D.inter[i],1)} mil interações<br>${fmt(D.com[i],1)} mil comentários e respostas<br>${D.nmat[i]} matérias · ${fmt(D.reach[i],1)} mi de alcance potencial`)});
+ placeEv(g,EV.map(e=>({x:x(e.i)+bw/2,lab:sm?e.s:e.l})),top-2,L,R,e=>bot,4);
+});
+</script>
+</body></html>
