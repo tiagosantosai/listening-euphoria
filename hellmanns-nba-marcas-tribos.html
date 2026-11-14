@@ -1,0 +1,101 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marcas e tribos da NBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#123296;--ink:#FFFFFF;--ink2:#D6E1FF;--muted:#9DB2EC;--rule:rgba(255,255,255,.2);--gold:#FFC629;--navy:#0A1F66;
+--n1:#79C6FF;--n2:#FFC629;--n3:#FF9A2E;--n4:#FFFFFF;--n5:#FF5A6E;--n6:#A9C2FF;--tipbg:#FFFFFF;--tipfg:#0A1F66}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Barlow',system-ui,sans-serif;
+background:radial-gradient(120% 95% at 50% 8%,#2457D6 0%,#1638A8 42%,#0E2A86 72%,#0A1F66 100%) var(--paper)}
+body:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px);pointer-events:none}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:2px solid rgba(255,198,41,.55);border-radius:16px;pointer-events:none}
+.kick{align-self:flex-start;font:700 clamp(10px,1.1vw,12.5px)/1 'Barlow Condensed',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:.42em .9em .38em;transform:skew(-10deg);box-shadow:3px 3px 0 rgba(10,31,102,.55)}
+.kick span{display:inline-block;transform:skew(10deg)}
+h1{font:400 clamp(20px,3.3vw,42px)/1.02 'Anton',Impact,sans-serif;margin:.32em 0 .14em;letter-spacing:.01em;text-transform:uppercase;text-shadow:3px 3px 0 rgba(10,31,102,.6)}
+h1 em{font-style:normal;color:var(--gold)}
+.deck{font:500 clamp(11.5px,1.25vw,14px)/1.42 'Barlow',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:1000px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi b{display:block;font:400 clamp(19px,2.7vw,32px)/1 'Anton',Impact,sans-serif;letter-spacing:.01em}
+.kpi span{display:block;font:700 clamp(9px,.95vw,11px)/1.25 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:4px;margin-bottom:6px;transform:skew(-20deg)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:.1em 0 .35em}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font:700 clamp(9.5px,1vw,11.5px)/1.3 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.seg{display:inline-flex;border:1.5px solid var(--gold);border-radius:6px;overflow:hidden}
+.seg button{font:700 clamp(9.5px,1vw,11.5px)/1 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--ink);border:0;padding:6px 10px;cursor:pointer}
+.seg button.on{background:var(--gold);color:var(--navy)}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:500 clamp(8.5px,.85vw,10px)/1.4 'Barlow',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font:700 1.05em 'Barlow Condensed',sans-serif;letter-spacing:.16em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Barlow',sans-serif;padding:8px 11px;border-radius:6px;max-width:280px;box-shadow:0 6px 24px rgba(5,15,60,.55);pointer-events:none;border-left:4px solid var(--gold)}
+#tip b{font:400 14px/1.15 'Anton',sans-serif;display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.02em}
+#tip.pin{pointer-events:auto}
+@media (max-height:780px){.deck{display:none}}
+@media (max-height:660px){.kpis{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick"><span>Listening Hellmann's NBA · marcas × tribos</span></div>
+<h1>As marcas falam de produto. <em>Resenha, NBA raiz e nostalgia</em> estão sem dono</h1>
+<p class="deck">Os conteúdos de NBA de cada marca, classificados nas nove tribos de fãs (um conteúdo pode estar em mais de uma). Metade do que as marcas publicam sobre NBA não aciona tribo nenhuma: é promoção, produto ou convite para evento. A Sadia ocupa a torcida de time, TNT e XP a quadra, a NBA 2K o gamer. A resenha, que mais viraliza, e a NBA raiz quase não têm marca.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--gold)"></i><b>60%</b><span>dos conteúdos de NBA da Hellmann's sem tribo</span></div><div class="kpi"><i style="background:var(--n3)"></i><b>23%</b><span>dos da Sadia falam de time</span></div><div class="kpi"><i style="background:var(--n4)"></i><b>≤ 8%</b><span>de resenha em qualquer marca</span></div><div class="kpi"><i style="background:var(--n1)"></i><b>≤ 3%</b><span>de NBA raiz em qualquer marca</span></div></div>
+<div id="chart"></div>
+<div class="foot"><b>EUPHORIA CREATIVE</b> · Mesma classificação por palavras-chave usada nas tribos de fãs, aplicada a 1.023 conteúdos sobre NBA ligados às marcas (Instagram das marcas, perfis de basquete, TikTok, X e YouTube), nov/24 a nov/26. Linha tracejada: peso de cada tribo na conversa geral sobre NBA. Toque em uma célula.</div>
+</div>
+<div id="tip" hidden></div>
+<script>const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+function big(v){return v>=1e9?fmt(v/1e9,1)+' bi':v>=1e6?fmt(v/1e6,1)+' mi':v>=1e3?fmt(v/1e3,v>=1e4?0:1)+' mil':fmt(v,0)}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+function hit(node,html){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+const F="'Barlow Condensed','Arial Narrow',Arial,sans-serif",FA="Anton,Impact,'Arial Narrow',sans-serif";
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ window.redraw=go;go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>const D={"brands": [{"name": "Hellmann's", "hero": true, "n": 246, "p": {"time": 5.691056910569106, "idolo": 8.94308943089431, "brasil": 2.845528455284553, "raiz": 0.0, "resenha": 5.691056910569106, "quadra": 13.414634146341463, "estilo": 9.34959349593496, "nostalgia": 2.4390243902439024, "gamer": 0.0, "none": 60.16260162601626}, "ex": {"none": "Promoções (Hora H, Funkos), lançamentos de sabor e convites para NBA House e Boteco.", "quadra": "Draft Hellmann's e desafios na quadra da NBA House.", "estilo": "Collab com a Approve."}}, {"name": "Sadia", "hero": false, "n": 212, "p": {"time": 22.641509433962263, "idolo": 7.0754716981132075, "brasil": 8.49056603773585, "raiz": 0.0, "resenha": 1.4150943396226414, "quadra": 19.339622641509433, "estilo": 4.716981132075472, "nostalgia": 0.9433962264150944, "gamer": 0.0, "none": 50.943396226415096}, "ex": {"time": "Jogos e torcidas na NBA House; Team Sadia.", "quadra": "Desafios com Fê Medeiros e Gui Santos."}}, {"name": "TNT Energy", "hero": false, "n": 166, "p": {"time": 4.819277108433735, "idolo": 0.6024096385542169, "brasil": 0.0, "raiz": 1.2048192771084338, "resenha": 7.228915662650603, "quadra": 24.698795180722893, "estilo": 7.831325301204819, "nostalgia": 1.8072289156626506, "gamer": 0.0, "none": 56.626506024096386}, "ex": {"quadra": "Quadra e desafios da NBA House 2026."}}, {"name": "NBA 2K", "hero": false, "n": 120, "p": {"time": 9.166666666666666, "idolo": 15.0, "brasil": 9.166666666666666, "raiz": 1.6666666666666667, "resenha": 5.833333333333333, "quadra": 8.333333333333334, "estilo": 2.5, "nostalgia": 1.6666666666666667, "gamer": 99.16666666666667, "none": 0.8333333333333334}}, {"name": "Cacau Show", "hero": false, "n": 65, "p": {"time": 3.076923076923077, "idolo": 9.23076923076923, "brasil": 3.076923076923077, "raiz": 0.0, "resenha": 6.153846153846154, "quadra": 13.846153846153847, "estilo": 6.153846153846154, "nostalgia": 1.5384615384615385, "gamer": 3.076923076923077, "none": 66.15384615384616}}, {"name": "Emirates", "hero": false, "n": 49, "p": {"time": 46.93877551020408, "idolo": 14.285714285714286, "brasil": 0.0, "raiz": 2.0408163265306123, "resenha": 2.0408163265306123, "quadra": 14.285714285714286, "estilo": 4.081632653061225, "nostalgia": 0.0, "gamer": 0.0, "none": 38.775510204081634}, "ex": {"time": "Jogos da Emirates NBA Cup nos posts do @nbabrasil."}}, {"name": "XP", "hero": false, "n": 46, "p": {"time": 8.695652173913043, "idolo": 2.1739130434782608, "brasil": 19.565217391304348, "raiz": 0.0, "resenha": 0.0, "quadra": 36.95652173913044, "estilo": 21.73913043478261, "nostalgia": 0.0, "gamer": 0.0, "none": 43.47826086956522}, "ex": {"quadra": "Quadra XP na NBA House e clínicas Jr. NBA.", "brasil": "Clínicas e projetos com atletas brasileiros."}}, {"name": "Sportingbet", "hero": false, "n": 29, "p": {"time": 3.4482758620689653, "idolo": 0.0, "brasil": 24.137931034482758, "raiz": 3.4482758620689653, "resenha": 3.4482758620689653, "quadra": 3.4482758620689653, "estilo": 0.0, "nostalgia": 0.0, "gamer": 0.0, "none": 62.06896551724138}, "ex": {"brasil": "Ligação com o futebol brasileiro (Palmeiras) e jogos do Gui Santos."}}, {"name": "Nescau", "hero": false, "n": 21, "p": {"time": 19.047619047619047, "idolo": 4.761904761904762, "brasil": 4.761904761904762, "raiz": 0.0, "resenha": 4.761904761904762, "quadra": 23.80952380952381, "estilo": 23.80952380952381, "nostalgia": 4.761904761904762, "gamer": 0.0, "none": 33.333333333333336}}, {"name": "Ford", "hero": false, "n": 14, "p": {"time": 28.571428571428573, "idolo": 7.142857142857143, "brasil": 14.285714285714286, "raiz": 0.0, "resenha": 0.0, "quadra": 0.0, "estilo": 0.0, "nostalgia": 7.142857142857143, "gamer": 0.0, "none": 57.142857142857146}}, {"name": "Jeep", "hero": false, "n": 13, "p": {"time": 0.0, "idolo": 0.0, "brasil": 7.6923076923076925, "raiz": 0.0, "resenha": 0.0, "quadra": 23.076923076923077, "estilo": 15.384615384615385, "nostalgia": 7.6923076923076925, "gamer": 0.0, "none": 53.84615384615385}}, {"name": "C6 Bank", "hero": false, "n": 12, "p": {"time": 16.666666666666668, "idolo": 0.0, "brasil": 8.333333333333334, "raiz": 0.0, "resenha": 0.0, "quadra": 8.333333333333334, "estilo": 16.666666666666668, "nostalgia": 0.0, "gamer": 0.0, "none": 58.333333333333336}}, {"name": "Jim Beam", "hero": false, "n": 12, "p": {"time": 16.666666666666668, "idolo": 16.666666666666668, "brasil": 0.0, "raiz": 0.0, "resenha": 8.333333333333334, "quadra": 16.666666666666668, "estilo": 0.0, "nostalgia": 8.333333333333334, "gamer": 0.0, "none": 50.0}}, {"name": "Outras", "n": 18, "p": {"time": 11.11111111111111, "idolo": 22.22222222222222, "brasil": 16.666666666666668, "raiz": 0.0, "resenha": 16.666666666666668, "quadra": 5.555555555555555, "estilo": 5.555555555555555, "nostalgia": 11.11111111111111, "gamer": 0.0, "none": 38.888888888888886}, "ex": {"none": "Hennessy, Popeyes e Michelob Ultra (menos de 10 conteúdos cada)."}}], "conv": {"time": 39.7, "idolo": 43.2, "brasil": 15.4, "raiz": 12.5, "resenha": 11.2, "quadra": 10.0, "estilo": 8.3, "nostalgia": 11.4, "gamer": 3.8}, "desc": {"time": "Fã de camisa: acompanha o time, torce e zoa o rival.", "idolo": "Segue o jogador mais que o time.", "brasil": "Orgulho de Gui Santos, Splitter, Oscar e do jeito brasileiro de torcer.", "raiz": "Trade, draft, tabela e estatística.", "resenha": "Zoeira, cortes, apelidos e memes.", "quadra": "Quem joga basquete e streetball; desafios e quadras de evento.", "estilo": "Streetwear, sneakers, rap e collabs.", "nostalgia": "Jordan, Kobe, anos 90 e o pai que apresentou a NBA.", "gamer": "NBA 2K, fantasy e colecionáveis de jogo.", "none": "Conteúdo de NBA que fala só de produto, promoção, sorteio ou presença em evento, sem acionar nenhuma tribo."}};
+const TR=[['time','🏆','Torcida de time','Time'],['idolo','👑','Fã de ídolo','Ídolo'],['brasil','🇧🇷','Brasil na NBA','Brasil'],['raiz','📊','NBA raiz','Raiz'],['resenha','😂','Resenha e memes','Resenha'],['quadra','🏀','Quem joga','Quadra'],['estilo','👟','Cultura e estilo','Estilo'],['nostalgia','📼','Nostalgia','Nostalgia'],['gamer','🎮','Gamer','Gamer'],['none','🛒','Só produto, promoção ou evento','Produto']];
+boot((svg,W,H,sm)=>{const g=el('g',{},svg);const B=D.brands;const lw=sm?80:150,L=lw,R=W-4;const head=sm?24:46,top=head,foot=sm?34:40;
+ const rows=B.length+1;const rh=Math.min(34,(H-top-foot-8)/rows);const cw=(R-L)/TR.length;
+ TR.forEach((t,i)=>{const cx=L+i*cw+cw/2;tx(g,cx,sm?13:16,t[1],{'font-size':sm?13:17,'text-anchor':'middle'});
+  const lab=sm?el('rect',{x:cx-cw/2,y:0,width:cw,height:22,fill:'transparent'},g):tx(g,cx,36,t[3].toUpperCase(),{'font-size':sm?8.5:10.5,'font-weight':800,fill:i==9?css('--muted'):css('--ink2'),'font-family':F,'text-anchor':'middle','letter-spacing':'.06em'});
+  hit(lab,`<b>${t[1]} ${t[2]}</b>${D.desc[t[0]]||''}`)});
+ el('line',{x1:L+9*cw,x2:L+9*cw,y1:top-2,y2:top+rh*B.length+2,stroke:'rgba(255,255,255,.35)','stroke-dasharray':'3 3'},g);
+ B.forEach((b,j)=>{const y=top+j*rh;
+  tx(g,L-8,y+rh/2+(sm||rh<30?4:2),b.name.toUpperCase(),{'font-size':sm?10:13,'font-family':FA,fill:b.hero?css('--gold'):css('--ink'),'text-anchor':'end'});
+  if(!sm&&rh>=30)tx(g,L-8,y+rh/2+13,fmt(b.n)+' conteúdos',{'font-size':9,'font-weight':700,fill:css('--muted'),'font-family':F,'text-anchor':'end','letter-spacing':'.06em'});
+  if(b.hero)el('rect',{x:2,y:y+1,width:R-2,height:rh-2,fill:'none',stroke:css('--gold'),'stroke-width':1.5,rx:4},g);
+  TR.forEach((t,i)=>{const v=b.p[t[0]]||0;const x=L+i*cw;const a=v?0.12+0.88*Math.min(1,v/60):0;
+   const isNone=i==9;const fill=v?(isNone?`rgba(157,178,236,${a})`:`rgba(255,198,41,${a})`):'rgba(255,255,255,.04)';
+   const r=el('rect',{x:x+1.5,y:y+1.5,width:cw-3,height:rh-3,rx:3,fill},g);
+   if(v>=1&&cw>24)tx(g,x+cw/2,y+rh/2+4,fmt(v,0)+'%',{'font-size':sm?9:11,'font-weight':700,fill:a>.55?css('--navy'):css('--ink'),'font-family':F,'text-anchor':'middle'});
+   hit(r,`<b>${b.name} · ${t[1]} ${t[2]}</b>${fmt(v,0)}% dos ${fmt(b.n)} conteúdos de NBA ligados à marca${b.ex&&b.ex[t[0]]?'<br><br>'+b.ex[t[0]]:''}`)})});
+ // linha da conversa
+ const y=top+B.length*rh+6;tx(g,L-8,y+rh/2+(sm||rh<30?4:2),sm?'NBA GERAL':'CONVERSA SOBRE NBA',{'font-size':sm?9.5:12,'font-family':FA,fill:css('--ink2'),'text-anchor':'end'});
+ if(!sm&&rh>=30)tx(g,L-8,y+rh/2+13,'peso de cada tribo',{'font-size':9,'font-weight':700,fill:css('--muted'),'font-family':F,'text-anchor':'end','letter-spacing':'.06em'});
+ TR.slice(0,9).forEach((t,i)=>{const v=D.conv[t[0]];const x=L+i*cw;const r=el('rect',{x:x+1.5,y:y+1.5,width:cw-3,height:rh-3,rx:3,fill:'none',stroke:css('--gold'),'stroke-width':1.2,'stroke-dasharray':'3 2'},g);
+  if(cw>24)tx(g,x+cw/2,y+rh/2+4,fmt(v,0)+'%',{'font-size':sm?9:11,'font-weight':700,fill:css('--gold'),'font-family':F,'text-anchor':'middle'});
+  hit(r,`<b>${t[1]} ${t[2]} na conversa</b>${fmt(v,0)}% dos conteúdos sobre NBA (média de TikTok, Instagram e X), segundo o levantamento das tribos.`)});
+});
+</script>
+</body></html>

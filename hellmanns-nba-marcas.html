@@ -1,0 +1,112 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marcas na conversa da NBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#123296;--ink:#FFFFFF;--ink2:#D6E1FF;--muted:#9DB2EC;--rule:rgba(255,255,255,.2);--gold:#FFC629;--navy:#0A1F66;
+--n1:#79C6FF;--n2:#FFC629;--n3:#FF9A2E;--n4:#FFFFFF;--n5:#FF5A6E;--n6:#A9C2FF;--tipbg:#FFFFFF;--tipfg:#0A1F66}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;position:relative;color:var(--ink);font-family:'Barlow',system-ui,sans-serif;
+background:radial-gradient(120% 95% at 50% 8%,#2457D6 0%,#1638A8 42%,#0E2A86 72%,#0A1F66 100%) var(--paper)}
+body:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px);pointer-events:none}
+#wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,30px) clamp(14px,3.4vw,38px) clamp(10px,2vw,20px)}
+#frame{position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:2px solid rgba(255,198,41,.55);border-radius:16px;pointer-events:none}
+.kick{align-self:flex-start;font:700 clamp(10px,1.1vw,12.5px)/1 'Barlow Condensed',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:.42em .9em .38em;transform:skew(-10deg);box-shadow:3px 3px 0 rgba(10,31,102,.55)}
+.kick span{display:inline-block;transform:skew(10deg)}
+h1{font:400 clamp(20px,3.3vw,42px)/1.02 'Anton',Impact,sans-serif;margin:.32em 0 .14em;letter-spacing:.01em;text-transform:uppercase;text-shadow:3px 3px 0 rgba(10,31,102,.6)}
+h1 em{font-style:normal;color:var(--gold)}
+.deck{font:500 clamp(11.5px,1.25vw,14px)/1.42 'Barlow',sans-serif;color:var(--ink2);margin:0 0 .5em;max-width:1000px}
+.kpis{display:flex;gap:clamp(10px,2.2vw,30px);flex-wrap:wrap;margin:.25em 0 .4em}
+.kpi b{display:block;font:400 clamp(19px,2.7vw,32px)/1 'Anton',Impact,sans-serif;letter-spacing:.01em}
+.kpi span{display:block;font:700 clamp(9px,.95vw,11px)/1.25 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:3px}
+.kpi i{display:block;width:26px;height:4px;margin-bottom:6px;transform:skew(-20deg)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:.1em 0 .35em}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font:700 clamp(9.5px,1vw,11.5px)/1.3 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.seg{display:inline-flex;border:1.5px solid var(--gold);border-radius:6px;overflow:hidden}
+.seg button{font:700 clamp(9.5px,1vw,11.5px)/1 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--ink);border:0;padding:6px 10px;cursor:pointer}
+.seg button.on{background:var(--gold);color:var(--navy)}
+#chart{flex:1;min-height:80px;position:relative}
+#chart svg{position:absolute;top:0;left:0;display:block;overflow:visible}
+.foot{font:500 clamp(8.5px,.85vw,10px)/1.4 'Barlow',sans-serif;color:var(--muted);margin-top:6px;border-top:1px solid var(--rule);padding-top:5px}
+.foot b{color:var(--gold);font:700 1.05em 'Barlow Condensed',sans-serif;letter-spacing:.16em}
+#tip{position:fixed;z-index:9;background:var(--tipbg);color:var(--tipfg);font:500 12px/1.45 'Barlow',sans-serif;padding:8px 11px;border-radius:6px;max-width:280px;box-shadow:0 6px 24px rgba(5,15,60,.55);pointer-events:none;border-left:4px solid var(--gold)}
+#tip b{font:400 14px/1.15 'Anton',sans-serif;display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.02em}
+#tip.pin{pointer-events:auto}
+@media (max-height:780px){.deck{display:none}}
+@media (max-height:660px){.kpis{display:none}}
+@media (max-width:620px) and (max-height:620px){.kpis .kpi:nth-child(n+3){display:none}.deck{display:none}}
+
+</style></head><body>
+<div id="frame"></div>
+<div id="wrap">
+<div class="kick"><span>Listening Hellmann's NBA · marcas</span></div>
+<h1>A Hellmann's lidera a conversa das marcas. <em>A Sadia</em> aparece mais na voz dos fãs</h1>
+<p class="deck">Conteúdos sobre NBA ligados a 16 patrocinadoras e parceiras da liga no Brasil, de nov/24 a nov/26: matérias, posts dos perfis das marcas, menções em perfis de basquete, vídeos e posts. A Hellmann's tem a maior fatia em volume, interações e views, puxada pelos próprios perfis e pela mídia paga. Sadia e TNT vêm logo atrás e são mais citadas por criadores e fã-clubes.</p>
+<div class="kpis"><div class="kpi"><i style="background:var(--gold)"></i><b>24%</b><span>dos conteúdos de marcas são da Hellmann's (1º)</span></div><div class="kpi"><i style="background:var(--n4)"></i><b>62%</b><span>dos views das marcas</span></div><div class="kpi"><i style="background:var(--n3)"></i><b>33 × 16</b><span>menções da Sadia × Hellmann's em perfis de basquete</span></div><div class="kpi"><i style="background:var(--n1)"></i><b>1 de 16</b><span>marcas fala de NBA de out a jan (TNT)</span></div></div>
+<div class="row"><div class="seg"></div><div class="legend"></div></div>
+<div id="chart"></div>
+<div class="foot"><b>EUPHORIA CREATIVE</b> · Imprensa: Google Notícias com marca e NBA no título. Instagram: perfis oficiais das marcas (posts sobre NBA) e 8 perfis brasileiros de basquete. TikTok, X e YouTube: buscas em português por marca + NBA. Interações = curtidas, comentários e compartilhamentos (Instagram, TikTok e X). Amostra do monitoramento, não o total da internet. Toque em uma marca.</div>
+</div>
+<div id="tip" hidden></div>
+<script>const NS='http://www.w3.org/2000/svg';
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x,y},a||{}),p);t.textContent=s;return t}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fmt(v,d){return (+v).toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+function big(v){return v>=1e9?fmt(v/1e9,1)+' bi':v>=1e6?fmt(v/1e6,1)+' mi':v>=1e3?fmt(v/1e3,v>=1e4?0:1)+' mil':fmt(v,0)}
+const tip=document.getElementById('tip');let pinned=false;
+function showTip(html,x,y,pin){tip.innerHTML=html;tip.hidden=false;tip.classList.toggle('pin',!!pin);pinned=!!pin;const r=tip.getBoundingClientRect();let L=x+14,T=y-r.height-12;if(L+r.width>innerWidth-8)L=x-r.width-14;if(L<8)L=8;if(T<8)T=y+16;if(T+r.height>innerHeight-8)T=innerHeight-r.height-8;tip.style.left=L+'px';tip.style.top=T+'px'}
+function hideTip(){if(!pinned)tip.hidden=true}
+document.addEventListener('click',e=>{if(!e.target.closest('#tip')&&!e.target.closest('[data-hit]')){pinned=false;tip.hidden=true}});
+function hit(node,html){node.setAttribute('data-hit','1');node.style.cursor='pointer';
+ node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e.clientX,e.clientY)});
+ node.addEventListener('mouseleave',hideTip);
+ node.addEventListener('click',e=>{showTip(html,e.clientX,e.clientY,true);e.stopPropagation()});
+ node.addEventListener('touchstart',e=>{const p=e.touches[0];showTip(html,p.clientX,p.clientY,true)},{passive:true});}
+const F="'Barlow Condensed','Arial Narrow',Arial,sans-serif",FA="Anton,Impact,'Arial Narrow',sans-serif";
+function boot(draw){const host=document.getElementById('chart');let lw=-1,lh=-1;
+ function go(){const W=host.clientWidth,H=host.clientHeight;if(W<40||H<40){setTimeout(go,250);return}lw=W;lh=H;host.innerHTML='';
+  const svg=el('svg',{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':document.title},host);draw(svg,W,H,innerWidth<620)}
+ window.redraw=go;go();let t;const later=()=>{clearTimeout(t);t=setTimeout(go,60)};addEventListener('resize',later);addEventListener('orientationchange',later);addEventListener('pageshow',later);addEventListener('load',later);
+ if(window.ResizeObserver)new ResizeObserver(()=>{if(host.clientWidth!==lw||host.clientHeight!==lh)later()}).observe(host);
+ [400,1200,2500].forEach(ms=>setTimeout(()=>{if(!host.querySelector('svg')||host.clientWidth!==lw||host.clientHeight!==lh)go()},ms));
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go)}
+</script>
+<script>const D={"brands": [{"k": "Hellmann's", "name": "Hellmann's", "tag": "PATROCINADORA", "hero": true, "n": {"press": 34, "igo": 172, "igt": 16, "tt": 27, "x": 18, "yt": 13}, "i": {"press": 0, "igo": 1033269, "igt": 54584, "tt": 351753, "x": 7159, "yt": 0}, "v": {"tt": 208726175, "yt": 147680000, "x": 250000}, "months": [0, 26, 13, 35, 47, 50, 1, 0, 0, 0, 0, 0], "what": "Patrocinadora da NBA no Brasil desde 2024; NBA House, Boteco, Draft, Funkos e cota ESPN/Disney+ 26-27."}, {"k": "TNT Energy Drink", "name": "TNT Energy", "tag": "PATROCINADORA", "hero": false, "n": {"press": 13, "igo": 126, "igt": 26, "tt": 13, "x": 1, "yt": 0}, "i": {"press": 0, "igo": 197035, "igt": 2108, "tt": 20658, "x": 5, "yt": 0}, "v": {"tt": 28808583, "yt": 0, "x": 0}, "months": [0, 5, 3, 5, 14, 63, 7, 8, 3, 11, 5, 2], "what": "Patrocinadora oficial (energético) desde mai/25; NBA House 2026."}, {"k": "Sadia", "name": "Sadia", "tag": "NBA HOUSE + ESPN", "hero": false, "n": {"press": 15, "igo": 118, "igt": 33, "tt": 12, "x": 45, "yt": 4}, "i": {"press": 0, "igo": 632827, "igt": 191761, "tt": 58797, "x": 5811, "yt": 0}, "v": {"tt": 56045100, "yt": 13040000, "x": 5420000}, "months": [1, 19, 0, 3, 27, 65, 0, 0, 0, 3, 0, 0], "what": "NBA House 2025/26 (#NBAPedeSadia, Team Sadia) e cota ESPN/Disney+ 26-27."}, {"k": "Popeyes", "name": "Popeyes", "tag": "PATROCINADORA", "hero": false, "n": {"press": 0, "igo": 2, "igt": 0, "tt": 1, "x": 2, "yt": 0}, "i": {"press": 0, "igo": 33251, "igt": 0, "tt": 11, "x": 26, "yt": 0}, "v": {"tt": 599, "yt": 0, "x": 0}, "months": [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0], "what": "Patrocinadora desde 2023, pouca ativação no período."}, {"k": "XP", "name": "XP", "tag": "PATROCINADORA", "hero": false, "n": {"press": 4, "igo": 30, "igt": 3, "tt": 3, "x": 9, "yt": 1}, "i": {"press": 0, "igo": 456400, "igt": 21954, "tt": 12458, "x": 136, "yt": 0}, "v": {"tt": 10520105, "yt": 0, "x": 40000}, "months": [0, 11, 1, 1, 1, 6, 4, 1, 0, 1, 0, 4], "what": "Patrocinadora desde abr/24 (cartão XP NBA, NBA House)."}, {"k": "Sportingbet", "name": "Sportingbet", "tag": "PATROCINADORA", "hero": false, "n": {"press": 4, "igo": 0, "igt": 1, "tt": 7, "x": 20, "yt": 1}, "i": {"press": 0, "igo": 0, "igt": 233, "tt": 10711, "x": 372, "yt": 0}, "v": {"tt": 129418, "yt": 0, "x": 30000}, "months": null, "what": "Patrocinadora oficial de apostas; NBA House 2026."}, {"k": "C6 Bank", "name": "C6 Bank", "tag": "ESPN/DISNEY+", "hero": false, "n": {"press": 0, "igo": 4, "igt": 0, "tt": 7, "x": 1, "yt": 0}, "i": {"press": 0, "igo": 1539, "igt": 0, "tt": 19659, "x": 3, "yt": 0}, "v": {"tt": 9851900, "yt": 0, "x": 0}, "months": [0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 0, 0], "what": "Cota ESPN/Disney+ 26-27."}, {"k": "Nescau", "name": "Nescau", "tag": "ESPN/DISNEY+", "hero": false, "n": {"press": 6, "igo": 8, "igt": 0, "tt": 7, "x": 5, "yt": 1}, "i": {"press": 0, "igo": 69421, "igt": 0, "tt": 63995, "x": 260, "yt": 0}, "v": {"tt": 43381619, "yt": 0, "x": 10000}, "months": [1, 0, 0, 0, 0, 2, 0, 0, 2, 3, 0, 0], "what": "Cota ESPN/Disney+ 26-27; criadores de basquete com Nescau Cereal."}, {"k": "Ford", "name": "Ford", "tag": "ESPN/DISNEY+", "hero": false, "n": {"press": 1, "igo": 1, "igt": 1, "tt": 1, "x": 11, "yt": 0}, "i": {"press": 0, "igo": 1916, "igt": 5, "tt": 105, "x": 171, "yt": 0}, "v": {"tt": 635, "yt": 0, "x": 10000}, "months": [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "what": "Cota ESPN/Disney+ 26-27."}, {"k": "Jeep", "name": "Jeep", "tag": "NBA HOUSE", "hero": false, "n": {"press": 2, "igo": 9, "igt": 0, "tt": 3, "x": 0, "yt": 1}, "i": {"press": 0, "igo": 16442, "igt": 0, "tt": 64, "x": 0, "yt": 0}, "v": {"tt": 1254, "yt": 15070000, "x": 0}, "months": [0, 0, 0, 0, 0, 6, 2, 0, 0, 0, 1, 0], "what": "NBA House 2026."}, {"k": "Jim Beam", "name": "Jim Beam", "tag": "NBA HOUSE", "hero": false, "n": {"press": 2, "igo": 12, "igt": 0, "tt": 0, "x": 0, "yt": 0}, "i": {"press": 0, "igo": 786, "igt": 0, "tt": 0, "x": 0, "yt": 0}, "v": {"tt": 0, "yt": 0, "x": 0}, "months": [0, 0, 0, 0, 1, 10, 0, 0, 0, 1, 0, 0], "what": "NBA House 2026."}, {"k": "Michelob Ultra", "name": "Michelob", "tag": "NBA HOUSE", "hero": false, "n": {"press": 0, "igo": 0, "igt": 1, "tt": 0, "x": 1, "yt": 2}, "i": {"press": 0, "igo": 0, "igt": 5, "tt": 0, "x": 4, "yt": 0}, "v": {"tt": 0, "yt": 10000, "x": 0}, "months": null, "what": "NBA House 2026."}, {"k": "Emirates", "name": "Emirates", "tag": "NBA CUP", "hero": false, "n": {"press": 5, "igo": 0, "igt": 24, "tt": 0, "x": 21, "yt": 4}, "i": {"press": 0, "igo": 0, "igt": 193422, "tt": 0, "x": 740, "yt": 0}, "v": {"tt": 0, "yt": 7350000, "x": 70000}, "months": null, "what": "Nome da NBA Cup (\"Emirates NBA Cup\"), citado nas hashtags do @nbabrasil."}, {"k": "NBA 2K", "name": "NBA 2K", "tag": "GAME LICENCIADO", "hero": false, "n": {"press": 57, "igo": 0, "igt": 16, "tt": 22, "x": 43, "yt": 39}, "i": {"press": 0, "igo": 0, "igt": 45486, "tt": 268151, "x": 125385, "yt": 0}, "v": {"tt": 2715988, "yt": 4840000, "x": 4800000}, "months": null, "what": "Game licenciado da NBA; conversa gamer e notícias de lançamento."}, {"k": "Hennessy", "name": "Hennessy", "tag": "NBA HOUSE 2025", "hero": false, "n": {"press": 3, "igo": 0, "igt": 0, "tt": 0, "x": 8, "yt": 1}, "i": {"press": 0, "igo": 0, "igt": 0, "tt": 0, "x": 94, "yt": 0}, "v": {"tt": 0, "yt": 0, "x": 10000}, "months": null, "what": "NBA House 2025."}, {"k": "Cacau Show", "name": "Cacau Show", "tag": "LICENCIADO", "hero": false, "n": {"press": 4, "igo": 28, "igt": 1, "tt": 15, "x": 18, "yt": 3}, "i": {"press": 0, "igo": 361026, "igt": 448, "tt": 90045, "x": 58210, "yt": 0}, "v": {"tt": 7692872, "yt": 50000, "x": 3650000}, "months": [2, 0, 5, 3, 3, 7, 1, 2, 2, 3, 0, 0], "what": "Ovo de Páscoa licenciado NBA (2025)."}]};
+const NETS=[['press','Imprensa','--n1'],['igo','Instagram da marca','--n2'],['igt','Instagram de terceiros','--n3'],['tt','TikTok','--n4'],['x','X','--n5'],['yt','YouTube','--n6']];
+const MODES={itens:'Conteúdos',inter:'Interações',cal:'Calendário'};let mode='itens';
+const MES=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+function legend(){const L=document.querySelector('.legend');L.innerHTML='';
+ if(mode==='cal'){L.innerHTML='<span><i style="background:var(--gold)"></i>Posts sobre NBA no Instagram da marca</span><span><i style="background:rgba(255,255,255,.18);outline:1px dashed rgba(255,255,255,.5)"></i>Temporada (out–jun)</span>';return}
+ NETS.forEach(n=>{if(mode==='inter'&&n[0]==='press')return;L.insertAdjacentHTML('beforeend',`<span><i style="background:var(${n[2]})"></i>${n[1]}</span>`)})}
+function seg(){const S=document.querySelector('.seg');S.innerHTML='';Object.entries(MODES).forEach(([k,v])=>{const b=document.createElement('button');b.textContent=v;b.className=k===mode?'on':'';b.onclick=()=>{mode=k;seg();legend();redraw()};S.appendChild(b)})}
+seg();legend();
+boot((svg,W,H,sm)=>{const g=el('g',{},svg);
+ if(mode==='cal'){const B=D.brands.filter(b=>b.months);const lw=sm?78:130,top=22,bot=H-6,L=lw,R=W-6;const rh=Math.min(30,(bot-top)/B.length),cw=(R-L)/12;
+  [9,10,11,0,1,2,3,4,5].forEach(m=>el('rect',{x:L+m*cw,y:top-4,width:cw,height:rh*B.length+4,fill:'rgba(255,255,255,.07)'},g));
+  MES.forEach((m,i)=>tx(g,L+i*cw+cw/2,top-8,sm?m[0]+m.slice(1,3).toLowerCase():m,{'font-size':sm?9.5:11,'font-weight':800,fill:css('--ink2'),'font-family':F,'text-anchor':'middle','letter-spacing':'.06em'}));
+  const mx=Math.max(...B.flatMap(b=>b.months));
+  B.forEach((b,j)=>{const y=top+j*rh;tx(g,L-8,y+rh/2+4,b.name.toUpperCase(),{'font-size':sm?10.5:13,'font-family':FA,fill:b.hero?css('--gold'):css('--ink'),'text-anchor':'end'});
+   b.months.forEach((v,i)=>{const a=v?0.18+0.82*Math.sqrt(v/mx):0;const r=el('rect',{x:L+i*cw+1.5,y:y+1.5,width:cw-3,height:rh-3,rx:3,fill:v?`rgba(255,198,41,${a})`:'rgba(255,255,255,.04)'},g);
+    if(v&&cw>22&&rh>14)tx(g,L+i*cw+cw/2,y+rh/2+4,v,{'font-size':sm?9:10.5,'font-weight':700,fill:a>.6?css('--navy'):css('--ink'),'font-family':F,'text-anchor':'middle'});
+    hit(r,`<b>${b.name} · ${MES[i]}</b>${v} post${v==1?'':'s'} sobre NBA no Instagram oficial (nov/24 a nov/26)`)})});
+  return}
+ const key=mode==='itens'?'n':'i';const nets=NETS.filter(n=>!(mode==='inter'&&n[0]==='press'));
+ let B=D.brands.map(b=>({...b,tot:nets.reduce((s,n)=>s+(b[key][n[0]]||0),0)})).filter(b=>b.tot>0).sort((a,c)=>c.tot-a.tot);
+ const K=sm?8:10;if(B.length>K){const rest=B.slice(K);const o={name:'Outras '+rest.length,tag:'',what:rest.map(r=>r.name).join(', '),n:{},i:{},tot:0};
+  rest.forEach(r=>{NETS.forEach(n=>{o.n[n[0]]=(o.n[n[0]]||0)+(r.n[n[0]]||0);o.i[n[0]]=(o.i[n[0]]||0)+(r.i[n[0]]||0)});o.tot+=r.tot});B=B.slice(0,K).concat([o])}
+ const T=B.reduce((s,b)=>s+b.tot,0);const lw=sm?82:150,L=lw,R=W-(sm?40:56),top=4,bot=H-4;const rh=Math.min(30,(bot-top)/B.length);const bh=Math.max(6,rh*0.66);
+ const mx=B[0].tot;
+ B.forEach((b,j)=>{const y=top+j*rh+(rh-bh)/2;let x=L;const gg=el('g',{},g);
+  tx(gg,L-8,y+bh/2+(sm?4:5),b.name.toUpperCase(),{'font-size':sm?10.5:13.5,'font-family':FA,fill:b.hero?css('--gold'):css('--ink'),'text-anchor':'end'});
+  if(b.tag&&!sm&&rh>=27)tx(gg,L-8,y+bh/2+15,b.tag,{'font-size':9,'font-weight':700,fill:css('--muted'),'font-family':F,'text-anchor':'end','letter-spacing':'.08em'});
+  nets.forEach(n=>{const v=b[key][n[0]]||0;if(!v)return;const w=(R-L)*v/mx;el('rect',{x,y,width:Math.max(w,0.8),height:bh,fill:css(n[2]),opacity:b.hero?1:.88},gg);x+=w});
+  if(b.hero)el('rect',{x:L-2,y:y-2,width:x-L+4,height:bh+4,fill:'none',stroke:css('--gold'),'stroke-width':1.5,rx:2},gg);
+  tx(gg,x+6,y+bh/2+4,fmt(100*b.tot/T,b.tot/T<.1?1:0)+'%',{'font-size':sm?11:13,'font-family':FA,fill:b.hero?css('--gold'):css('--ink')});
+  const det=nets.map(n=>`${n[1]}: ${mode==='itens'?fmt(b.n[n[0]]||0):big(b.i[n[0]]||0)}`).join('<br>');
+  hit(gg,`<b>${b.name}</b>${b.what||''}<br><br>${mode==='itens'?fmt(b.tot)+' conteúdos':big(b.tot)+' interações'} · ${fmt(100*b.tot/T,1)}% do total das marcas<br><br>${det}`)});
+});
+</script>
+</body></html>
